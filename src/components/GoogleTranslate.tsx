@@ -9,8 +9,16 @@ declare global {
   }
 }
 
+const languages = [
+  { code: "en", name: "English", label: "EN" },
+  { code: "fr", name: "French", label: "FR" },
+  { code: "es", name: "Spanish", label: "ES" },
+  { code: "pt", name: "Portuguese", label: "PT" },
+];
+
 const GoogleTranslate = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const [currentLang, setCurrentLang] = useState("en");
 
   useEffect(() => {
     // Add Google Translate script if not already present
@@ -30,71 +38,94 @@ const GoogleTranslate = () => {
           {
             pageLanguage: "en",
             includedLanguages: "en,fr,es,pt",
-            layout: window.google.translate.TranslateElement.InlineLayout.HORIZONTAL,
             autoDisplay: false,
           },
           "google_translate_element"
         );
       }
     };
+
+    // Close on click outside
+    const handleClickOutside = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (!target.closest(".translate-dropdown-container")) {
+        setIsVisible(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  const handleLanguageChange = (code: string) => {
+    const select = document.querySelector(".goog-te-combo") as HTMLSelectElement;
+    if (select) {
+      select.value = code;
+      select.dispatchEvent(new Event("change"));
+      setCurrentLang(code);
+      setIsVisible(false);
+    }
+  };
+
   return (
-    <div className="relative flex items-center">
+    <div className="relative translate-dropdown-container flex items-center">
+      {/* Hidden Google Element */}
+      <div id="google_translate_element" style={{ display: "none" }} />
+
       <Button
         variant="ghost"
         size="sm"
-        className="gap-2 text-navy hover:bg-primary/50"
+        className={`gap-2 text-navy hover:bg-gold/10 transition-colors border ${isVisible ? "border-gold/50 bg-gold/5" : "border-transparent"
+          }`}
         onClick={() => setIsVisible(!isVisible)}
       >
-        <Globe className="w-4 h-4" />
-        <span className="hidden sm:inline">Translate</span>
+        <Globe className="w-4 h-4 text-gold" />
+        <span className="hidden sm:inline font-medium uppercase tracking-wider text-xs">
+          {languages.find((l) => l.code === currentLang)?.label || "Translate"}
+        </span>
       </Button>
 
+      {/* Custom Dropdown */}
       <div
-        id="google_translate_element"
-        className={`absolute top-full right-0 mt-2 transition-all duration-200 z-[100] ${isVisible ? "opacity-100 scale-100 pointer-events-auto" : "opacity-0 scale-95 pointer-events-none"
+        className={`absolute top-full right-0 mt-2 w-48 bg-white rounded-xl shadow-xl border border-border overflow-hidden transition-all duration-300 z-[100] ${isVisible
+            ? "opacity-100 translate-y-0 scale-100"
+            : "opacity-0 -translate-y-2 scale-95 pointer-events-none"
           }`}
-        style={{ minWidth: "200px" }}
-      />
+      >
+        <div className="p-2 bg-muted/30 border-b border-border">
+          <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest px-2 py-1">
+            Select Language
+          </p>
+        </div>
+        <div className="py-1">
+          {languages.map((lang) => (
+            <button
+              key={lang.code}
+              onClick={() => handleLanguageChange(lang.code)}
+              className={`w-full flex items-center justify-between px-4 py-2.5 text-sm transition-all duration-200 hover:bg-gold/5 ${currentLang === lang.code ? "text-navy font-bold bg-gold/5" : "text-muted-foreground"
+                }`}
+            >
+              <div className="flex items-center gap-3">
+                <span className="text-[10px] font-mono font-bold bg-muted px-1.5 py-0.5 rounded text-gold/80">{lang.label}</span>
+                <span>{lang.name}</span>
+              </div>
+              {currentLang === lang.code && <div className="w-1.5 h-1.5 rounded-full bg-gold" />}
+            </button>
+          ))}
+        </div>
+      </div>
 
       <style>{`
-        /* Hide the top banner */
+        /* Hide all of Google's native components and overlays */
         .goog-te-banner-frame { display: none !important; }
         body { top: 0 !important; }
-        
-        /* Style the widget container */
-        #google_translate_element {
-          background: white;
-          padding: 8px;
-          border-radius: 8px;
-          box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-          border: 1px solid hsl(var(--border));
-        }
-
-        /* Clean up Google default styles */
-        .goog-te-gadget {
-          font-family: inherit !important;
-          color: transparent !important;
-        }
-        .goog-te-gadget span {
-          display: none !important;
-        }
-        .goog-te-gadget .goog-te-combo {
-          display: block !important;
-          width: 100% !important;
-          padding: 6px !important;
-          border-radius: 4px !important;
-          border: 1px solid #ddd !important;
-          color: #333 !important;
-          background: white !important;
-          margin: 0 !important;
-        }
-        
-        /* Hide the powered by google text */
-        .goog-logo-link { display: none !important; }
-        .goog-te-gadget { height: auto !important; }
+        .goog-te-gadget { display: none !important; }
+        .goog-te-menu-frame { display: none !important; }
+        .goog-tooltip { display: none !important; }
+        .goog-tooltip:hover { display: none !important; }
+        .goog-text-highlight { background-color: transparent !important; border: none !important; box-shadow: none !important; }
         .VIpgJd-ZVi9od-ORHb-OEVmcd { display: none !important; }
+        #goog-gt-tt { display: none !important; }
       `}</style>
     </div>
   );
