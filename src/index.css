@@ -1,0 +1,260 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Happy Dental Agency - Champagne Yellow & White Theme */
+    --background: 0 0% 100%;
+    --foreground: 220 20% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 220 20% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 20% 15%;
+
+    /* Champagne Yellow as Primary */
+    --primary: 50 100% 85%;
+    --primary-foreground: 220 20% 15%;
+
+    /* Darker champagne for hover states */
+    --primary-dark: 50 80% 70%;
+
+    /* Gold accent for highlights */
+    --gold: 45 90% 55%;
+    --gold-foreground: 0 0% 100%;
+
+    --secondary: 50 30% 96%;
+    --secondary-foreground: 220 20% 15%;
+
+    --muted: 50 20% 95%;
+    --muted-foreground: 220 10% 45%;
+
+    --accent: 50 100% 85%;
+    --accent-foreground: 220 20% 15%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 50 30% 88%;
+    --input: 50 30% 88%;
+    --ring: 50 100% 75%;
+
+    --radius: 0.75rem;
+
+    /* Custom tokens */
+    --champagne: 50 100% 85%;
+    --champagne-light: 50 100% 92%;
+    --champagne-dark: 50 80% 70%;
+    --navy: 220 40% 20%;
+    --navy-light: 220 30% 35%;
+    --success: 160 60% 45%;
+    --success-foreground: 0 0% 100%;
+
+    /* Shadows */
+    --shadow-sm: 0 2px 8px hsl(50 30% 70% / 0.15);
+    --shadow-md: 0 4px 20px hsl(50 30% 60% / 0.2);
+    --shadow-lg: 0 8px 40px hsl(50 30% 50% / 0.25);
+    --shadow-gold: 0 4px 20px hsl(45 90% 55% / 0.3);
+
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(50 100% 85%) 0%, hsl(50 100% 92%) 50%, hsl(0 0% 100%) 100%);
+    --gradient-card: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(50 100% 97%) 100%);
+    --gradient-cta: hsl(45 90% 55%);
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 220 20% 10%;
+    --foreground: 50 30% 95%;
+    --card: 220 20% 12%;
+    --card-foreground: 50 30% 95%;
+    --popover: 220 20% 12%;
+    --popover-foreground: 50 30% 95%;
+    --primary: 50 100% 85%;
+    --primary-foreground: 220 20% 15%;
+    --secondary: 220 20% 18%;
+    --secondary-foreground: 50 30% 95%;
+    --muted: 220 20% 18%;
+    --muted-foreground: 50 20% 65%;
+    --accent: 50 80% 70%;
+    --accent-foreground: 220 20% 15%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 50 30% 95%;
+    --border: 220 20% 22%;
+    --input: 220 20% 22%;
+    --ring: 50 80% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased text-lg;
+    font-family: 'Inter', sans-serif;
+  }
+
+  p {
+    @apply leading-relaxed;
+    font-size: 1.125rem;
+    /* 18px */
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: 'Montserrat', sans-serif;
+    @apply font-bold tracking-tight;
+  }
+}
+
+@layer components {
+  .section-padding {
+    @apply py-16 md:py-24 px-4 md:px-8;
+  }
+
+  .container-custom {
+    @apply max-w-7xl mx-auto;
+  }
+
+  .hero-gradient {
+    background: var(--gradient-hero);
+  }
+
+  .card-gradient {
+    background: var(--gradient-card);
+  }
+
+  .cta-gradient {
+    background: var(--gradient-cta);
+  }
+
+  .text-gradient {
+    background: linear-gradient(135deg, hsl(var(--navy)) 0%, hsl(var(--navy-light)) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .glass-effect {
+    background: hsl(0 0% 100% / 0.9);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  .hover-lift {
+    @apply transition-all duration-300;
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .animate-pulse-slow {
+    animation: pulse-slow 3s ease-in-out infinite;
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.6s ease-out forwards;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes pulse-slow {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.8;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--muted));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--champagne-dark));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--gold));
+}
