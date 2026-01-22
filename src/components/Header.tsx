@@ -25,10 +25,10 @@ const Header = () => {
 
     const navLinks = [
         { name: "Home", path: "/" },
+        { name: "About Us", path: "/about" },
         { name: "Dental Practices", path: "/dental-practices" },
         { name: "Dental Nurses", path: "/dental-nurses" },
         { name: "How It Works", path: "/how-it-works" },
-        { name: "About Us", path: "/about" },
         { name: "Contact", path: "/contact" },
     ];
 
