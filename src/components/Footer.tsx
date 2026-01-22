@@ -119,8 +119,13 @@ const Footer = () => {
       {/* Bottom Bar */}
       <div className="border-t border-white/10">
         <div className="container-custom py-6 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-white/60">
-          <p>© {currentYear} Happy Dental Agency. All rights reserved.</p>
-          <div className="flex gap-6">
+          <div className="flex flex-col gap-1 items-center md:items-start text-center md:text-left">
+            <p>© {currentYear} Happy Dental Agency. All rights reserved.</p>
+            <p className="text-xs text-white/40">
+              Crafted with digital excellence by <span className="text-champagne/60 font-medium">Zyra Digitals</span>
+            </p>
+          </div>
+          <div className="flex gap-6 italic">
             <Link to="/privacy" className="hover:text-champagne transition-colors">
               Privacy Policy
             </Link>
