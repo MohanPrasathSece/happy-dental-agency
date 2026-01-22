@@ -112,17 +112,12 @@ const Footer = () => {
 
       {/* Bottom Bar */}
       <div className="border-t border-white/10">
-        <div className="container-custom py-8 flex flex-col items-center gap-6 text-sm text-white/60 text-center">
-          <div className="flex flex-wrap justify-center gap-x-8 gap-y-2 italic">
-            <Link to="/privacy" className="hover:text-champagne transition-colors">
-              Privacy Policy
-            </Link>
-            <Link to="/terms" className="hover:text-champagne transition-colors">
-              Terms of Service
-            </Link>
-          </div>
+        <div className="container-custom py-8 flex flex-col md:flex-row items-center justify-between gap-6 text-sm text-white/60">
+          <p className="order-3 md:order-1 text-center md:text-left">
+            © {currentYear} Happy Dental Agency. All rights reserved.
+          </p>
 
-          <div className="flex flex-col items-center gap-2">
+          <div className="flex flex-col items-center gap-1 order-1 md:order-2">
             <p className="text-xs text-white/40">
               Crafted with digital excellence by{" "}
               <a
@@ -134,10 +129,17 @@ const Footer = () => {
                 Zyra Digitals
               </a>
             </p>
-            <p className="text-[10px] tracking-widest uppercase opacity-20">www.zyradigitals.com</p>
+            <p className="text-[9px] tracking-[0.2em] uppercase opacity-20">www.zyradigitals.com</p>
           </div>
 
-          <p>© {currentYear} Happy Dental Agency. All rights reserved.</p>
+          <div className="flex flex-wrap justify-center md:justify-end gap-x-8 gap-y-2 italic order-2 md:order-3 min-w-[200px]">
+            <Link to="/privacy" className="hover:text-champagne transition-colors text-right">
+              Privacy Policy
+            </Link>
+            <Link to="/terms" className="hover:text-champagne transition-colors text-right">
+              Terms of Service
+            </Link>
+          </div>
         </div>
       </div>
     </footer>
