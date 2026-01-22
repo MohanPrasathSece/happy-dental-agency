@@ -27,13 +27,7 @@ const Footer = () => {
               >
                 <Facebook className="w-5 h-5" />
               </a>
-              <a
-                href="#"
-                className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-champagne hover:text-navy transition-all"
-                aria-label="LinkedIn"
-              >
-                <Linkedin className="w-5 h-5" />
-              </a>
+
               <a
                 href="#"
                 className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-champagne hover:text-navy transition-all"
@@ -118,14 +112,8 @@ const Footer = () => {
 
       {/* Bottom Bar */}
       <div className="border-t border-white/10">
-        <div className="container-custom py-6 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-white/60">
-          <div className="flex flex-col gap-1 items-center md:items-start text-center md:text-left">
-            <p>© {currentYear} Happy Dental Agency. All rights reserved.</p>
-            <p className="text-xs text-white/40">
-              Crafted with digital excellence by <span className="text-champagne/60 font-medium">Zyra Digitals</span>
-            </p>
-          </div>
-          <div className="flex gap-6 italic">
+        <div className="container-custom py-8 flex flex-col items-center gap-6 text-sm text-white/60 text-center">
+          <div className="flex flex-wrap justify-center gap-x-8 gap-y-2 italic">
             <Link to="/privacy" className="hover:text-champagne transition-colors">
               Privacy Policy
             </Link>
@@ -133,6 +121,23 @@ const Footer = () => {
               Terms of Service
             </Link>
           </div>
+
+          <div className="flex flex-col items-center gap-2">
+            <p className="text-xs text-white/40">
+              Crafted with digital excellence by{" "}
+              <a
+                href="https://www.zyradigitals.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-champagne hover:text-white transition-colors font-medium border-b border-champagne/30"
+              >
+                Zyra Digitals
+              </a>
+            </p>
+            <p className="text-[10px] tracking-widest uppercase opacity-20">www.zyradigitals.com</p>
+          </div>
+
+          <p>© {currentYear} Happy Dental Agency. All rights reserved.</p>
         </div>
       </div>
     </footer>
