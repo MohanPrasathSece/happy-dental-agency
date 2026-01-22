@@ -10,96 +10,90 @@ declare global {
 }
 
 const GoogleTranslate = () => {
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    // Add Google Translate script
-    const addScript = () => {
+    // Add Google Translate script if not already present
+    const scriptId = "google-translate-script";
+    if (!document.getElementById(scriptId)) {
       const script = document.createElement("script");
-      script.src =
-        "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+      script.id = scriptId;
+      script.src = "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
       script.async = true;
       document.body.appendChild(script);
-    };
+    }
 
     // Initialize Google Translate
     window.googleTranslateElementInit = () => {
-      new window.google.translate.TranslateElement(
-        {
-          pageLanguage: "en",
-          includedLanguages: "en,fr,es,pt",
-          layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
-          autoDisplay: false,
-        },
-        "google_translate_element"
-      );
-      setIsLoaded(true);
-    };
-
-    addScript();
-
-    return () => {
-      // Cleanup
-      const script = document.querySelector(
-        'script[src*="translate.google.com"]'
-      );
-      if (script) {
-        script.remove();
+      if (window.google && window.google.translate) {
+        new window.google.translate.TranslateElement(
+          {
+            pageLanguage: "en",
+            includedLanguages: "en,fr,es,pt",
+            layout: window.google.translate.TranslateElement.InlineLayout.HORIZONTAL,
+            autoDisplay: false,
+          },
+          "google_translate_element"
+        );
       }
     };
   }, []);
 
   return (
-    <div className="relative">
-      <div
-        id="google_translate_element"
-        className="translate-widget"
-        style={{
-          position: "absolute",
-          opacity: 0,
-          pointerEvents: "none",
-        }}
-      />
+    <div className="relative flex items-center">
       <Button
         variant="ghost"
         size="sm"
         className="gap-2 text-navy hover:bg-primary/50"
-        onClick={() => {
-          const selectElement = document.querySelector(
-            ".goog-te-combo"
-          ) as HTMLSelectElement;
-          if (selectElement) {
-            // Since we can't programmatically "open" a native select, 
-            // the best we can do is focus it and hope the browser helps,
-            // or we make it visible so users can select.
-            // Let's toggle a class to show/hide it.
-            const widget = document.getElementById("google_translate_element");
-            if (widget) {
-              widget.style.opacity = widget.style.opacity === "1" ? "0" : "1";
-              widget.style.pointerEvents = widget.style.pointerEvents === "none" ? "auto" : "none";
-              widget.style.position = widget.style.position === "absolute" ? "static" : "absolute";
-            }
-          }
-        }}
+        onClick={() => setIsVisible(!isVisible)}
       >
         <Globe className="w-4 h-4" />
         <span className="hidden sm:inline">Translate</span>
       </Button>
 
+      <div
+        id="google_translate_element"
+        className={`absolute top-full right-0 mt-2 transition-all duration-200 z-[100] ${isVisible ? "opacity-100 scale-100 pointer-events-auto" : "opacity-0 scale-95 pointer-events-none"
+          }`}
+        style={{ minWidth: "200px" }}
+      />
+
       <style>{`
+        /* Hide the top banner */
         .goog-te-banner-frame { display: none !important; }
         body { top: 0 !important; }
-        .goog-te-gadget { font-family: inherit !important; }
-        .goog-te-gadget-simple { 
-          background: transparent !important; 
-          border: none !important;
-          padding: 0 !important;
+        
+        /* Style the widget container */
+        #google_translate_element {
+          background: white;
+          padding: 8px;
+          border-radius: 8px;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+          border: 1px solid hsl(var(--border));
         }
-        .goog-te-menu-value span { 
-          color: hsl(var(--navy)) !important; 
-          font-size: 14px !important;
+
+        /* Clean up Google default styles */
+        .goog-te-gadget {
+          font-family: inherit !important;
+          color: transparent !important;
         }
-        .skiptranslate { display: none !important; }
+        .goog-te-gadget span {
+          display: none !important;
+        }
+        .goog-te-gadget .goog-te-combo {
+          display: block !important;
+          width: 100% !important;
+          padding: 6px !important;
+          border-radius: 4px !important;
+          border: 1px solid #ddd !important;
+          color: #333 !important;
+          background: white !important;
+          margin: 0 !important;
+        }
+        
+        /* Hide the powered by google text */
+        .goog-logo-link { display: none !important; }
+        .goog-te-gadget { height: auto !important; }
         .VIpgJd-ZVi9od-ORHb-OEVmcd { display: none !important; }
       `}</style>
     </div>

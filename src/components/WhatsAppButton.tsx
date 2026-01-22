@@ -7,7 +7,7 @@ const FloatingContact = () => {
   );
 
   return (
-    <div className="fixed bottom-24 right-6 z-50 flex flex-col gap-4">
+    <div className="fixed bottom-8 right-6 z-50 flex flex-col gap-4">
       {/* Call Button */}
       <a
         href={`tel:${phoneNumber}`}
