@@ -67,19 +67,46 @@ const BookingForm = () => {
 
   const onSubmit = async (data: BookingFormData) => {
     setIsSubmitting(true);
-    
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    
-    console.log("Booking form submitted:", data);
-    
-    toast({
-      title: "Booking Request Submitted!",
-      description: "We'll contact you within 2 hours to confirm your booking.",
-    });
-    
-    form.reset();
-    setIsSubmitting(false);
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: data.contactPerson,
+          email: data.email,
+          phone: data.phone,
+          type: "Dental Practice Booking Request",
+          message: `
+Practice Name: ${data.practiceName}
+Postcode: ${data.postcode}
+Nurse Type Required: ${data.nurseType}
+Date Required: ${format(data.dateRequired, "PPP")}
+Duration: ${data.duration}
+Additional Info: ${data.message || "None"}
+          `.trim(),
+        }),
+      });
+
+      if (!response.ok) throw new Error("Failed to submit booking");
+
+      toast({
+        title: "Booking Request Submitted!",
+        description: "We've received your request. A confirmation email has been sent, and we'll contact you within 2 hours.",
+      });
+
+      form.reset();
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Submission Error",
+        description: "We couldn't process your booking request at this time. Please call us directly.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (

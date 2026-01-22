@@ -84,20 +84,57 @@ const NurseRegistrationForm = () => {
 
   const onSubmit = async (data: NurseFormData) => {
     setIsSubmitting(true);
-    
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    
-    console.log("Nurse registration submitted:", { ...data, cv: cvFile?.name });
-    
-    toast({
-      title: "Registration Submitted!",
-      description: "Thank you for registering. Our team will contact you shortly.",
-    });
-    
-    form.reset();
-    setCvFile(null);
-    setIsSubmitting(false);
+
+    try {
+      let base64File = "";
+      if (cvFile) {
+        base64File = await new Promise((resolve) => {
+          const reader = new FileReader();
+          reader.onloadend = () => resolve(reader.result as string);
+          reader.readAsDataURL(cvFile);
+        });
+      }
+
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: data.fullName,
+          email: data.email,
+          phone: data.phone,
+          type: "Nurse Registration Inquiry",
+          message: `
+Status: ${data.nurseStatus}
+GDC Number: ${data.gdcNumber || "N/A"}
+Location: ${data.location}
+Work Preference: ${data.workPreference}
+Message: ${data.message || "None"}
+          `.trim(),
+          attachment: base64File || undefined,
+          filename: cvFile?.name || undefined
+        }),
+      });
+
+      if (!response.ok) throw new Error("Failed to submit registration");
+
+      toast({
+        title: "Registration Submitted Successfully!",
+        description: "Thank you for registering with Happy Dental Agency. A confirmation has been sent to your email.",
+      });
+
+      form.reset();
+      setCvFile(null);
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Submission Error",
+        description: "We couldn't process your registration at this time. Please try again or contact us directly.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
