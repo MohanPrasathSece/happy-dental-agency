@@ -48,14 +48,15 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(400).json({ error: 'Name and Email are required' });
   }
 
-  // Configure transporter (Suggested: Provide these via environment variables in Vercel)
+  // Configure Google SMTP (Gmail)
   const transporter = nodemailer.createTransport({
-    host: process.env.EMAIL_HOST || 'smtp.gmail.com',
-    port: Number(process.env.EMAIL_PORT) || 465,
+    service: 'gmail',
+    host: 'smtp.gmail.com',
+    port: 465,
     secure: true,
     auth: {
-      user: process.env.EMAIL_USER, // Your email
-      pass: process.env.EMAIL_PASS, // Your app password
+      user: process.env.EMAIL_USER, // Your Gmail address
+      pass: process.env.EMAIL_PASS, // Your Google App Password
     },
   });
 
