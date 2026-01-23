@@ -35,7 +35,7 @@ const services = [
 
 const ServicesSection = () => {
   return (
-    <section className="section-padding bg-background">
+    <section className="section-padding bg-white">
       <div className="container-custom">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">

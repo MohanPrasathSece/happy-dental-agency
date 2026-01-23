@@ -31,7 +31,7 @@ const traineeBenefits = [
 
 const DentalNurses = () => {
   return (
-    <main>
+    <main className="theme-yellow-5">
       <SEO
         title="Jobs for Dental Nurses | Locum & Permanent Roles UK"
         description="Join leading dental nursing agencies in London and across the UK. Register for flexible locum shifts or permanent nursing roles with great benefits."
@@ -43,7 +43,7 @@ const DentalNurses = () => {
       />
 
       {/* Incentives Section */}
-      <section className="section-padding bg-background">
+      <section className="section-padding bg-white">
         <div className="container-custom">
           <div className="text-center max-w-3xl mx-auto mb-12">
             <h2 className="text-3xl font-heading font-bold text-navy mb-4">
@@ -131,7 +131,7 @@ const DentalNurses = () => {
       </section>
 
       {/* Registration Form Section */}
-      <section className="section-padding bg-background">
+      <section className="section-padding bg-white">
         <div className="container-custom">
           <div className="max-w-3xl mx-auto">
             <div className="text-center mb-10">
@@ -152,13 +152,13 @@ const DentalNurses = () => {
       </section>
 
       {/* How It Works */}
-      <section className="section-padding bg-champagne-light">
+      <section className="section-padding bg-navy text-white">
         <div className="container-custom">
           <div className="text-center max-w-3xl mx-auto mb-12">
-            <h2 className="text-3xl font-heading font-bold text-navy mb-4">
+            <h2 className="text-3xl font-heading font-bold text-white mb-4">
               Your Journey With Us
             </h2>
-            <p className="text-muted-foreground text-lg">
+            <p className="text-white/80 text-lg">
               From registration to your first placement, we support you every step of the way.
             </p>
           </div>
@@ -171,11 +171,11 @@ const DentalNurses = () => {
               { step: "04", title: "Start Working", desc: "Begin your career with ongoing support" },
             ].map((item, index) => (
               <div key={index} className="text-center">
-                <div className="w-16 h-16 rounded-full bg-white mx-auto mb-4 flex items-center justify-center shadow-medium">
-                  <span className="text-xl font-heading font-bold text-gold">{item.step}</span>
+                <div className="w-16 h-16 rounded-full bg-gold/20 backdrop-blur-sm mx-auto mb-4 flex items-center justify-center border border-white/10">
+                  <span className="text-xl font-heading font-bold text-white">{item.step}</span>
                 </div>
-                <h3 className="font-heading font-semibold text-navy mb-2">{item.title}</h3>
-                <p className="text-sm text-muted-foreground">{item.desc}</p>
+                <h3 className="font-heading font-semibold text-white mb-2">{item.title}</h3>
+                <p className="text-sm text-white/70">{item.desc}</p>
               </div>
             ))}
           </div>

@@ -10,7 +10,7 @@ import MapSection from "@/components/sections/MapSection";
 
 const Index = () => {
   return (
-    <main>
+    <main className="theme-yellow-1">
       <SEO
         title="Home | Dental Nursing Recruitment London & UK"
         description="Happy Dental Agency is the leading dental nursing recruitment agency in London and across the UK. We provide professional locum and permanent dental nurses."

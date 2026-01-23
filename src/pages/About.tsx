@@ -28,7 +28,7 @@ const About = () => {
     ];
 
     return (
-        <div className="flex flex-col min-h-screen">
+        <div className="flex flex-col min-h-screen theme-yellow-2">
             <SEO
                 title="About Us | UK Dental Nursing Specialists"
                 description="Learn about Happy Dental Agency, London's trusted partner in dental staffing. Our mission is to connect excellence with opportunity across the UK."

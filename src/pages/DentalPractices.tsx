@@ -40,7 +40,7 @@ const benefits = [
 
 const DentalPractices = () => {
   return (
-    <main>
+    <main className="theme-yellow-4">
       <SEO
         title="Book Dental Nurses | Staffing for Dental Practices UK"
         description="Reliable locum and permanent dental nurse staffing for UK dental practices. Fast response times and fully vetted qualified nurses in London and nationwide."
@@ -52,7 +52,7 @@ const DentalPractices = () => {
       />
 
       {/* Services Section */}
-      <section className="section-padding bg-background">
+      <section className="section-padding bg-white">
         <div className="container-custom">
           <div className="text-center max-w-3xl mx-auto mb-12">
             <h2 className="text-3xl font-heading font-bold text-navy mb-4">
@@ -144,13 +144,13 @@ const DentalPractices = () => {
       </section>
 
       {/* How It Works */}
-      <section className="section-padding bg-background">
+      <section className="section-padding bg-navy text-white">
         <div className="container-custom">
           <div className="text-center max-w-3xl mx-auto mb-12">
-            <h2 className="text-3xl font-heading font-bold text-navy mb-4">
+            <h2 className="text-3xl font-heading font-bold text-white mb-4">
               Simple Booking Process
             </h2>
-            <p className="text-muted-foreground text-lg">
+            <p className="text-white/80 text-lg">
               Getting reliable dental nursing staff has never been easier.
             </p>
           </div>
@@ -163,11 +163,11 @@ const DentalPractices = () => {
               { step: "04", title: "Nurse Arrives", desc: "Your professional dental nurse arrives ready to work" },
             ].map((item, index) => (
               <div key={index} className="text-center">
-                <div className="w-16 h-16 rounded-full bg-primary mx-auto mb-4 flex items-center justify-center">
-                  <span className="text-xl font-heading font-bold text-primary-foreground">{item.step}</span>
+                <div className="w-16 h-16 rounded-full bg-gold/20 backdrop-blur-sm mx-auto mb-4 flex items-center justify-center border border-white/10">
+                  <span className="text-xl font-heading font-bold text-white">{item.step}</span>
                 </div>
-                <h3 className="font-heading font-semibold text-navy mb-2">{item.title}</h3>
-                <p className="text-sm text-muted-foreground">{item.desc}</p>
+                <h3 className="font-heading font-semibold text-white mb-2">{item.title}</h3>
+                <p className="text-sm text-white/70">{item.desc}</p>
               </div>
             ))}
           </div>
