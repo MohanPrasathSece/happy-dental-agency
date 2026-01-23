@@ -3,6 +3,7 @@ import PageHeader from "@/components/PageHeader";
 import ContactForm from "@/components/forms/ContactForm";
 import CTASection from "@/components/sections/CTASection";
 import SEO from "@/components/SEO";
+import MapSection from "@/components/sections/MapSection";
 
 const contactInfo = [
   {
@@ -177,6 +178,8 @@ const Contact = () => {
         </div>
       </section>
 
+      <MapSection />
+
       {/* FAQs */}
       <section className="section-padding bg-champagne-light">
         <div className="container-custom">
@@ -209,7 +212,7 @@ const Contact = () => {
       </section>
 
       <CTASection variant="general" />
-    </main>
+    </main >
   );
 };
 

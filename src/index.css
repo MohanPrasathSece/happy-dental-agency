@@ -6,107 +6,102 @@
 
 @layer base {
   :root {
-    /* Happy Dental Agency - "Polished Platinum" Theme */
+    /* Happy Dental Agency - "Champagne & Gold" Theme */
     --background: 0 0% 100%;
-    --foreground: 222 15% 15%;
-    /* Deep Charcoal/Navy for text - High Contrast */
+    --foreground: 30 20% 12%;
+    /* Elegant Deep Charcoal with bit of warm to match champagne */
 
     --card: 0 0% 100%;
-    --card-foreground: 222 15% 15%;
+    --card-foreground: 30 20% 12%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222 15% 15%;
+    --popover-foreground: 30 20% 12%;
 
-    /* Primary: Cool Light Platinum (Backgrounds/Accents) */
-    --primary: 210 30% 88%;
-    --primary-foreground: 222 15% 15%;
+    /* Primary: Champagne Light Yellow */
+    --primary: 38 75% 92%;
+    --primary-foreground: 30 20% 12%;
 
-    /* Darker grey for hover/interaction */
-    --primary-dark: 210 20% 82%;
+    /* Darker champagne for hover/interaction */
+    --primary-dark: 38 65% 85%;
 
-    /* Silver Accent (formerly Gold) - A distinct metallic silver */
-    --gold: 215 15% 70%;
-    --gold-foreground: 222 15% 15%;
+    /* Gold Accent - Warm and Premium */
+    --gold: 38 45% 65%;
+    --gold-foreground: 0 0% 100%;
 
-    --secondary: 210 20% 90%;
-    --secondary-foreground: 222 15% 15%;
+    --secondary: 40 40% 96%;
+    --secondary-foreground: 30 20% 12%;
 
-    --muted: 210 20% 88%;
-    --muted-foreground: 215 10% 50%;
+    --muted: 40 30% 94%;
+    --muted-foreground: 30 10% 45%;
 
-    --accent: 210 30% 88%;
-    --accent-foreground: 222 15% 15%;
+    --accent: 38 75% 92%;
+    --accent-foreground: 30 20% 12%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 210 20% 85%;
-    --input: 210 20% 85%;
-    --ring: 215 15% 70%;
+    --border: 38 30% 88%;
+    --input: 38 30% 88%;
+    --ring: 38 45% 65%;
 
-    --radius: 0.75rem;
+    --radius: 1rem;
 
-    /* Custom Tokens - Mapped to Cool Platinum Palette */
-    /* --champagne naming kept for compatibility, but values are Grey */
-    --champagne: 210 30% 88%;
-    /* Light Cool Grey */
-    --champagne-light: 210 35% 90%;
-    /* Very Light Blue-Grey tint */
-    --champagne-dark: 215 15% 75%;
-    /* Visible Silver Border */
+    /* Custom Tokens - Mapped to Champagne Palette */
+    --champagne: 38 75% 92%;
+    --champagne-light: 42 100% 97%;
+    --champagne-dark: 38 60% 82%;
 
-    /* Navy is now a Deep Technical Blue-Grey/Black */
-    --navy: 222 30% 18%;
-    --navy-light: 222 20% 30%;
+    --navy: 220 25% 15%;
+    --navy-light: 220 20% 25%;
 
     --success: 160 60% 45%;
     --success-foreground: 0 0% 100%;
 
-    /* Shadows - Cool Toned */
-    --shadow-sm: 0 2px 8px hsl(222 15% 15% / 0.05);
-    --shadow-md: 0 4px 20px hsl(222 15% 15% / 0.08);
-    --shadow-lg: 0 8px 40px hsl(222 15% 15% / 0.1);
-    --shadow-gold: 0 4px 20px hsl(215 15% 70% / 0.15);
-    /* Silver shadow */
+    /* Shadows - Warm Toned */
+    --shadow-sm: 0 2px 8px hsl(30 20% 12% / 0.04);
+    --shadow-md: 0 4px 20px hsl(30 20% 12% / 0.06);
+    --shadow-lg: 0 8px 40px hsl(30 20% 12% / 0.08);
+    --shadow-gold: 0 4px 20px hsl(38 45% 65% / 0.15);
 
-    /* Gradients - "Shiny" Platinum Effect */
-    /* Gentle top-down wash for Hero */
-    --gradient-hero: linear-gradient(180deg, hsl(210 20% 92%) 0%, hsl(210 30% 88%) 100%);
-    /* Card gradient for subtle depth */
-    --gradient-card: linear-gradient(145deg, hsl(210 25% 92%) 0%, hsl(210 20% 90%) 100%);
-    --gradient-cta: linear-gradient(135deg, hsl(210 30% 88%) 0%, hsl(210 20% 84%) 100%);
+    /* Gradients - Champagne Radiance */
+    --gradient-hero: linear-gradient(180deg, hsl(38 100% 98%) 0%, hsl(38 75% 92%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(38 80% 98%) 0%, hsl(38 70% 95%) 100%);
+    --gradient-cta: linear-gradient(135deg, hsl(38 75% 92%) 0%, hsl(38 60% 85%) 100%);
 
-    --sidebar-background: 210 15% 90%;
-    --sidebar-foreground: 215 15% 30%;
-    --sidebar-primary: 210 20% 86%;
-    --sidebar-primary-foreground: 215 15% 25%;
-    --sidebar-accent: 210 10% 88%;
-    --sidebar-accent-foreground: 215 15% 25%;
-    --sidebar-border: 210 15% 82%;
-    --sidebar-ring: 210 15% 75%;
+    --sidebar-background: 38 60% 96%;
+    --sidebar-foreground: 30 20% 20%;
+    --sidebar-primary: 38 75% 90%;
+    --sidebar-primary-foreground: 30 20% 15%;
+    --sidebar-accent: 38 50% 94%;
+    --sidebar-accent-foreground: 30 20% 15%;
+    --sidebar-border: 38 30% 90%;
+    --sidebar-ring: 38 45% 85%;
   }
+
+
 
   .dark {
-    --background: 222 25% 10%;
-    --foreground: 210 20% 98%;
-    --card: 222 25% 12%;
-    --card-foreground: 210 20% 98%;
-    --popover: 222 25% 12%;
-    --popover-foreground: 210 20% 98%;
-    --primary: 222 25% 15%;
-    --primary-foreground: 210 20% 98%;
-    --secondary: 222 25% 15%;
-    --secondary-foreground: 210 20% 98%;
-    --muted: 222 25% 15%;
-    --muted-foreground: 215 10% 65%;
-    --accent: 222 25% 15%;
-    --accent-foreground: 210 20% 98%;
+    --background: 30 10% 5%;
+    --foreground: 38 20% 98%;
+    --card: 30 10% 8%;
+    --card-foreground: 38 20% 98%;
+    --popover: 30 10% 8%;
+    --popover-foreground: 38 20% 98%;
+    --primary: 38 60% 20%;
+    --primary-foreground: 38 20% 98%;
+    --secondary: 30 10% 12%;
+    --secondary-foreground: 38 20% 98%;
+    --muted: 30 10% 12%;
+    --muted-foreground: 38 10% 65%;
+    --accent: 38 60% 20%;
+    --accent-foreground: 38 20% 98%;
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 20% 98%;
-    --border: 222 25% 20%;
-    --input: 222 25% 20%;
-    --ring: 215 15% 85%;
+    --destructive-foreground: 38 20% 98%;
+    --border: 30 10% 20%;
+    --input: 30 10% 20%;
+    --ring: 38 45% 85%;
   }
+
 }
 
 @layer base {
@@ -121,6 +116,7 @@
   body {
     @apply bg-background text-foreground font-sans antialiased;
     font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
   }
 
   p {
@@ -152,7 +148,7 @@
   }
 
   .container-custom {
-    @apply max-w-7xl mx-auto;
+    @apply max-w-7xl mx-auto px-4 md:px-8;
   }
 
   .hero-gradient {
@@ -257,6 +253,18 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
   }
 }
 

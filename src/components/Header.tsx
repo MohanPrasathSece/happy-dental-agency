@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Phone, ChevronDown } from "lucide-react";
+import { Menu, X, Phone, Home, Info, Building2, Heart, Workflow, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Logo from "./Logo";
 import GoogleTranslate from "./GoogleTranslate";
@@ -23,22 +23,36 @@ const Header = () => {
         window.scrollTo(0, 0);
     }, [location]);
 
+    // Lock body scroll when mobile menu is open
+    useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        }
+
+        // Cleanup on unmount
+        return () => {
+            document.body.style.overflow = 'unset';
+        };
+    }, [isOpen]);
+
     const navLinks = [
-        { name: "Home", path: "/" },
-        { name: "About Us", path: "/about" },
-        { name: "Dental Practices", path: "/dental-practices" },
-        { name: "Dental Nurses", path: "/dental-nurses" },
-        { name: "How It Works", path: "/how-it-works" },
-        { name: "Contact", path: "/contact" },
+        { name: "Home", path: "/", icon: Home },
+        { name: "About Us", path: "/about", icon: Info },
+        { name: "Dental Practices", path: "/dental-practices", icon: Building2 },
+        { name: "Dental Nurses", path: "/dental-nurses", icon: Heart },
+        { name: "How It Works", path: "/how-it-works", icon: Workflow },
+        { name: "Contact", path: "/contact", icon: Mail },
     ];
 
     const isActive = (path: string) => location.pathname === path;
 
     return (
         <header
-            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
-                ? "glass-effect shadow-medium py-3 md:py-5"
-                : "bg-transparent py-4 md:py-10"
+            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 lg:duration-300 py-4 ${isScrolled && !isOpen
+                ? "bg-white lg:bg-white/80 lg:backdrop-blur-md lg:shadow-md lg:border-b lg:border-white/20 lg:py-5"
+                : "bg-white lg:bg-transparent lg:py-10"
                 }`}
         >
             <div className="container-custom flex items-center justify-between">
@@ -81,49 +95,67 @@ const Header = () => {
                 {/* Mobile Menu Button */}
                 <button
                     onClick={() => setIsOpen(!isOpen)}
-                    className="lg:hidden relative z-10 p-2 text-foreground"
+                    className="lg:hidden relative z-[60] p-2 text-foreground hover:bg-primary/20 rounded-lg transition-colors"
                     aria-label="Toggle menu"
                 >
                     {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
                 </button>
 
-                {/* Mobile Navigation */}
-                {isOpen && (
-                    <div className="fixed inset-0 bg-background lg:hidden">
-                        <div className="flex flex-col pt-24 px-6 pb-6 h-full overflow-y-auto">
-                            <nav className="flex flex-col gap-2">
-                                {navLinks.map((link) => (
-                                    <Link
-                                        key={link.path}
-                                        to={link.path}
-                                        className={`px-4 py-3 rounded-lg text-lg font-medium transition-all ${isActive(link.path)
-                                            ? "bg-primary text-primary-foreground"
-                                            : "text-foreground hover:bg-primary/50 hover:text-primary-foreground"
-                                            }`}
-                                    >
-                                        {link.name}
-                                    </Link>
-                                ))}
-                            </nav>
+                {/* Mobile Navigation Overlay */}
+                <div
+                    className={`fixed inset-0 bg-black/60 backdrop-blur-sm lg:hidden transition-opacity duration-200 z-40 ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
+                        }`}
+                    onClick={() => setIsOpen(false)}
+                />
 
-                            <div className="mt-8 flex flex-col gap-3">
-                                <GoogleTranslate />
-                                <a href="tel:+447944624039" className="w-full">
-                                    <Button variant="outline" className="w-full gap-2">
-                                        <Phone className="w-4 h-4" />
-                                        Call Us
-                                    </Button>
-                                </a>
-                                <Link to="/dental-practices" className="w-full">
-                                    <Button variant="cta" className="w-full">
-                                        Book a Nurse
-                                    </Button>
-                                </Link>
-                            </div>
+                {/* Mobile Navigation Menu */}
+                <div
+                    className={`fixed top-0 right-0 bottom-0 w-[85%] max-w-sm bg-background lg:hidden transition-transform duration-200 ease-out z-50 shadow-2xl border-l border-border ${isOpen ? 'translate-x-0' : 'translate-x-full'
+                        }`}
+                >
+                    <div className="flex flex-col h-full">
+                        {/* Menu Header */}
+                        <div className="px-6 pt-20 pb-6 border-b border-border/50">
+                            <h2 className="text-2xl font-bold text-foreground mb-1">Menu</h2>
+                            <p className="text-sm text-muted-foreground">Navigate to any page</p>
                         </div>
+
+                        {/* Navigation Links */}
+                        <nav className="flex-1 overflow-y-auto px-4 py-6">
+                            <div className="flex flex-col gap-2">
+                                {navLinks.map((link, index) => {
+                                    const Icon = link.icon;
+                                    return (
+                                        <Link
+                                            key={link.path}
+                                            to={link.path}
+                                            className={`group relative px-4 py-4 rounded-xl text-base font-medium transition-all duration-200 flex items-center gap-4 ${isActive(link.path)
+                                                ? "bg-gradient-to-r from-primary to-primary-dark text-primary-foreground shadow-md"
+                                                : "text-foreground hover:bg-primary/20 hover:translate-x-1"
+                                                }`}
+                                            style={{
+                                                animation: isOpen ? `slideIn 0.3s ease-out ${index * 0.05}s both` : 'none'
+                                            }}
+                                        >
+                                            <div className={`p-2 rounded-lg transition-colors ${isActive(link.path)
+                                                ? "bg-white/20"
+                                                : "bg-primary/10 group-hover:bg-primary/20"
+                                                }`}>
+                                                <Icon className="w-5 h-5" />
+                                            </div>
+                                            <span className="flex-1">{link.name}</span>
+                                            {isActive(link.path) && (
+                                                <div className="w-2 h-2 rounded-full bg-white" />
+                                            )}
+                                        </Link>
+                                    );
+                                })}
+                            </div>
+                        </nav>
                     </div>
-                )}
+                </div>
             </div>
+
         </header>
     );
 };

@@ -47,7 +47,7 @@ const TestimonialsSection = () => {
           {testimonials.map((testimonial, index) => (
             <div
               key={index}
-              className="bg-white rounded-2xl p-6 lg:p-8 shadow-soft hover:shadow-large transition-all duration-300 relative"
+              className="bg-card rounded-2xl p-6 lg:p-8 shadow-soft hover:shadow-large transition-all duration-300 relative"
             >
               {/* Quote Icon */}
               <div className="absolute -top-4 left-6 w-10 h-10 rounded-full bg-navy flex items-center justify-center">

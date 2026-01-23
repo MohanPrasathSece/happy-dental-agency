@@ -73,7 +73,7 @@ const WhyChooseUsSection = () => {
             {reasons.map((reason, index) => (
               <div
                 key={index}
-                className="bg-white rounded-xl p-5 border border-border hover:border-gold hover:shadow-medium transition-all duration-300"
+                className="bg-card rounded-xl p-5 border border-border hover:border-gold hover:shadow-medium transition-all duration-300"
               >
                 <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center mb-3">
                   <reason.icon className="w-5 h-5 text-navy" />

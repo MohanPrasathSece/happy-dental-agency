@@ -56,7 +56,7 @@ const IncentivesSection = () => {
           {incentives.map((incentive, index) => (
             <div
               key={index}
-              className="bg-white rounded-2xl p-6 text-center hover:shadow-large transition-all duration-300 hover-lift border border-border hover:border-gold"
+              className="bg-card rounded-2xl p-6 text-center hover:shadow-large transition-all duration-300 hover-lift border border-border hover:border-gold"
             >
               <div className="w-16 h-16 rounded-2xl bg-primary mx-auto mb-4 flex items-center justify-center">
                 <incentive.icon className="w-8 h-8 text-navy" />

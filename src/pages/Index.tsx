@@ -6,6 +6,8 @@ import TestimonialsSection from "@/components/sections/TestimonialsSection";
 import CTASection from "@/components/sections/CTASection";
 import SEO from "@/components/SEO";
 
+import MapSection from "@/components/sections/MapSection";
+
 const Index = () => {
   return (
     <main>
@@ -18,6 +20,7 @@ const Index = () => {
       <WhyChooseUsSection />
       <IncentivesSection />
       <TestimonialsSection />
+      <MapSection />
       <CTASection variant="general" />
     </main>
   );
