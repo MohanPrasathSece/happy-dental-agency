@@ -2,6 +2,7 @@ import { Check, Clock, Shield, FileCheck, Users, Headphones } from "lucide-react
 import PageHeader from "@/components/PageHeader";
 import BookingForm from "@/components/forms/BookingForm";
 import CTASection from "@/components/sections/CTASection";
+import SEO from "@/components/SEO";
 
 const services = [
   {
@@ -40,6 +41,10 @@ const benefits = [
 const DentalPractices = () => {
   return (
     <main>
+      <SEO
+        title="Book Dental Nurses | Staffing for Dental Practices UK"
+        description="Reliable locum and permanent dental nurse staffing for UK dental practices. Fast response times and fully vetted qualified nurses in London and nationwide."
+      />
       <PageHeader
         badge="For Dental Practices"
         title="Book Reliable Dental Nurses"
@@ -66,7 +71,7 @@ const DentalPractices = () => {
               >
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 rounded-xl bg-primary flex items-center justify-center flex-shrink-0">
-                    <service.icon className="w-6 h-6 text-gold" />
+                    <service.icon className="w-6 h-6 text-primary-foreground" />
                   </div>
                   <div>
                     <h3 className="text-lg font-heading font-semibold text-navy mb-2">
@@ -93,7 +98,7 @@ const DentalPractices = () => {
                 Why Partner With Us?
               </h2>
               <p className="text-muted-foreground mb-8">
-                We understand the unique staffing challenges dental practices face. 
+                We understand the unique staffing challenges dental practices face.
                 Our commitment to quality and reliability sets us apart.
               </p>
 
@@ -111,12 +116,12 @@ const DentalPractices = () => {
               {/* Support Box */}
               <div className="mt-8 p-6 bg-white rounded-2xl border border-border">
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-gold flex items-center justify-center">
-                    <Headphones className="w-6 h-6 text-white" />
+                  <div className="w-12 h-12 rounded-xl bg-primary flex items-center justify-center">
+                    <Headphones className="w-6 h-6 text-primary-foreground" />
                   </div>
                   <div>
                     <p className="font-semibold text-navy">Need Immediate Help?</p>
-                    <a href="tel:+447944624039" className="text-gold hover:underline">
+                    <a href="tel:+447944624039" className="text-navy hover:underline font-semibold">
                       Call us: +44 7944 624 039
                     </a>
                   </div>
@@ -159,7 +164,7 @@ const DentalPractices = () => {
             ].map((item, index) => (
               <div key={index} className="text-center">
                 <div className="w-16 h-16 rounded-full bg-primary mx-auto mb-4 flex items-center justify-center">
-                  <span className="text-xl font-heading font-bold text-gold">{item.step}</span>
+                  <span className="text-xl font-heading font-bold text-primary-foreground">{item.step}</span>
                 </div>
                 <h3 className="font-heading font-semibold text-navy mb-2">{item.title}</h3>
                 <p className="text-sm text-muted-foreground">{item.desc}</p>

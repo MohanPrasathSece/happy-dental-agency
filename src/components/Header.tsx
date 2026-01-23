@@ -37,8 +37,8 @@ const Header = () => {
     return (
         <header
             className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
-                ? "glass-effect shadow-medium py-5"
-                : "bg-transparent py-10"
+                ? "glass-effect shadow-medium py-3 md:py-5"
+                : "bg-transparent py-4 md:py-10"
                 }`}
         >
             <div className="container-custom flex items-center justify-between">
@@ -53,8 +53,8 @@ const Header = () => {
                             key={link.path}
                             to={link.path}
                             className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${isActive(link.path)
-                                ? "bg-primary text-navy"
-                                : "text-foreground hover:bg-primary/50 hover:text-navy"
+                                ? "bg-primary text-primary-foreground"
+                                : "text-foreground hover:bg-primary/50 hover:text-primary-foreground"
                                 }`}
                         >
                             {link.name}
@@ -66,7 +66,7 @@ const Header = () => {
                 <div className="hidden lg:flex items-center gap-3">
                     <GoogleTranslate />
                     <a href="tel:+447944624039">
-                        <Button variant="outline" size="sm" className="gap-2 border-champagne-dark text-navy hover:bg-primary">
+                        <Button variant="outline" size="sm" className="gap-2 border-champagne-dark text-navy hover:bg-primary hover:text-primary-foreground">
                             <Phone className="w-4 h-4" />
                             Call Us
                         </Button>
@@ -97,8 +97,8 @@ const Header = () => {
                                         key={link.path}
                                         to={link.path}
                                         className={`px-4 py-3 rounded-lg text-lg font-medium transition-all ${isActive(link.path)
-                                            ? "bg-primary text-navy"
-                                            : "text-foreground hover:bg-primary/50"
+                                            ? "bg-primary text-primary-foreground"
+                                            : "text-foreground hover:bg-primary/50 hover:text-primary-foreground"
                                             }`}
                                     >
                                         {link.name}

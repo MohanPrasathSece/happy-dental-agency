@@ -39,7 +39,7 @@ const ServicesSection = () => {
       <div className="container-custom">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="inline-block bg-primary/50 text-navy px-4 py-1.5 rounded-full text-sm font-semibold mb-4">
+          <span className="inline-block bg-primary text-primary-foreground px-4 py-1.5 rounded-full text-sm font-semibold mb-4">
             Our Services
           </span>
           <h2 className="text-3xl md:text-4xl font-heading font-bold text-navy mb-4">
@@ -59,8 +59,8 @@ const ServicesSection = () => {
               className="group bg-white rounded-2xl p-6 lg:p-8 border border-border hover:border-champagne-dark hover:shadow-large transition-all duration-300 hover-lift"
             >
               <div className="flex items-start gap-4">
-                <div className="w-14 h-14 rounded-xl bg-primary flex items-center justify-center flex-shrink-0 group-hover:bg-gold transition-colors">
-                  <service.icon className="w-7 h-7 text-navy group-hover:text-white transition-colors" />
+                <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:bg-primary transition-colors">
+                  <service.icon className="w-7 h-7 text-navy group-hover:text-primary-foreground transition-colors" />
                 </div>
                 <div className="flex-1">
                   <h3 className="text-xl font-heading font-semibold text-navy mb-2">
@@ -71,7 +71,7 @@ const ServicesSection = () => {
                   </p>
                   <Link
                     to={service.link}
-                    className="inline-flex items-center gap-2 text-gold font-semibold hover:text-amber-600 transition-colors"
+                    className="inline-flex items-center gap-2 text-navy font-semibold hover:text-primary-dark transition-colors"
                   >
                     Learn More
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />

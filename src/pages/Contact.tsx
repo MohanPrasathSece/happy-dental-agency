@@ -2,6 +2,7 @@ import { Phone, Mail, MapPin, Clock, MessageCircle } from "lucide-react";
 import PageHeader from "@/components/PageHeader";
 import ContactForm from "@/components/forms/ContactForm";
 import CTASection from "@/components/sections/CTASection";
+import SEO from "@/components/SEO";
 
 const contactInfo = [
   {
@@ -64,6 +65,10 @@ const faqs = [
 const Contact = () => {
   return (
     <main>
+      <SEO
+        title="Contact Us | Dental Agency London & UK Support"
+        description="Get in touch with Happy Dental Agency London. Reach our professional support team for staffing inquiries or nurse registration across the UK."
+      />
       <PageHeader
         badge="Contact Us"
         title="Get in Touch"
@@ -80,7 +85,7 @@ const Contact = () => {
                 className="bg-white rounded-2xl p-6 border border-border hover:border-champagne-dark hover:shadow-medium transition-all text-center"
               >
                 <div className="w-14 h-14 rounded-xl bg-primary mx-auto mb-4 flex items-center justify-center">
-                  <info.icon className="w-7 h-7 text-gold" />
+                  <info.icon className="w-7 h-7 text-navy" />
                 </div>
                 <h3 className="font-heading font-semibold text-navy mb-2">{info.title}</h3>
                 {info.link ? (
@@ -88,7 +93,7 @@ const Contact = () => {
                     href={info.link}
                     target={info.link.startsWith("http") ? "_blank" : undefined}
                     rel={info.link.startsWith("http") ? "noopener noreferrer" : undefined}
-                    className="text-gold hover:underline font-medium"
+                    className="text-navy hover:underline font-medium"
                   >
                     {info.primary}
                   </a>
@@ -176,7 +181,7 @@ const Contact = () => {
       <section className="section-padding bg-champagne-light">
         <div className="container-custom">
           <div className="text-center max-w-3xl mx-auto mb-12">
-            <span className="inline-block bg-white text-gold px-4 py-1.5 rounded-full text-sm font-semibold mb-4 shadow-soft">
+            <span className="inline-block bg-white text-navy px-4 py-1.5 rounded-full text-sm font-semibold mb-4 shadow-soft">
               FAQs
             </span>
             <h2 className="text-3xl font-heading font-bold text-navy mb-4">

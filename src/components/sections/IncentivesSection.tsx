@@ -35,11 +35,11 @@ const incentives = [
 
 const IncentivesSection = () => {
   return (
-    <section className="section-padding bg-champagne-light">
+    <section className="section-padding bg-background">
       <div className="container-custom">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="inline-block bg-gold text-white px-4 py-1.5 rounded-full text-sm font-semibold mb-4">
+          <span className="inline-block bg-gold text-navy px-4 py-1.5 rounded-full text-sm font-semibold mb-4 text-white">
             Nurse Benefits
           </span>
           <h2 className="text-3xl md:text-4xl font-heading font-bold text-navy mb-4">
@@ -56,10 +56,10 @@ const IncentivesSection = () => {
           {incentives.map((incentive, index) => (
             <div
               key={index}
-              className="bg-white rounded-2xl p-6 text-center hover:shadow-large transition-all duration-300 hover-lift border border-transparent hover:border-gold/30"
+              className="bg-white rounded-2xl p-6 text-center hover:shadow-large transition-all duration-300 hover-lift border border-border hover:border-gold"
             >
               <div className="w-16 h-16 rounded-2xl bg-primary mx-auto mb-4 flex items-center justify-center">
-                <incentive.icon className="w-8 h-8 text-gold" />
+                <incentive.icon className="w-8 h-8 text-navy" />
               </div>
               <h3 className="text-lg font-heading font-semibold text-navy mb-2">
                 {incentive.title}

@@ -30,7 +30,7 @@ const TestimonialsSection = () => {
       <div className="container-custom">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="inline-block bg-white text-gold px-4 py-1.5 rounded-full text-sm font-semibold mb-4 shadow-soft">
+          <span className="inline-block bg-white text-navy px-4 py-1.5 rounded-full text-sm font-semibold mb-4 shadow-soft">
             Testimonials
           </span>
           <h2 className="text-3xl md:text-4xl font-heading font-bold text-navy mb-4">
@@ -50,7 +50,7 @@ const TestimonialsSection = () => {
               className="bg-white rounded-2xl p-6 lg:p-8 shadow-soft hover:shadow-large transition-all duration-300 relative"
             >
               {/* Quote Icon */}
-              <div className="absolute -top-4 left-6 w-10 h-10 rounded-full bg-gold flex items-center justify-center">
+              <div className="absolute -top-4 left-6 w-10 h-10 rounded-full bg-navy flex items-center justify-center">
                 <Quote className="w-5 h-5 text-white" />
               </div>
 
@@ -59,7 +59,7 @@ const TestimonialsSection = () => {
                 {[...Array(testimonial.rating)].map((_, i) => (
                   <Star
                     key={i}
-                    className="w-5 h-5 text-gold fill-gold"
+                    className="w-5 h-5 text-navy fill-current"
                   />
                 ))}
               </div>

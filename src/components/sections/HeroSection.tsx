@@ -18,25 +18,25 @@ const HeroSection = () => {
                 <div className="absolute bottom-20 left-10 w-96 h-96 bg-gold/10 rounded-full blur-3xl" />
             </div>
 
-            <div className="container-custom relative z-10 pt-32 pb-20 md:pt-40 md:pb-28">
+            <div className="container-custom relative z-10 pt-24 pb-16 md:pt-40 md:pb-28">
                 <div className="max-w-4xl mx-auto text-center">
                     {/* Badge */}
-                    <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm rounded-full px-4 py-2 mb-8 shadow-soft animate-fade-in">
+                    <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm rounded-full px-4 py-2 mb-6 md:mb-8 shadow-soft animate-fade-in">
                         <span className="w-2 h-2 bg-success rounded-full animate-pulse" />
-                        <span className="text-sm font-medium text-navy">
+                        <span className="text-xs sm:text-sm font-medium text-navy">
                             Trusted Dental Nursing Agency in the UK
                         </span>
                     </div>
 
                     {/* Main Heading */}
-                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-navy mb-6 animate-slide-up">
+                    <h1 className="text-3xl xs:text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-navy mb-6 animate-slide-up">
                         Your Reliable Partner for{" "}
-                        <span className="text-gold">Dental Nursing</span>{" "}
+                        <span className="text-navy">Dental Nursing</span>{" "}
                         Recruitment
                     </h1>
 
                     {/* Subheading */}
-                    <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8 animate-slide-up" style={{ animationDelay: "0.1s" }}>
+                    <p className="text-base md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8 animate-slide-up" style={{ animationDelay: "0.1s" }}>
                         Connecting dental practices with qualified and trainee dental nurses
                         across the United Kingdom. Fast, reliable, and professional staffing solutions.
                     </p>
@@ -73,10 +73,10 @@ const HeroSection = () => {
                     <div className="mt-12 animate-fade-in" style={{ animationDelay: "0.4s" }}>
                         <a
                             href="tel:+447944624039"
-                            className="inline-flex items-center gap-3 text-navy hover:text-gold transition-colors"
+                            className="inline-flex items-center gap-3 text-navy hover:text-primary-foreground transition-colors"
                         >
                             <div className="w-12 h-12 rounded-full bg-white shadow-medium flex items-center justify-center">
-                                <Phone className="w-5 h-5 text-gold" />
+                                <Phone className="w-5 h-5 text-navy" />
                             </div>
                             <div className="text-left">
                                 <p className="text-sm text-muted-foreground">Call us now</p>

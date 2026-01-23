@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import PageHeader from "@/components/PageHeader";
 import CTASection from "@/components/sections/CTASection";
+import SEO from "@/components/SEO";
 
 const practiceSteps = [
   {
@@ -64,6 +65,10 @@ const HowItWorks = () => {
 
   return (
     <main>
+      <SEO
+        title="How It Works | Recruitment Process London"
+        description="Our simple recruitment process for dental practices and nurses. Learn how we match quality practices in London with top nursing talent across the UK."
+      />
       <PageHeader
         badge="How It Works"
         title="Simple & Transparent Process"
@@ -101,7 +106,7 @@ const HowItWorks = () => {
             <div className="animate-fade-in">
               <div className="flex items-center gap-4 mb-10 justify-center">
                 <div className="w-14 h-14 rounded-xl bg-primary flex items-center justify-center">
-                  <Building2 className="w-7 h-7 text-gold" />
+                  <Building2 className="w-7 h-7 text-primary-foreground" />
                 </div>
                 <div>
                   <h2 className="text-2xl md:text-3xl font-heading font-bold text-navy">
@@ -114,7 +119,7 @@ const HowItWorks = () => {
                 {practiceSteps.map((step, index) => (
                   <div key={index} className="flex flex-col md:flex-row gap-6 items-start group">
                     <div className="w-20 h-20 rounded-2xl bg-primary flex-shrink-0 flex items-center justify-center group-hover:scale-105 transition-transform">
-                      <span className="text-2xl font-heading font-bold text-gold">{step.number}</span>
+                      <span className="text-2xl font-heading font-bold text-primary-foreground">{step.number}</span>
                     </div>
                     <div className="flex-1 bg-white rounded-2xl p-8 border border-border group-hover:border-gold group-hover:shadow-lg transition-all">
                       <h3 className="text-xl font-heading font-semibold text-navy mb-3">
@@ -214,7 +219,7 @@ const HowItWorks = () => {
             ].map((item, index) => (
               <div key={index} className="bg-white rounded-2xl p-8 text-center border border-border hover:shadow-xl transition-all hover-lift">
                 <div className="w-16 h-16 rounded-2xl bg-primary mx-auto mb-6 flex items-center justify-center">
-                  <item.icon className="w-8 h-8 text-gold" />
+                  <item.icon className="w-8 h-8 text-primary-foreground" />
                 </div>
                 <h3 className="font-heading font-semibold text-xl text-navy mb-3">{item.title}</h3>
                 <p className="text-muted-foreground leading-relaxed">{item.desc}</p>

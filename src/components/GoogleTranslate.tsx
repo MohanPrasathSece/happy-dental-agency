@@ -79,7 +79,7 @@ const GoogleTranslate = () => {
           }`}
         onClick={() => setIsVisible(!isVisible)}
       >
-        <Globe className="w-4 h-4 text-gold" />
+        <Globe className="w-4 h-4 text-navy" />
         <span className="hidden sm:inline font-medium uppercase tracking-wider text-xs">
           {languages.find((l) => l.code === currentLang)?.label || "Translate"}
         </span>
@@ -87,9 +87,9 @@ const GoogleTranslate = () => {
 
       {/* Custom Dropdown */}
       <div
-        className={`absolute top-full right-0 mt-2 w-48 bg-white rounded-xl shadow-xl border border-border overflow-hidden transition-all duration-300 z-[100] ${isVisible
-            ? "opacity-100 translate-y-0 scale-100"
-            : "opacity-0 -translate-y-2 scale-95 pointer-events-none"
+        className={`absolute top-full right-0 mt-2 w-44 sm:w-48 bg-white rounded-xl shadow-xl border border-border overflow-hidden transition-all duration-300 z-[100] ${isVisible
+          ? "opacity-100 translate-y-0 scale-100"
+          : "opacity-0 -translate-y-2 scale-95 pointer-events-none"
           }`}
       >
         <div className="p-2 bg-muted/30 border-b border-border">
@@ -106,7 +106,7 @@ const GoogleTranslate = () => {
                 }`}
             >
               <div className="flex items-center gap-3">
-                <span className="text-[10px] font-mono font-bold bg-muted px-1.5 py-0.5 rounded text-gold/80">{lang.label}</span>
+                <span className="text-[10px] font-mono font-bold bg-muted px-1.5 py-0.5 rounded text-navy/80">{lang.label}</span>
                 <span>{lang.name}</span>
               </div>
               {currentLang === lang.code && <div className="w-1.5 h-1.5 rounded-full bg-gold" />}

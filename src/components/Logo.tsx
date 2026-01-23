@@ -19,10 +19,10 @@ const Logo = ({ size = "md", showText = true }: LogoProps) => {
       />
       {showText && (
         <div className="flex flex-col leading-none">
-          <span className="font-heading font-bold text-navy text-xl">
+          <span className="font-heading font-bold text-navy text-lg md:text-xl">
             Happy Dental
           </span>
-          <span className="text-xs font-medium text-gold tracking-wider uppercase">
+          <span className="text-[10px] md:text-xs font-medium text-muted-foreground tracking-wider uppercase">
             Agency
           </span>
         </div>

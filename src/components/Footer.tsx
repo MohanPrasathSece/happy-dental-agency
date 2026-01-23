@@ -129,7 +129,6 @@ const Footer = () => {
                 Zyra Digitals
               </a>
             </p>
-            <p className="text-[9px] tracking-[0.2em] uppercase opacity-20">www.zyradigitals.com</p>
           </div>
 
           <div className="flex flex-wrap justify-center md:justify-end gap-x-8 gap-y-2 italic order-2 md:order-3 min-w-[200px]">

@@ -9,7 +9,7 @@ const Terms = () => {
                 <div className="max-w-4xl mx-auto">
                     {/* Header */}
                     <div className="text-center mb-16">
-                        <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary/20 mb-6 text-gold">
+                        <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary/20 mb-6 text-navy">
                             <Scale className="w-8 h-8" />
                         </div>
                         <h1 className="text-4xl md:text-5xl font-heading font-bold text-navy mb-4">
@@ -25,7 +25,7 @@ const Terms = () => {
 
                         <section>
                             <div className="flex items-center gap-3 mb-4">
-                                <Briefcase className="w-6 h-6 text-gold" />
+                                <Briefcase className="w-6 h-6 text-navy" />
                                 <h2 className="text-2xl font-heading font-bold text-navy m-0">1. Nature of Services</h2>
                             </div>
                             <p>
@@ -35,7 +35,7 @@ const Terms = () => {
 
                         <section>
                             <div className="flex items-center gap-3 mb-4">
-                                <CheckCircle className="w-6 h-6 text-gold" />
+                                <CheckCircle className="w-6 h-6 text-navy" />
                                 <h2 className="text-2xl font-heading font-bold text-navy m-0">2. Candidate Compliance</h2>
                             </div>
                             <p>
@@ -45,7 +45,7 @@ const Terms = () => {
 
                         <section>
                             <div className="flex items-center gap-3 mb-4">
-                                <Scale className="w-6 h-6 text-gold" />
+                                <Scale className="w-6 h-6 text-navy" />
                                 <h2 className="text-2xl font-heading font-bold text-navy m-0">3. Practice Obligations</h2>
                             </div>
                             <p>
@@ -55,7 +55,7 @@ const Terms = () => {
 
                         <section>
                             <div className="flex items-center gap-3 mb-4">
-                                <AlertCircle className="w-6 h-6 text-gold" />
+                                <AlertCircle className="w-6 h-6 text-navy" />
                                 <h2 className="text-2xl font-heading font-bold text-navy m-0">4. Bookings & Cancellations</h2>
                             </div>
                             <p>
@@ -65,7 +65,7 @@ const Terms = () => {
 
                         <section>
                             <div className="flex items-center gap-3 mb-4">
-                                <ShieldCheck className="w-6 h-6 text-gold" />
+                                <ShieldCheck className="w-6 h-6 text-navy" />
                                 <h2 className="text-2xl font-heading font-bold text-navy m-0">5. Professional Liability</h2>
                             </div>
                             <p>
@@ -75,7 +75,7 @@ const Terms = () => {
 
                         <section>
                             <div className="flex items-center gap-3 mb-4">
-                                <FileText className="w-6 h-6 text-gold" />
+                                <FileText className="w-6 h-6 text-navy" />
                                 <h2 className="text-2xl font-heading font-bold text-navy m-0">6. Governing Law</h2>
                             </div>
                             <p>

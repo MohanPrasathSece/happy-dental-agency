@@ -2,6 +2,7 @@ import { BookOpen, Shield, Gift, Banknote, GraduationCap, Users, Check } from "l
 import PageHeader from "@/components/PageHeader";
 import NurseRegistrationForm from "@/components/forms/NurseRegistrationForm";
 import CTASection from "@/components/sections/CTASection";
+import SEO from "@/components/SEO";
 
 const incentives = [
   { icon: BookOpen, title: "Free CPD Courses", desc: "Access complimentary professional development courses" },
@@ -31,6 +32,10 @@ const traineeBenefits = [
 const DentalNurses = () => {
   return (
     <main>
+      <SEO
+        title="Jobs for Dental Nurses | Locum & Permanent Roles UK"
+        description="Join leading dental nursing agencies in London and across the UK. Register for flexible locum shifts or permanent nursing roles with great benefits."
+      />
       <PageHeader
         badge="For Dental Nurses"
         title="Join Our Nursing Network"
@@ -56,7 +61,7 @@ const DentalNurses = () => {
                 className="bg-white rounded-2xl p-6 text-center border border-border hover:border-gold hover:shadow-large transition-all duration-300"
               >
                 <div className="w-14 h-14 rounded-xl bg-primary mx-auto mb-4 flex items-center justify-center">
-                  <item.icon className="w-7 h-7 text-gold" />
+                  <item.icon className="w-7 h-7 text-primary-foreground" />
                 </div>
                 <h3 className="font-heading font-semibold text-navy mb-2">{item.title}</h3>
                 <p className="text-sm text-muted-foreground">{item.desc}</p>
@@ -73,15 +78,15 @@ const DentalNurses = () => {
             {/* Qualified Nurses */}
             <div className="bg-white rounded-2xl p-6 md:p-8 border border-border">
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 rounded-xl bg-gold flex items-center justify-center">
-                  <Users className="w-6 h-6 text-white" />
+                <div className="w-12 h-12 rounded-xl bg-primary flex items-center justify-center">
+                  <Users className="w-6 h-6 text-primary-foreground" />
                 </div>
                 <h2 className="text-2xl font-heading font-bold text-navy">
                   Qualified Dental Nurses
                 </h2>
               </div>
               <p className="text-muted-foreground mb-6">
-                Take control of your career with flexible work opportunities that suit your lifestyle. 
+                Take control of your career with flexible work opportunities that suit your lifestyle.
                 Join our network of professionals and access the best dental practices across the UK.
               </p>
               <ul className="space-y-3">
@@ -107,7 +112,7 @@ const DentalNurses = () => {
                 </h2>
               </div>
               <p className="text-muted-foreground mb-6">
-                Struggling to find a placement during your dental nursing course? We're here to help! 
+                Struggling to find a placement during your dental nursing course? We're here to help!
                 We liaise directly with practices to secure positions while you complete your training.
               </p>
               <ul className="space-y-3">
@@ -134,7 +139,7 @@ const DentalNurses = () => {
                 Register With Us Today
               </h2>
               <p className="text-muted-foreground text-lg">
-                Complete the form below to join our network. Our team will contact you 
+                Complete the form below to join our network. Our team will contact you
                 within 24 hours to discuss opportunities.
               </p>
             </div>

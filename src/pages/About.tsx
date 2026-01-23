@@ -1,6 +1,7 @@
 import PageHeaderComp from "@/components/PageHeader";
 import CTASection from "@/components/sections/CTASection";
 import { Target, Eye, Heart, Shield, Award, Users } from "lucide-react";
+import SEO from "@/components/SEO";
 
 const About = () => {
     const values = [
@@ -28,6 +29,10 @@ const About = () => {
 
     return (
         <div className="flex flex-col min-h-screen">
+            <SEO
+                title="About Us | UK Dental Nursing Specialists"
+                description="Learn about Happy Dental Agency, London's trusted partner in dental staffing. Our mission is to connect excellence with opportunity across the UK."
+            />
             <PageHeaderComp
                 title="About Happy Dental Agency"
                 subtitle="Dedicated to excellence in dental nursing recruitment across the UK."
@@ -61,7 +66,7 @@ const About = () => {
                                 <h3 className="text-3xl font-heading font-bold mb-6 italic line-height-relaxed">
                                     "To be the UK's most trusted partner in dental staffing, known for our unwavering commitment to quality and happiness."
                                 </h3>
-                                <div className="w-20 h-1 bg-gold rounded-full" />
+                                <div className="w-20 h-1 bg-white/50 rounded-full" />
                             </div>
                         </div>
                     </div>
@@ -81,7 +86,7 @@ const About = () => {
                         {values.map((value, index) => (
                             <div key={index} className="bg-white p-8 rounded-2xl shadow-sm border border-border hover:shadow-xl transition-all hover-lift">
                                 <div className="w-16 h-16 rounded-2xl bg-primary/20 flex items-center justify-center mb-6">
-                                    <value.icon className="w-8 h-8 text-gold" />
+                                    <value.icon className="w-8 h-8 text-navy" />
                                 </div>
                                 <h4 className="text-xl font-heading font-bold text-navy mb-3">{value.title}</h4>
                                 <p className="text-muted-foreground leading-relaxed">{value.description}</p>

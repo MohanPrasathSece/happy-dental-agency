@@ -273,7 +273,7 @@ Message: ${data.message || "None"}
               />
               {cvFile ? (
                 <div className="flex items-center gap-3 p-3 bg-primary/30 rounded-lg border border-champagne-dark">
-                  <FileText className="w-5 h-5 text-gold" />
+                  <FileText className="w-5 h-5 text-navy" />
                   <span className="text-sm flex-1 truncate">{cvFile.name}</span>
                   <button
                     type="button"
