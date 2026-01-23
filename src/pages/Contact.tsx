@@ -77,13 +77,13 @@ const Contact = () => {
       />
 
       {/* Contact Info Cards */}
-      <section className="section-padding bg-background">
+      <section className="section-padding bg-white">
         <div className="container-custom">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
             {contactInfo.map((info, index) => (
               <div
                 key={index}
-                className="bg-white rounded-2xl p-6 border border-border hover:border-champagne-dark hover:shadow-medium transition-all text-center"
+                className="bg-card rounded-2xl p-6 border border-border hover:border-gold hover:shadow-medium transition-all text-center"
               >
                 <div className="w-14 h-14 rounded-xl bg-primary mx-auto mb-4 flex items-center justify-center">
                   <info.icon className="w-7 h-7 text-navy" />
@@ -181,10 +181,10 @@ const Contact = () => {
       <MapSection />
 
       {/* FAQs */}
-      <section className="section-padding bg-champagne-light">
+      <section className="section-padding bg-background">
         <div className="container-custom">
           <div className="text-center max-w-3xl mx-auto mb-12">
-            <span className="inline-block bg-white text-navy px-4 py-1.5 rounded-full text-sm font-semibold mb-4 shadow-soft">
+            <span className="inline-block bg-primary text-navy px-4 py-1.5 rounded-full text-sm font-semibold mb-4">
               FAQs
             </span>
             <h2 className="text-3xl font-heading font-bold text-navy mb-4">
@@ -199,7 +199,7 @@ const Contact = () => {
             {faqs.map((faq, index) => (
               <div
                 key={index}
-                className="bg-white rounded-2xl p-6 border border-border hover:shadow-medium transition-shadow"
+                className="bg-card rounded-2xl p-6 border border-border hover:shadow-medium transition-shadow"
               >
                 <h3 className="font-heading font-semibold text-navy mb-2">
                   {faq.question}

@@ -35,17 +35,17 @@ const incentives = [
 
 const IncentivesSection = () => {
   return (
-    <section className="section-padding bg-navy text-white">
+    <section className="section-padding bg-background">
       <div className="container-custom">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="inline-block bg-gold px-4 py-1.5 rounded-full text-sm font-semibold mb-4 text-white">
+          <span className="inline-block bg-gold text-navy px-4 py-1.5 rounded-full text-sm font-semibold mb-4 text-white">
             Nurse Benefits
           </span>
-          <h2 className="text-3xl md:text-4xl font-heading font-bold text-white mb-4">
+          <h2 className="text-3xl md:text-4xl font-heading font-bold text-navy mb-4">
             Why Join Happy Dental Agency?
           </h2>
-          <p className="text-white/80 text-lg">
+          <p className="text-muted-foreground text-lg">
             We believe in taking care of our dental nurses with exceptional benefits
             and ongoing support throughout their careers.
           </p>
@@ -56,15 +56,15 @@ const IncentivesSection = () => {
           {incentives.map((incentive, index) => (
             <div
               key={index}
-              className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 text-center hover:bg-white/10 transition-all duration-300 hover-lift border border-white/10 hover:border-gold"
+              className="bg-card rounded-2xl p-6 text-center hover:shadow-large transition-all duration-300 hover-lift border border-border hover:border-gold"
             >
-              <div className="w-16 h-16 rounded-2xl bg-gold mx-auto mb-4 flex items-center justify-center">
-                <incentive.icon className="w-8 h-8 text-white" />
+              <div className="w-16 h-16 rounded-2xl bg-primary mx-auto mb-4 flex items-center justify-center">
+                <incentive.icon className="w-8 h-8 text-navy" />
               </div>
-              <h3 className="text-lg font-heading font-semibold text-white mb-2">
+              <h3 className="text-lg font-heading font-semibold text-navy mb-2">
                 {incentive.title}
               </h3>
-              <p className="text-white/70 text-sm">
+              <p className="text-muted-foreground text-sm">
                 {incentive.description}
               </p>
             </div>

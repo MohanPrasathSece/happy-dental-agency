@@ -34,13 +34,13 @@ const CTASection = ({ variant = "general" }: CTASectionProps) => {
   const { title, description, primaryCTA, primaryLink } = content[variant];
 
   return (
-    <section className="section-padding bg-navy relative overflow-hidden border-t border-white/10">
+    <section className="section-padding bg-background relative overflow-hidden border-t border-border">
       <div className="container-custom relative z-10">
         <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-heading font-bold text-white mb-4">
+          <h2 className="text-3xl md:text-4xl font-heading font-bold text-navy mb-4">
             {title}
           </h2>
-          <p className="text-white/80 text-lg mb-8">{description}</p>
+          <p className="text-muted-foreground text-lg mb-8">{description}</p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link to={primaryLink}>
