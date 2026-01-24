@@ -64,7 +64,7 @@ const HowItWorks = () => {
   const [activeTab, setActiveTab] = useState<"practices" | "nurses">("practices");
 
   return (
-    <main className="theme-yellow-3">
+    <main>
       <SEO
         title="How It Works | Recruitment Process London"
         description="Our simple recruitment process for dental practices and nurses. Learn how we match quality practices in London with top nursing talent across the UK."

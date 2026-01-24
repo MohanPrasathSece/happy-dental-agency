@@ -28,6 +28,12 @@ const SEO = ({ title, description }: SEOProps) => {
         const ogUrl = document.querySelector('meta[property="og:url"]');
         if (ogUrl) ogUrl.setAttribute("content", `https://happydentalagency.co.uk${location.pathname}`);
 
+        const ogImage = document.querySelector('meta[property="og:image"]');
+        if (ogImage) ogImage.setAttribute("content", "/og-image-new.png");
+
+        const twitterImage = document.querySelector('meta[name="twitter:image"]');
+        if (twitterImage) twitterImage.setAttribute("content", "/og-image-new.png");
+
     }, [title, description, location.pathname]);
 
     return null;

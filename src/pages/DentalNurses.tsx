@@ -31,7 +31,7 @@ const traineeBenefits = [
 
 const DentalNurses = () => {
   return (
-    <main className="theme-yellow-5">
+    <main>
       <SEO
         title="Jobs for Dental Nurses | Locum & Permanent Roles UK"
         description="Join leading dental nursing agencies in London and across the UK. Register for flexible locum shifts or permanent nursing roles with great benefits."

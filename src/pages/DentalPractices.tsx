@@ -40,7 +40,7 @@ const benefits = [
 
 const DentalPractices = () => {
   return (
-    <main className="theme-yellow-4">
+    <main>
       <SEO
         title="Book Dental Nurses | Staffing for Dental Practices UK"
         description="Reliable locum and permanent dental nurse staffing for UK dental practices. Fast response times and fully vetted qualified nurses in London and nationwide."

@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Logo from "../Logo";
 
 interface CTASectionProps {
   variant?: "practices" | "nurses" | "general";
@@ -37,6 +38,9 @@ const CTASection = ({ variant = "general" }: CTASectionProps) => {
     <section className="section-padding bg-background relative overflow-hidden border-t border-border">
       <div className="container-custom relative z-10">
         <div className="max-w-3xl mx-auto text-center">
+          <div className="flex justify-center mb-6">
+            <Logo size="md" showText={false} />
+          </div>
           <h2 className="text-3xl md:text-4xl font-heading font-bold text-navy mb-4">
             {title}
           </h2>

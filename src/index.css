@@ -6,20 +6,20 @@
 
 @layer base {
   :root {
-    /* Happy Dental Agency - "Champagne & Gold" Theme */
+    /* Happy Dental Agency - Refined "Champagne & White" Theme */
     --background: 0 0% 100%;
-    --foreground: 30 20% 12%;
-    /* Elegant Deep Charcoal with bit of warm to match champagne */
+    --foreground: 220 25% 12%;
+    /* Deep navy-charcoal for premium contrast */
 
     --card: 0 0% 100%;
-    --card-foreground: 30 20% 12%;
+    --card-foreground: 220 25% 12%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 30 20% 12%;
+    --popover-foreground: 220 25% 12%;
 
-    /* Primary: Champagne Light Yellow */
+    /* Primary: Elegant Champagne */
     --primary: 38 75% 92%;
-    --primary-foreground: 30 20% 12%;
+    --primary-foreground: 220 25% 12%;
 
     /* Darker champagne for hover/interaction */
     --primary-dark: 38 65% 85%;
@@ -28,14 +28,14 @@
     --gold: 38 45% 65%;
     --gold-foreground: 0 0% 100%;
 
-    --secondary: 40 40% 96%;
-    --secondary-foreground: 30 20% 12%;
+    --secondary: 38 60% 97%;
+    --secondary-foreground: 220 25% 12%;
 
-    --muted: 40 30% 94%;
+    --muted: 38 30% 94%;
     --muted-foreground: 30 10% 45%;
 
     --accent: 38 75% 92%;
-    --accent-foreground: 30 20% 12%;
+    --accent-foreground: 220 25% 12%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
@@ -48,7 +48,7 @@
 
     /* Custom Tokens - Mapped to Champagne Palette */
     --champagne: 38 75% 92%;
-    --champagne-light: 42 100% 97%;
+    --champagne-light: 38 100% 98%;
     --champagne-dark: 38 60% 82%;
 
     --navy: 220 25% 15%;
@@ -57,82 +57,25 @@
     --success: 160 60% 45%;
     --success-foreground: 0 0% 100%;
 
-    /* Shadows - Warm Toned */
+    /* Shadows - Soft and Warm */
     --shadow-sm: 0 2px 8px hsl(30 20% 12% / 0.04);
     --shadow-md: 0 4px 20px hsl(30 20% 12% / 0.06);
     --shadow-lg: 0 8px 40px hsl(30 20% 12% / 0.08);
     --shadow-gold: 0 4px 20px hsl(38 45% 65% / 0.15);
 
-    /* Gradients - Champagne Radiance */
-    --gradient-hero: linear-gradient(180deg, hsl(38 100% 98%) 0%, hsl(38 75% 92%) 100%);
-    --gradient-card: linear-gradient(145deg, hsl(38 80% 98%) 0%, hsl(38 70% 95%) 100%);
+    /* Gradients - Champagne & White Radiance */
+    --gradient-hero: linear-gradient(180deg, hsl(38 100% 100%) 0%, hsl(38 100% 97%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%) 0%, hsl(38 100% 98%) 100%);
     --gradient-cta: linear-gradient(135deg, hsl(38 75% 92%) 0%, hsl(38 60% 85%) 100%);
 
-    --sidebar-background: 38 60% 96%;
-    --sidebar-foreground: 30 20% 20%;
-    --sidebar-primary: 38 75% 90%;
-    --sidebar-primary-foreground: 30 20% 15%;
-    --sidebar-accent: 38 50% 94%;
-    --sidebar-accent-foreground: 30 20% 15%;
+    --sidebar-background: 38 60% 98%;
+    --sidebar-foreground: 220 25% 15%;
+    --sidebar-primary: 38 75% 92%;
+    --sidebar-primary-foreground: 220 25% 12%;
+    --sidebar-accent: 38 50% 95%;
+    --sidebar-accent-foreground: 220 25% 12%;
     --sidebar-border: 38 30% 90%;
     --sidebar-ring: 38 45% 85%;
-  }
-
-  /* 5 Tones of Yellow for page progression */
-  .theme-yellow-1 {
-    --background: 38 80% 98%;
-    --primary: 38 80% 94%;
-    --primary-dark: 38 75% 88%;
-    --secondary: 38 70% 96%;
-    --muted: 38 60% 95%;
-    --card: 0 0% 100%;
-    --champagne-light: 38 100% 99%;
-    --gradient-hero: linear-gradient(180deg, hsl(38 100% 99%) 0%, hsl(38 80% 94%) 100%);
-  }
-
-  .theme-yellow-2 {
-    --background: 38 80% 94%;
-    --primary: 38 80% 88%;
-    --primary-dark: 38 75% 82%;
-    --secondary: 38 70% 92%;
-    --muted: 38 60% 91%;
-    --card: 38 80% 96%;
-    --champagne-light: 38 90% 95%;
-    --gradient-hero: linear-gradient(180deg, hsl(38 90% 96%) 0%, hsl(38 80% 88%) 100%);
-  }
-
-  .theme-yellow-3 {
-    --background: 38 80% 88%;
-    --primary: 38 80% 78%;
-    --primary-dark: 38 75% 72%;
-    --secondary: 38 70% 84%;
-    --muted: 38 60% 82%;
-    --card: 38 80% 92%;
-    --champagne-light: 38 90% 90%;
-    --gradient-hero: linear-gradient(180deg, hsl(38 90% 92%) 0%, hsl(38 80% 78%) 100%);
-  }
-
-  .theme-yellow-4 {
-    --background: 38 80% 82%;
-    --primary: 38 80% 68%;
-    --primary-dark: 38 75% 62%;
-    --secondary: 38 70% 78%;
-    --muted: 38 60% 76%;
-    --card: 38 80% 88%;
-    --champagne-light: 38 90% 85%;
-    --gradient-hero: linear-gradient(180deg, hsl(38 90% 87%) 0%, hsl(38 80% 68%) 100%);
-  }
-
-  .theme-yellow-5 {
-    --background: 38 80% 74%;
-    --primary: 38 80% 58%;
-    --primary-dark: 38 75% 52%;
-    --secondary: 38 70% 68%;
-    --muted: 38 60% 66%;
-    --card: 38 80% 80%;
-    --champagne-light: 38 90% 78%;
-    --gradient-hero: linear-gradient(180deg, hsl(38 90% 80%) 0%, hsl(38 80% 58%) 100%);
-    --foreground: 38 30% 10%;
   }
 
   .dark {

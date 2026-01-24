@@ -5,24 +5,24 @@ interface LogoProps {
 
 const Logo = ({ size = "md", showText = true }: LogoProps) => {
   const sizes = {
-    sm: "h-8",
-    md: "h-12",
-    lg: "h-16",
+    sm: "h-14",
+    md: "h-20 md:h-28",
+    lg: "h-26 md:h-36",
   };
 
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-3">
       <img
-        src="/logo.png"
+        src="/logo-new.png"
         alt="Happy Dental Agency"
-        className={`${sizes[size]} w-auto object-contain`}
+        className={`${sizes[size]} w-auto object-contain transition-all duration-300`}
       />
       {showText && (
         <div className="flex flex-col leading-none">
-          <span className="font-heading font-bold text-navy text-lg md:text-xl">
+          <span className="font-heading font-bold text-navy text-base md:text-lg tracking-tight">
             Happy Dental
           </span>
-          <span className="text-[10px] md:text-xs font-medium text-muted-foreground tracking-wider uppercase">
+          <span className="text-[8px] md:text-[10px] font-semibold text-muted-foreground tracking-widest uppercase">
             Agency
           </span>
         </div>

@@ -1,6 +1,7 @@
 import { Users, Clock, GraduationCap, Building2, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import Logo from "../Logo";
 
 const services = [
   {
@@ -42,6 +43,9 @@ const ServicesSection = () => {
           <span className="inline-block bg-primary text-primary-foreground px-4 py-1.5 rounded-full text-sm font-semibold mb-4">
             Our Services
           </span>
+          <div className="flex justify-center mb-6 opacity-20">
+            <Logo size="sm" showText={false} />
+          </div>
           <h2 className="text-3xl md:text-4xl font-heading font-bold text-navy mb-4">
             Comprehensive Dental Nursing Solutions
           </h2>

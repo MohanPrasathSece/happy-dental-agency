@@ -12,7 +12,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           {/* Company Info */}
           <div className="space-y-4">
-            <div className="bg-white rounded-lg p-3 w-fit">
+            <div className="bg-white rounded-lg p-5 w-fit">
               <Logo size="sm" />
             </div>
             <p className="text-white/80 text-sm leading-relaxed">

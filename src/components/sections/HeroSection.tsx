@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, CheckCircle2, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Logo from "../Logo";
 
 const HeroSection = () => {
     const highlights = [
@@ -20,6 +21,9 @@ const HeroSection = () => {
 
             <div className="container-custom relative z-10 pt-24 pb-16 md:pt-40 md:pb-28">
                 <div className="max-w-4xl mx-auto text-center">
+                    <div className="flex justify-center mb-8 animate-fade-in">
+                        <Logo size="lg" showText={false} />
+                    </div>
                     {/* Badge */}
                     <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm rounded-full px-4 py-2 mb-6 md:mb-8 shadow-soft animate-fade-in">
                         <span className="w-2 h-2 bg-success rounded-full animate-pulse" />

@@ -57,7 +57,7 @@ const Header = () => {
         >
             <div className="container-custom flex items-center justify-between">
                 <Link to="/" className="relative z-10">
-                    <Logo size="md" />
+                    <Logo size="sm" />
                 </Link>
 
                 {/* Desktop Navigation */}

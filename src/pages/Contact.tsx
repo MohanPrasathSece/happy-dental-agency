@@ -65,7 +65,7 @@ const faqs = [
 
 const Contact = () => {
   return (
-    <main className="theme-yellow-5">
+    <main>
       <SEO
         title="Contact Us | Dental Agency London & UK Support"
         description="Get in touch with Happy Dental Agency London. Reach our professional support team for staffing inquiries or nurse registration across the UK."
