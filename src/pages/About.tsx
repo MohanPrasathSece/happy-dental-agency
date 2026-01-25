@@ -99,62 +99,35 @@ const About = () => {
                 </div>
             </section>
 
-            {/* CEO Section - Executive Signature Design */}
-            <section className="section-padding bg-muted/20 overflow-hidden relative">
+            {/* CEO Section - Simplified Design */}
+            <section className="section-padding bg-white mt-10">
                 <div className="container-custom">
-                    <div className="bg-white rounded-[3rem] shadow-xl overflow-hidden border border-gold/10 relative">
-                        {/* Decorative background element */}
-                        <div className="absolute top-0 right-0 w-1/3 h-full bg-navy/5 -skew-x-12 translate-x-20 z-0 hidden lg:block" />
-
-                        <div className="grid lg:grid-cols-12 relative z-10">
-                            {/* Left Content Column */}
-                            <div className="lg:col-span-7 p-10 md:p-16 lg:p-20 flex flex-col justify-center">
-                                <div className="inline-block bg-gold/10 text-gold px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-[0.2em] mb-8">
-                                    Executive Message
-                                </div>
-
-                                <h2 className="text-3xl md:text-5xl font-heading font-bold text-navy mb-10 leading-tight">
-                                    Setting the Standard in <br />
-                                    <span className="text-gold italic">Dental Excellence</span>
-                                </h2>
-
-                                <div className="space-y-8">
-                                    <p className="text-xl md:text-2xl text-navy/70 leading-relaxed font-light">
-                                        "Quality is never an accident; it is the result of intelligent direction and skillful execution. We represent the bridge between professional ambition and clinical excellence."
-                                    </p>
-
-                                    <div className="h-0.5 w-24 bg-gradient-to-r from-gold to-transparent" />
-
-                                    <div className="prose prose-slate max-w-none text-muted-foreground italic text-lg line-height-relaxed">
-                                        "Our commitment goes beyond simple staffing. We are dedicated to elevating the dental nursing profession by ensuring every placement reflects the high standards our practices expect and our nurses deserve."
-                                    </div>
-
-                                    <div className="flex items-center gap-6 pt-6">
-                                        <div className="w-16 h-16 rounded-full bg-navy flex items-center justify-center text-white shadow-lg">
-                                            <Award className="w-8 h-8" />
-                                        </div>
-                                        <div>
-                                            <p className="font-heading font-bold text-3xl text-navy tracking-tight">Akosua Dapaah</p>
-                                            <p className="text-gold font-bold uppercase tracking-widest text-xs mt-1">CEO & Founder</p>
-                                        </div>
-                                    </div>
+                    <div className="max-w-4xl mx-auto">
+                        <div className="grid md:grid-cols-12 gap-12 items-center">
+                            {/* Profile Image */}
+                            <div className="md:col-span-4">
+                                <div className="aspect-square rounded-2xl overflow-hidden shadow-lg border-2 border-champagne">
+                                    <img
+                                        src="/recruitment.png"
+                                        alt="Akosua Dapaah"
+                                        className="w-full h-full object-cover"
+                                    />
                                 </div>
                             </div>
 
-                            {/* Right Image Column */}
-                            <div className="lg:col-span-5 relative min-h-[400px] lg:min-h-full">
-                                <img
-                                    src="/recruitment.png"
-                                    alt="Akosua Dapaah"
-                                    className="absolute inset-0 w-full h-full object-cover grayscale-[20%] hover:grayscale-0 transition-all duration-700"
-                                />
-                                <div className="absolute inset-0 bg-gradient-to-l from-navy/30 via-transparent to-white/10 lg:to-transparent" />
+                            {/* Message */}
+                            <div className="md:col-span-8">
+                                <span className="text-gold font-bold uppercase tracking-widest text-xs">A Message From Our Founder</span>
+                                <h2 className="text-3xl font-heading font-bold text-navy mt-2 mb-6">Our Commitment to You</h2>
 
-                                {/* Floating Badge */}
-                                <div className="absolute top-10 right-10 flex flex-col gap-2">
-                                    <div className="bg-white/90 backdrop-blur-md p-4 rounded-2xl shadow-xl border border-white/50 animate-bounce-gentle">
-                                        <p className="text-navy font-bold text-center leading-none">100%</p>
-                                        <p className="text-[10px] text-muted-foreground uppercase tracking-widest font-medium">Commitment</p>
+                                <div className="space-y-4">
+                                    <blockquote className="text-xl text-navy/80 italic leading-relaxed">
+                                        "At Happy Dental Agency, we believe that the heart of every successful practice is its people. My mission is to ensure that every dental professional we place is not just qualified, but truly happy and supported in their role."
+                                    </blockquote>
+
+                                    <div className="pt-4">
+                                        <p className="font-heading font-bold text-2xl text-navy">Akosua Dapaah</p>
+                                        <p className="text-muted-foreground font-medium">CEO & Founder, Happy Dental Agency</p>
                                     </div>
                                 </div>
                             </div>
