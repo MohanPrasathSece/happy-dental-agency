@@ -115,12 +115,20 @@ const Header = () => {
                 >
                     <div className="flex flex-col h-full">
                         {/* Menu Header */}
-                        <div className="px-6 pt-20 pb-6 border-b border-border/50 flex items-center justify-between">
-                            <div>
-                                <h2 className="text-2xl font-bold text-foreground mb-1">Menu</h2>
-                                <p className="text-sm text-muted-foreground">Navigate to any page</p>
+                        <div className="px-6 pt-20 pb-8 border-b border-border/50">
+                            <div className="flex items-center justify-between mb-6">
+                                <div>
+                                    <h2 className="text-2xl font-bold text-foreground mb-1">Menu</h2>
+                                    <p className="text-sm text-muted-foreground">Navigate our site</p>
+                                </div>
+                                <X
+                                    className="w-6 h-6 text-muted-foreground cursor-pointer lg:hidden"
+                                    onClick={() => setIsOpen(false)}
+                                />
                             </div>
-                            <GoogleTranslate />
+                            <div className="flex justify-center">
+                                <GoogleTranslate />
+                            </div>
                         </div>
 
                         {/* Navigation Links */}

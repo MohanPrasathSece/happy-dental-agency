@@ -72,15 +72,20 @@ const GoogleTranslate = () => {
   return (
     <div className="relative translate-dropdown-container flex items-center">
       <Button
-        variant="ghost"
+        variant="outline"
         size="sm"
-        className={`gap-2 text-navy hover:bg-gold/10 transition-colors border ${isVisible ? "border-gold/50 bg-gold/5" : "border-transparent"
+        className={`gap-2 h-10 px-4 text-navy transition-all duration-300 border-2 rounded-full ${isVisible
+          ? "border-gold bg-gold/10 shadow-lg scale-105"
+          : "border-primary hover:border-gold hover:bg-gold/5 shadow-soft"
           }`}
         onClick={() => setIsVisible(!isVisible)}
       >
-        <Globe className="w-4 h-4 text-navy" />
-        <span className="hidden sm:inline font-medium uppercase tracking-wider text-xs">
-          {languages.find((l) => l.code === currentLang)?.label || "Translate"}
+        <Globe className="w-4 h-4 text-gold shrink-0 animate-pulse" />
+        <span className="font-bold uppercase tracking-tight text-[11px] sm:text-xs">
+          {languages.find((l) => l.code === currentLang)?.label || "EN"}
+        </span>
+        <span className="text-[11px] sm:text-xs font-bold border-l border-navy/20 pl-2">
+          Select Language
         </span>
       </Button>
 
