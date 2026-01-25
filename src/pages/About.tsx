@@ -99,54 +99,39 @@ const About = () => {
                 </div>
             </section>
 
-            {/* CEO Section - Grand Visionary Design */}
-            <section className="bg-navy overflow-hidden relative">
-                <div className="flex flex-col lg:flex-row min-h-[600px]">
-                    {/* Left side: Image with cinematic overlay */}
-                    <div className="w-full lg:w-1/2 relative min-h-[400px]">
-                        <img
-                            src="/recruitment.png"
-                            alt="Akosua Dapaah"
-                            className="absolute inset-0 w-full h-full object-cover grayscale-[30%] opacity-90"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-r from-navy/50 to-navy lg:to-transparent" />
-                        <div className="absolute inset-x-0 bottom-0 p-8 lg:p-16 lg:hidden">
-                            <p className="font-heading font-bold text-3xl text-white tracking-tight">Akosua Dapaah</p>
-                            <p className="text-gold font-bold uppercase tracking-[0.2em] text-xs">CEO & Founder</p>
-                        </div>
-                    </div>
-
-                    {/* Right side: Bold content */}
-                    <div className="w-full lg:w-1/2 flex items-center p-8 md:p-16 lg:p-24 relative bg-navy">
-                        <div className="absolute top-10 right-10 opacity-5 select-none text-[20rem] font-bold text-white pointer-events-none leading-none">
-                            "
-                        </div>
-
-                        <div className="relative z-10 max-w-2xl">
-                            <div className="flex items-center gap-4 mb-8">
-                                <span className="h-px w-12 bg-gold"></span>
-                                <span className="text-gold font-bold uppercase tracking-[0.3em] text-[10px] md:text-sm">Leadership Vision</span>
+            {/* CEO Section - Elegant Minimal Design */}
+            <section className="section-padding bg-white mt-12">
+                <div className="container-custom">
+                    <div className="max-w-5xl mx-auto bg-muted/30 rounded-[2.5rem] p-8 md:p-16 border border-border/50">
+                        <div className="flex flex-col items-center text-center">
+                            <div className="relative mb-10">
+                                <div className="absolute inset-0 bg-gold/20 rounded-full blur-2xl -m-4" />
+                                <div className="relative w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-white shadow-xl">
+                                    <img
+                                        src="/recruitment.png"
+                                        alt="Akosua Dapaah"
+                                        className="w-full h-full object-cover"
+                                    />
+                                </div>
                             </div>
 
-                            <h2 className="text-4xl md:text-6xl font-heading font-extrabold text-white mb-10 leading-[1.1]">
-                                Our Commitment <br />
-                                <span className="text-gold italic">Defined.</span>
+                            <div className="inline-flex items-center gap-2 bg-navy text-white px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-widest mb-8">
+                                CEO Message
+                            </div>
+
+                            <h2 className="text-3xl md:text-5xl font-heading font-bold text-navy mb-10 max-w-3xl leading-tight">
+                                Dedication to Your Success <br /> is our <span className="text-gold">Top Priority</span>
                             </h2>
 
-                            <div className="space-y-10">
-                                <div className="relative pl-8 border-l-4 border-gold/40">
-                                    <p className="text-xl md:text-3xl text-white/90 leading-relaxed font-light italic">
-                                        "At the intersection of care and professionalism, we find the true essence of dental nursing. We aren't just staffing practices; we are empowering the backbone of UK dentistry."
-                                    </p>
-                                </div>
-
-                                <p className="text-white/60 text-lg md:text-xl leading-relaxed font-light">
-                                    Under Akosua's leadership, Happy Dental Agency has evolved into more than a recruitment firm. It is a community where quality meets compassion, ensuring every nurse is valued and every patient receives exceptional care from happy professionals.
+                            <div className="max-w-3xl relative">
+                                <p className="text-xl md:text-2xl text-navy/70 italic leading-relaxed font-medium">
+                                    "Quality care starts with happy, supported professionals. Our mission is to ensure every dental practice we serve and every nurse we represent finds their perfect match."
                                 </p>
 
-                                <div className="hidden lg:block pt-8">
-                                    <p className="font-heading font-bold text-4xl text-white tracking-tight">Akosua Dapaah</p>
-                                    <p className="text-gold font-bold uppercase tracking-[0.4em] text-xs mt-3">Founder, Happy Dental Agency</p>
+                                <div className="mt-10 flex flex-col items-center">
+                                    <div className="h-0.5 w-16 bg-gold mb-6" />
+                                    <p className="font-heading font-bold text-3xl text-navy">Akosua Dapaah</p>
+                                    <p className="text-muted-foreground font-semibold mt-1">Founder & CEO, Happy Dental Agency</p>
                                 </div>
                             </div>
                         </div>
