@@ -22,7 +22,7 @@ const HeroSection = () => {
                 </div>
             </div>
 
-            <div className="container-custom relative z-10 pt-32 pb-16 md:pt-40 md:pb-28">
+            <div className="container-custom relative z-10 pt-24 pb-16 md:pt-32 md:pb-28">
                 <div className="max-w-4xl mx-auto text-center">
                     <div className="flex justify-center mb-10 animate-fade-in">
                         <Logo size="lg" showText={false} />
