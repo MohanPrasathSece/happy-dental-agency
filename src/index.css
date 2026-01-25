@@ -283,3 +283,27 @@
 ::-webkit-scrollbar-thumb:hover {
   background: hsl(var(--navy));
 }
+
+/* Remove any decorative lines from footer */
+footer,
+footer *,
+footer::before,
+footer::after,
+footer *::before,
+footer *::after {
+  border-image: none !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+footer::before,
+footer::after {
+  display: none !important;
+  content: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+footer div[class*="border"] {
+  border: none !important;
+}

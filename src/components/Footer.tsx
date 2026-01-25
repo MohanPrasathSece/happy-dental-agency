@@ -6,15 +6,13 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-navy text-white">
+    <footer className="bg-navy text-white relative overflow-hidden">
       {/* Main Footer */}
       <div className="container-custom section-padding">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           {/* Company Info */}
           <div className="space-y-4">
-            <div className="bg-white rounded-lg p-5 w-fit">
-              <Logo size="sm" />
-            </div>
+            <Logo size="sm" showText={false} />
             <p className="text-white/80 text-sm leading-relaxed">
               Your trusted partner for dental nursing recruitment across the UK.
               Connecting dental practices with qualified and trainee dental nurses.
@@ -111,7 +109,7 @@ const Footer = () => {
       </div>
 
       {/* Bottom Bar */}
-      <div className="border-t border-white/10">
+      <div className="">
         <div className="container-custom py-8 flex flex-col md:flex-row items-center justify-between gap-6 text-sm text-white/60">
           <p className="order-3 md:order-1 text-center md:text-left">
             © {currentYear} Happy Dental Agency. All rights reserved.
@@ -124,7 +122,7 @@ const Footer = () => {
                 href="https://www.zyradigitals.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-champagne hover:text-white transition-colors font-medium border-b border-champagne/30"
+                className="text-champagne hover:text-white transition-colors font-medium"
               >
                 Zyra Digitals
               </a>

@@ -2,7 +2,7 @@ import React from 'react';
 
 const MapSection = () => {
     return (
-        <section className="section-padding bg-background">
+        <section className="section-padding bg-white">
             <div className="container-custom">
                 <div className="text-center max-w-3xl mx-auto mb-12">
                     <span className="inline-block bg-white text-navy px-4 py-1.5 rounded-full text-sm font-semibold mb-4 shadow-soft border border-border">

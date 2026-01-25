@@ -50,14 +50,14 @@ const Header = () => {
 
     return (
         <header
-            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 lg:duration-300 py-4 ${isScrolled && !isOpen
-                ? "bg-white lg:bg-white/80 lg:backdrop-blur-md lg:shadow-md lg:border-b lg:border-white/20 lg:py-5"
-                : "bg-white lg:bg-transparent lg:py-10"
+            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 lg:duration-300 py-1 ${isScrolled && !isOpen
+                ? "bg-white lg:bg-white/80 lg:backdrop-blur-md lg:shadow-md lg:border-b lg:border-white/20 lg:py-2"
+                : "bg-white lg:bg-transparent lg:py-2"
                 }`}
         >
             <div className="container-custom flex items-center justify-between">
                 <Link to="/" className="relative z-10">
-                    <Logo size="sm" />
+                    <Logo size="sm" showText={false} />
                 </Link>
 
                 {/* Desktop Navigation */}
