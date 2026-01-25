@@ -26,24 +26,26 @@ const GoogleTranslate = () => {
     if (!document.getElementById(scriptId)) {
       const script = document.createElement("script");
       script.id = scriptId;
-      script.src = "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+      script.src = "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
       script.async = true;
       document.body.appendChild(script);
     }
 
-    // Initialize Google Translate
-    window.googleTranslateElementInit = () => {
-      if (window.google && window.google.translate) {
-        new window.google.translate.TranslateElement(
-          {
-            pageLanguage: "en",
-            includedLanguages: "en,fr,es,pt",
-            autoDisplay: false,
-          },
-          "google_translate_element"
-        );
-      }
-    };
+    // Initialize Google Translate globally if not already initialized
+    if (!window.googleTranslateElementInit) {
+      window.googleTranslateElementInit = () => {
+        if (window.google && window.google.translate) {
+          new window.google.translate.TranslateElement(
+            {
+              pageLanguage: "en",
+              includedLanguages: "en,fr,es,pt",
+              autoDisplay: false,
+            },
+            "google_translate_element"
+          );
+        }
+      };
+    }
 
     // Close on click outside
     const handleClickOutside = (e: MouseEvent) => {
@@ -69,9 +71,6 @@ const GoogleTranslate = () => {
 
   return (
     <div className="relative translate-dropdown-container flex items-center">
-      {/* Hidden Google Element */}
-      <div id="google_translate_element" style={{ display: "none" }} />
-
       <Button
         variant="ghost"
         size="sm"

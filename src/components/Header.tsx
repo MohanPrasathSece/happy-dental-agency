@@ -86,7 +86,7 @@ const Header = () => {
                     </a>
                     <Link to="/dental-practices">
                         <Button variant="cta" size="sm">
-                            Book a Nurse
+                            Book for a Nurse
                         </Button>
                     </Link>
                     <GoogleTranslate />
@@ -115,9 +115,12 @@ const Header = () => {
                 >
                     <div className="flex flex-col h-full">
                         {/* Menu Header */}
-                        <div className="px-6 pt-20 pb-6 border-b border-border/50">
-                            <h2 className="text-2xl font-bold text-foreground mb-1">Menu</h2>
-                            <p className="text-sm text-muted-foreground">Navigate to any page</p>
+                        <div className="px-6 pt-20 pb-6 border-b border-border/50 flex items-center justify-between">
+                            <div>
+                                <h2 className="text-2xl font-bold text-foreground mb-1">Menu</h2>
+                                <p className="text-sm text-muted-foreground">Navigate to any page</p>
+                            </div>
+                            <GoogleTranslate />
                         </div>
 
                         {/* Navigation Links */}

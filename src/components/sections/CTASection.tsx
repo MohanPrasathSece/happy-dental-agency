@@ -10,17 +10,17 @@ interface CTASectionProps {
 const CTASection = ({ variant = "general" }: CTASectionProps) => {
   const content = {
     practices: {
-      title: "Need Reliable Trainee Nursing Staff?",
+      title: "Need Reliable Nursing Staff?",
       description:
-        "Book qualified trainee dental nurses for your practice today. Fast response, vetted professionals, and guaranteed satisfaction.",
-      primaryCTA: "Book a Trainee Nurse Now",
+        "Book qualified and trainee dental nurses for your practice today. Fast response, vetted professionals, and guaranteed satisfaction.",
+      primaryCTA: "Book for a Nurse Now",
       primaryLink: "/dental-practices",
     },
     nurses: {
-      title: "Ready to Start Your Trainee Nursing Career?",
+      title: "Ready to Start Your Nursing Career?",
       description:
-        "Join our network of trainee dental professionals. Enjoy competitive rates, free CPD courses, and ongoing support.",
-      primaryCTA: "Register as a Trainee Nurse",
+        "Join our network of qualified and trainee dental professionals. Enjoy competitive rates, free CPD courses, and ongoing support.",
+      primaryCTA: "Register as a Nurse",
       primaryLink: "/dental-nurses",
     },
     general: {

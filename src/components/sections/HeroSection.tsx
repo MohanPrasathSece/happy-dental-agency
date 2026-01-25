@@ -22,7 +22,7 @@ const HeroSection = () => {
                 </div>
             </div>
 
-            <div className="container-custom relative z-10 pt-18 pb-16 md:pt-32 md:pb-28">
+            <div className="container-custom relative z-10 pt-32 pb-16 md:pt-40 md:pb-28">
                 <div className="max-w-4xl mx-auto text-center">
                     <div className="flex justify-center mb-10 animate-fade-in">
                         <Logo size="lg" showText={false} />
@@ -49,15 +49,20 @@ const HeroSection = () => {
                     </p>
 
                     {/* CTA Buttons */}
-                    <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12 animate-slide-up" style={{ animationDelay: "0.2s" }}>
-                        <Link to="/dental-practices">
-                            <Button variant="cta" size="xl" className="w-full sm:w-auto group">
-                                Book a Nurse
+                    <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-4 mb-12 animate-slide-up" style={{ animationDelay: "0.2s" }}>
+                        <Link to="/dental-practices" className="w-full sm:w-auto">
+                            <Button variant="cta" size="xl" className="w-full group">
+                                Book for a Nurse
                                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                             </Button>
                         </Link>
-                        <Link to="/dental-nurses">
-                            <Button variant="hero-outline" size="xl" className="w-full sm:w-auto">
+                        <Link to="/dental-nurses" className="w-full sm:w-auto">
+                            <Button variant="hero-outline" size="xl" className="w-full">
+                                Register as a Nurse
+                            </Button>
+                        </Link>
+                        <Link to="/dental-nurses" className="w-full sm:w-auto">
+                            <Button variant="hero-outline" size="xl" className="w-full">
                                 Register as a Trainee Nurse
                             </Button>
                         </Link>
