@@ -284,26 +284,32 @@
   background: hsl(var(--navy));
 }
 
-/* Remove any decorative lines from footer */
+/* Universal Footer Line & Decoration Killer */
 footer,
 footer *,
 footer::before,
 footer::after,
 footer *::before,
 footer *::after {
-  border-image: none !important;
   background-image: none !important;
+  border: none !important;
+  border-image: none !important;
   box-shadow: none !important;
+  text-decoration: none !important;
+  outline: none !important;
 }
 
 footer::before,
 footer::after {
-  display: none !important;
   content: none !important;
-  opacity: 0 !important;
-  visibility: hidden !important;
+  display: none !important;
 }
 
-footer div[class*="border"] {
+/* Explicitly kill any repeating gradients which users often report as dotted lines */
+footer {
+  background: hsl(var(--navy)) !important;
+}
+
+footer [class*="border"] {
   border: none !important;
 }

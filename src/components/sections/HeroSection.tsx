@@ -17,11 +17,14 @@ const HeroSection = () => {
             <div className="absolute inset-0 overflow-hidden">
                 <div className="absolute top-20 right-10 w-64 h-64 bg-champagne-dark/20 rounded-full blur-3xl" />
                 <div className="absolute bottom-20 left-10 w-96 h-96 bg-gold/10 rounded-full blur-3xl" />
+                <div className="absolute top-0 right-0 w-1/2 h-full hidden lg:block opacity-10">
+                    <img src="/hero-dental.png" alt="Dental Office" className="w-full h-full object-cover" />
+                </div>
             </div>
 
-            <div className="container-custom relative z-10 pt-24 pb-16 md:pt-40 md:pb-28">
+            <div className="container-custom relative z-10 pt-18 pb-16 md:pt-32 md:pb-28">
                 <div className="max-w-4xl mx-auto text-center">
-                    <div className="flex justify-center mb-8 animate-fade-in">
+                    <div className="flex justify-center mb-10 animate-fade-in">
                         <Logo size="lg" showText={false} />
                     </div>
                     {/* Badge */}
@@ -49,13 +52,13 @@ const HeroSection = () => {
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12 animate-slide-up" style={{ animationDelay: "0.2s" }}>
                         <Link to="/dental-practices">
                             <Button variant="cta" size="xl" className="w-full sm:w-auto group">
-                                Book a Dental Nurse
+                                Book a Nurse
                                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                             </Button>
                         </Link>
                         <Link to="/dental-nurses">
                             <Button variant="hero-outline" size="xl" className="w-full sm:w-auto">
-                                Register as a Nurse
+                                Register as a Trainee Nurse
                             </Button>
                         </Link>
                     </div>

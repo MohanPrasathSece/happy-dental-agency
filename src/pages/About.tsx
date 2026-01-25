@@ -58,15 +58,18 @@ const About = () => {
                         </div>
                         <div className="relative group">
                             <div className="absolute inset-0 bg-gold/10 rounded-3xl transform rotate-3 group-hover:rotate-0 transition-transform duration-500" />
-                            <div className="relative bg-navy rounded-3xl p-10 md:p-14 text-white">
-                                <div className="inline-flex items-center gap-2 bg-white/10 text-champagne px-4 py-1.5 rounded-full text-sm font-semibold mb-6">
-                                    <Eye className="w-4 h-4" />
-                                    Our Vision
+                            <div className="relative bg-navy rounded-3xl overflow-hidden text-white">
+                                <img src="/about-dental.png" alt="Dental Support" className="w-full h-64 md:h-80 object-cover opacity-60" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/50 to-transparent flex flex-col justify-end p-8 md:p-12">
+                                    <div className="inline-flex items-center gap-2 bg-white/10 text-champagne px-4 py-1.5 rounded-full text-sm font-semibold mb-6 w-fit">
+                                        <Eye className="w-4 h-4" />
+                                        Our Vision
+                                    </div>
+                                    <h3 className="text-2xl font-heading font-bold mb-6 italic leading-relaxed">
+                                        "To be the UK's most trusted partner in dental staffing, known for our unwavering commitment to quality and happiness."
+                                    </h3>
+                                    <div className="w-20 h-1 bg-white/50 rounded-full" />
                                 </div>
-                                <h3 className="text-3xl font-heading font-bold mb-6 italic line-height-relaxed">
-                                    "To be the UK's most trusted partner in dental staffing, known for our unwavering commitment to quality and happiness."
-                                </h3>
-                                <div className="w-20 h-1 bg-white/50 rounded-full" />
                             </div>
                         </div>
                     </div>
@@ -96,42 +99,33 @@ const About = () => {
                 </div>
             </section>
 
-            {/* Team Intro placeholder */}
+            {/* CEO Section */}
             <section className="section-padding bg-white overflow-hidden">
                 <div className="container-custom">
-                    <div className="flex flex-col lg:flex-row gap-16 items-center">
-                        <div className="flex-1 order-2 lg:order-1">
-                            <div className="grid grid-cols-2 gap-4">
-                                <div className="bg-primary/10 aspect-square rounded-2xl flex items-center justify-center text-navy font-bold text-4xl">H</div>
-                                <div className="bg-navy/10 aspect-square rounded-2xl flex items-center justify-center text-navy font-bold text-4xl">D</div>
-                                <div className="bg-gold/10 aspect-square rounded-2xl flex items-center justify-center text-navy font-bold text-4xl">A</div>
-                                <div className="bg-success/10 aspect-square rounded-2xl flex items-center justify-center text-navy font-bold text-4xl">!</div>
+                    <div className="max-w-4xl mx-auto text-center">
+                        <div className="inline-flex items-center gap-2 bg-gold/10 text-navy px-4 py-1.5 rounded-full text-sm font-semibold mb-6">
+                            Leadership
+                        </div>
+                        <h2 className="text-3xl md:text-4xl font-heading font-bold text-navy mb-8">Our Commitment to You</h2>
+                        <div className="bg-muted/30 rounded-3xl overflow-hidden relative border border-border">
+                            <div className="grid md:grid-cols-2">
+                                <div className="h-64 md:h-auto">
+                                    <img src="/recruitment.png" alt="Recruitment Excellence" className="w-full h-full object-cover" />
+                                </div>
+                                <div className="p-8 md:p-12 flex flex-col justify-center">
+                                    <p className="text-muted-foreground text-xl mb-6 leading-relaxed italic">
+                                        "At Happy Dental Agency, we believe that the heart of every successful practice is its people. My mission is to ensure that every dental professional we place is not just qualified, but truly happy and supported in their role, providing the best possible care to patients across the UK."
+                                    </p>
+                                    <div className="w-12 h-1 bg-gold/50 mb-6" />
+                                    <p className="font-heading font-bold text-2xl text-navy">Akosua Dapaah</p>
+                                    <p className="text-muted-foreground font-medium">CEO & Founder</p>
+                                </div>
                             </div>
                         </div>
-                        <div className="flex-1 order-1 lg:order-2">
-                            <h2 className="text-3xl md:text-4xl font-heading font-bold text-navy mb-6">Meet the Team</h2>
-                            <p className="text-muted-foreground text-xl mb-6 leading-relaxed">
-                                Behind Happy Dental Agency is a team of dedicated recruitment specialists and dental professionals who understand the day-to-day realities of practice life.
+                        <div className="mt-12 text-muted-foreground text-lg leading-relaxed max-w-3xl mx-auto">
+                            <p>
+                                With a focus on integrity and professional excellence, Akosua leads Happy Dental Agency with a hands-on approach, personally ensuring that the values of the agency are reflected in every interaction with our nurses and partner practices.
                             </p>
-                            <p className="text-muted-foreground text-xl mb-8 leading-relaxed">
-                                We're passionate about what we do and we're always here to support our family of dental nurses and partner practices.
-                            </p>
-                            <div className="flex flex-col sm:flex-row gap-4">
-                                <div className="bg-white p-4 rounded-xl border border-border shadow-sm flex items-center gap-4 hover:shadow-md transition-shadow">
-                                    <div className="w-12 h-12 rounded-full bg-gold/20" />
-                                    <div>
-                                        <p className="font-bold text-navy">Emma Watson</p>
-                                        <p className="text-sm text-muted-foreground">Founder & CEO</p>
-                                    </div>
-                                </div>
-                                <div className="bg-white p-4 rounded-xl border border-border shadow-sm flex items-center gap-4 hover:shadow-md transition-shadow">
-                                    <div className="w-12 h-12 rounded-full bg-navy/20" />
-                                    <div>
-                                        <p className="font-bold text-navy">Sarah Jenkins</p>
-                                        <p className="text-sm text-muted-foreground">Placement Lead</p>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>

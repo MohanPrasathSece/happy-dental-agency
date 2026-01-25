@@ -47,7 +47,7 @@ const ServicesSection = () => {
             <Logo size="sm" showText={false} />
           </div>
           <h2 className="text-3xl md:text-4xl font-heading font-bold text-navy mb-4">
-            Comprehensive Dental Nursing Solutions
+            Comprehensive Trainee Nursing Solutions
           </h2>
           <p className="text-muted-foreground text-lg">
             We provide a full range of recruitment services to meet the staffing

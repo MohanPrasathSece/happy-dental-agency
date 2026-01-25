@@ -129,7 +129,7 @@ const Footer = () => {
             </p>
           </div>
 
-          <div className="flex flex-wrap justify-center md:justify-end gap-x-8 gap-y-2 italic order-2 md:order-3 min-w-[200px]">
+          <div className="flex flex-wrap justify-center md:justify-end gap-x-8 gap-y-2 order-2 md:order-3 min-w-[200px]">
             <Link to="/privacy" className="hover:text-champagne transition-colors text-right">
               Privacy Policy
             </Link>

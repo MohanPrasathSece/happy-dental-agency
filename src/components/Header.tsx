@@ -55,8 +55,8 @@ const Header = () => {
                 : "bg-white lg:bg-transparent lg:py-2"
                 }`}
         >
-            <div className="container-custom flex items-center justify-between">
-                <Link to="/" className="relative z-10">
+            <div className="flex items-center justify-between px-4 md:px-8 lg:px-12">
+                <Link to="/" className="relative z-10 lg:ml-12">
                     <Logo size="sm" showText={false} />
                 </Link>
 
@@ -77,8 +77,7 @@ const Header = () => {
                 </nav>
 
                 {/* Desktop Actions */}
-                <div className="hidden lg:flex items-center gap-3">
-                    <GoogleTranslate />
+                <div className="hidden lg:flex items-center gap-3 lg:mr-4">
                     <a href="tel:+447944624039">
                         <Button variant="outline" size="sm" className="gap-2 border-champagne-dark text-navy hover:bg-primary hover:text-primary-foreground">
                             <Phone className="w-4 h-4" />
@@ -90,6 +89,7 @@ const Header = () => {
                             Book a Nurse
                         </Button>
                     </Link>
+                    <GoogleTranslate />
                 </div>
 
                 {/* Mobile Menu Button */}

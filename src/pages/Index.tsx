@@ -19,7 +19,6 @@ const Index = () => {
       <ServicesSection />
       <WhyChooseUsSection />
       <IncentivesSection />
-      <TestimonialsSection />
       <MapSection />
       <CTASection variant="general" />
     </main>
