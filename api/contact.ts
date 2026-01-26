@@ -95,15 +95,22 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(400).json({ error: 'Name and Email are required' });
   }
 
+  // Check for environment variables
+  if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+    console.error('Missing environment variables: EMAIL_USER or EMAIL_PASS');
+    return res.status(500).json({ error: 'Server configuration error' });
+  }
+
   // Configure Google SMTP (Gmail)
+  // Note: App Passwords are usually 16 characters. We strip spaces just in case.
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     host: 'smtp.gmail.com',
     port: 465,
     secure: true,
     auth: {
-      user: process.env.EMAIL_USER, // Your Gmail address
-      pass: process.env.EMAIL_PASS, // Your Google App Password
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS.replace(/\s/g, ''),
     },
   });
 
