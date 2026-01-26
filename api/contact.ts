@@ -89,9 +89,16 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(405).json({ error: 'Method Not Allowed' });
   }
 
+  console.log('--- Incoming Contact Request ---');
+  console.log('Time:', new Date().toISOString());
+  console.log('Type:', req.body.type);
+  console.log('Name:', req.body.name);
+  console.log('Email:', req.body.email);
+
   const { name, email, phone, message, type = 'General Inquiry', subject, attachment, filename } = req.body;
 
   if (!email || !name) {
+    console.error('Validation Error: Missing name or email');
     return res.status(400).json({ error: 'Name and Email are required' });
   }
 
@@ -120,16 +127,24 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   try {
     // Verify connection configuration
+    console.log('Attempting SMTP Verification for:', emailUser);
     try {
       await transporter.verify();
-      console.log('SMTP connection verified successfully');
+      console.log('SMTP Verification Success');
     } catch (verifyError) {
-      console.error('SMTP Verification Error:', verifyError);
+      console.error('Critical SMTP Verification Failure:');
+      console.error('Error Code:', (verifyError as any).code);
+      console.error('Error Message:', (verifyError as Error).message);
+      if ((verifyError as any).response) console.error('SMTP Response:', (verifyError as any).response);
+
       return res.status(500).json({
         error: 'Email service connection failed',
+        code: (verifyError as any).code,
         details: verifyError instanceof Error ? verifyError.message : 'Unknown verification error'
       });
     }
+
+    console.log('Sending notification email to agency...');
 
     // 1. Send Notification to Agency
     await transporter.sendMail({
@@ -301,11 +316,18 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       ),
     });
 
+    console.log('All emails sent successfully');
     return res.status(200).json({ success: true, message: 'Emails sent successfully' });
   } catch (error) {
-    console.error('Email error:', error);
+    console.error('--- SMTP Execution Error ---');
+    console.error('Error Name:', (error as Error).name);
+    console.error('Error Message:', (error as Error).message);
+    if ((error as any).code) console.error('Error Code:', (error as any).code);
+    if ((error as any).response) console.error('SMTP Response:', (error as any).response);
+
     return res.status(500).json({
       error: 'Failed to send emails',
+      code: (error as any).code,
       details: error instanceof Error ? error.message : 'Unknown error'
     });
   }
