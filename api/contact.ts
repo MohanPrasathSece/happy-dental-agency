@@ -102,18 +102,20 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   // Configure Google SMTP (Gmail)
+  const emailUser = String(process.env.EMAIL_USER || '').trim();
+  const emailPass = String(process.env.EMAIL_PASS || '').replace(/\s/g, '');
+
   const transporter = nodemailer.createTransport({
-    service: 'gmail',
     host: 'smtp.gmail.com',
     port: 465,
-    secure: true,
+    secure: true, // Use SSL
     auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS.replace(/\s/g, ''),
+      user: emailUser,
+      pass: emailPass,
     },
-    // Add connection timeout
-    connectionTimeout: 10000,
-    greetingTimeout: 10000,
+    tls: {
+      rejectUnauthorized: false // Helps with some network environments
+    }
   });
 
   try {
@@ -277,7 +279,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         `,
         false
       ),
-      attachments: attachment ? [
+      attachments: (attachment && typeof attachment === 'string' && attachment.includes("base64,")) ? [
         {
           filename: filename || 'attachment.pdf',
           content: attachment.split("base64,")[1],
