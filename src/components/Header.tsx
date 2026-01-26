@@ -51,23 +51,23 @@ const Header = () => {
 
     return (
         <header
-            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 lg:duration-300 py-1 ${isScrolled && !isOpen
-                ? "bg-white lg:bg-white/80 lg:backdrop-blur-md lg:shadow-md lg:border-b lg:border-white/20 lg:py-4"
-                : "bg-white lg:bg-transparent lg:py-6"
+            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 xl:duration-300 py-1 ${isScrolled && !isOpen
+                ? "bg-white xl:bg-white/80 xl:backdrop-blur-md xl:shadow-md xl:border-b xl:border-white/20 xl:py-4"
+                : "bg-white xl:bg-transparent xl:py-6"
                 }`}
         >
-            <div className="flex items-center justify-between px-4 md:px-8 lg:px-12">
-                <Link to="/" className="relative z-10 lg:ml-12">
+            <div className="flex items-center justify-between px-4 md:px-6 xl:px-8">
+                <Link to="/" className="relative z-10 xl:ml-4">
                     <Logo size="sm" showText={false} />
                 </Link>
 
                 {/* Desktop Navigation */}
-                <nav className="hidden lg:flex items-center gap-1">
+                <nav className="hidden xl:flex items-center gap-0.5">
                     {navLinks.map((link) => (
                         <Link
                             key={link.path}
                             to={link.path}
-                            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${isActive(link.path)
+                            className={`px-3 py-2 rounded-lg text-[13px] font-medium transition-all duration-200 whitespace-nowrap ${isActive(link.path)
                                 ? "bg-primary text-primary-foreground"
                                 : "text-foreground hover:bg-primary/50 hover:text-primary-foreground"
                                 }`}
@@ -78,25 +78,27 @@ const Header = () => {
                 </nav>
 
                 {/* Desktop Actions */}
-                <div className="hidden lg:flex items-center gap-4 lg:mr-4">
+                <div className="hidden xl:flex items-center gap-2">
                     <a href="tel:+447944624039">
-                        <Button variant="outline" size="default" className="gap-2 border-champagne-dark text-navy hover:bg-primary hover:text-primary-foreground">
+                        <Button variant="outline" size="sm" className="gap-2 border-champagne-dark text-navy hover:bg-primary hover:text-primary-foreground px-3">
                             <Phone className="w-4 h-4" />
-                            Call Us
+                            <span className="hidden 2xl:inline">Call Us</span>
                         </Button>
                     </a>
                     <Link to="/dental-practices">
-                        <Button variant="cta" size="default">
+                        <Button variant="cta" size="sm" className="px-4 whitespace-nowrap">
                             Book for a Nurse
                         </Button>
                     </Link>
-                    <GoogleTranslate />
+                    <div className="scale-90 origin-right">
+                        <GoogleTranslate />
+                    </div>
                 </div>
 
                 {/* Mobile Menu Button */}
                 <button
                     onClick={() => setIsOpen(!isOpen)}
-                    className="lg:hidden relative z-[60] p-2 text-foreground hover:bg-primary/20 rounded-lg transition-colors"
+                    className="xl:hidden relative z-[60] p-2 text-foreground hover:bg-primary/20 rounded-lg transition-colors"
                     aria-label="Toggle menu"
                 >
                     {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -104,14 +106,14 @@ const Header = () => {
 
                 {/* Mobile Navigation Overlay */}
                 <div
-                    className={`fixed inset-0 bg-black/60 backdrop-blur-sm lg:hidden transition-opacity duration-200 z-40 ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
+                    className={`fixed inset-0 bg-black/60 backdrop-blur-sm xl:hidden transition-opacity duration-200 z-40 ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
                         }`}
                     onClick={() => setIsOpen(false)}
                 />
 
                 {/* Mobile Navigation Menu */}
                 <div
-                    className={`fixed top-0 right-0 bottom-0 w-[85%] max-w-sm bg-background lg:hidden transition-transform duration-200 ease-out z-50 shadow-2xl border-l border-border ${isOpen ? 'translate-x-0' : 'translate-x-full'
+                    className={`fixed top-0 right-0 bottom-0 w-[85%] max-w-sm bg-background xl:hidden transition-transform duration-200 ease-out z-50 shadow-2xl border-l border-border ${isOpen ? 'translate-x-0' : 'translate-x-full'
                         }`}
                 >
                     <div className="flex flex-col h-full">

@@ -148,32 +148,40 @@ const About = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="order-1 lg:order-2 grid grid-cols-2 gap-4">
-                            <div className="space-y-4 pt-8">
-                                <div className="aspect-[4/5] bg-navy/5 rounded-3xl overflow-hidden shadow-lg border border-border group relative">
+                        <div className="order-1 lg:order-2 grid grid-cols-2 gap-4 lg:gap-6 relative pt-12 lg:pt-0">
+                            {/* Decorative background element */}
+                            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-primary/5 rounded-full blur-[100px] -z-10" />
+
+                            <div className="space-y-4 lg:space-y-6">
+                                {/* Large Featured Image */}
+                                <div className="aspect-[3/4] bg-navy/5 rounded-[2rem] overflow-hidden shadow-2xl border border-white/20 group relative transform hover:-rotate-1 transition-all duration-500">
                                     <img
                                         src="/images/black%20nurse%202.png"
                                         alt="Qualified Dental Nurse"
-                                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                     />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
                                 </div>
-                                {/* 3. Muslim Nurse with Hijab */}
-                                <div className="aspect-square bg-gold/5 rounded-3xl overflow-hidden shadow-lg border border-border group relative">
+
+                                {/* Bottom Overlap Image */}
+                                <div className="aspect-square bg-gold/5 rounded-[1.5rem] overflow-hidden shadow-xl border border-white/20 group relative lg:-mt-12 lg:ml-8 transform hover:rotate-1 transition-all duration-500">
                                     <img
                                         src="/images/hijab%20woman.png"
                                         alt="Inclusive Dental Care"
-                                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                     />
                                 </div>
                             </div>
-                            <div className="space-y-4">
-                                {/* 4. Asian Professional */}
-                                <div className="aspect-[4/5] bg-navy/5 rounded-3xl overflow-hidden shadow-lg border border-border group relative">
+
+                            <div className="flex items-center">
+                                {/* Floating Sideways Image */}
+                                <div className="aspect-[4/5] w-full bg-navy/5 rounded-[2rem] overflow-hidden shadow-2xl border border-white/20 group relative lg:-ml-4 transform hover:scale-[1.02] transition-all duration-500">
                                     <img
                                         src="/images/asian-woman.png"
                                         alt="Professional Dental Recruitment"
-                                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                     />
+                                    <div className="absolute inset-0 bg-gradient-to-tr from-primary/10 to-transparent mix-blend-overlay" />
                                 </div>
                             </div>
                         </div>
