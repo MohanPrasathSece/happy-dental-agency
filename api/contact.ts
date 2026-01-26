@@ -130,9 +130,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     console.log('Attempting SMTP Verification for:', emailUser);
     try {
       await transporter.verify();
-      console.log('SMTP Verification Success');
+      console.log('✅ SMTP Verification Success');
     } catch (verifyError) {
-      console.error('Critical SMTP Verification Failure:');
+      console.error('❌ Critical SMTP Verification Failure:');
       console.error('Error Code:', (verifyError as any).code);
       console.error('Error Message:', (verifyError as Error).message);
       if ((verifyError as any).response) console.error('SMTP Response:', (verifyError as any).response);
@@ -144,156 +144,61 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       });
     }
 
-    console.log('Sending notification email to agency...');
+    console.log('📧 Sending notification email to agency...');
+
+    // Build email content
+    const emailContent = `
+      <table role="presentation" style="width: 100%; border-collapse: collapse; margin-bottom: 24px;">
+        <tr>
+          <td style="padding: 16px; background-color: #f8f9fa; border-radius: 6px;">
+            <table role="presentation" style="width: 100%; border-collapse: collapse;">
+              <tr>
+                <td style="padding: 12px 0; border-bottom: 1px solid #e9ecef;">
+                  <strong>Name:</strong> ${name}
+                </td>
+              </tr>
+              <tr>
+                <td style="padding: 12px 0; border-bottom: 1px solid #e9ecef;">
+                  <strong>Email:</strong> <a href="mailto:${email}">${email}</a>
+                </td>
+              </tr>
+              <tr>
+                <td style="padding: 12px 0; border-bottom: 1px solid #e9ecef;">
+                  <strong>Phone:</strong> ${phone || 'Not provided'}
+                </td>
+              </tr>
+              <tr>
+                <td style="padding: 12px 0; border-bottom: 1px solid #e9ecef;">
+                  <strong>Type:</strong> ${type}
+                </td>
+              </tr>
+              ${subject ? `
+              <tr>
+                <td style="padding: 12px 0; border-bottom: 1px solid #e9ecef;">
+                  <strong>Subject:</strong> ${subject}
+                </td>
+              </tr>
+              ` : ''}
+              <tr>
+                <td style="padding: 12px 0;">
+                  <strong>Message:</strong><br>
+                  <div style="background-color: #ffffff; padding: 16px; border-radius: 6px; border: 1px solid #e9ecef; margin-top: 8px;">
+                    ${message || 'No message provided'}
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    `;
 
     // 1. Send Notification to Agency
     await transporter.sendMail({
-      from: `"Happy Dental System" <${process.env.EMAIL_USER}>`,
+      from: `"Happy Dental System" <${emailUser}>`,
       to: process.env.RECIPIENT_EMAIL || 'info@happydentalagency.co.uk',
       subject: `New ${type} from ${name}`,
-      html: getEmailTemplate(
-        name,
-        `
-        <table role="presentation" style="width: 100%; border-collapse: collapse; margin-bottom: 24px;">
-          <tr>
-            <td style="padding: 16px; background-color: #f8f9fa; border-radius: 6px;">
-              <table role="presentation" style="width: 100%; border-collapse: collapse;">
-                
-                <!-- Name -->
-                <tr>
-                  <td style="padding: 12px 0; border-bottom: 1px solid #e9ecef;">
-                    <table role="presentation" style="width: 100%; border-collapse: collapse;">
-                      <tr>
-                        <td style="width: 140px; font-size: 13px; font-weight: 600; color: #6c757d; vertical-align: top;">
-                          Name
-                        </td>
-                        <td style="font-size: 14px; color: #2c3e50; font-weight: 500;">
-                          ${name}
-                        </td>
-                      </tr>
-                    </table>
-                  </td>
-                </tr>
-                
-                <!-- Email -->
-                <tr>
-                  <td style="padding: 12px 0; border-bottom: 1px solid #e9ecef;">
-                    <table role="presentation" style="width: 100%; border-collapse: collapse;">
-                      <tr>
-                        <td style="width: 140px; font-size: 13px; font-weight: 600; color: #6c757d; vertical-align: top;">
-                          Email
-                        </td>
-                        <td style="font-size: 14px; color: #2c3e50;">
-                          <a href="mailto:${email}" style="color: #2c3e50; text-decoration: none; border-bottom: 1px solid #dee2e6;">${email}</a>
-                        </td>
-                      </tr>
-                    </table>
-                  </td>
-                </tr>
-                
-                <!-- Phone -->
-                <tr>
-                  <td style="padding: 12px 0; border-bottom: 1px solid #e9ecef;">
-                    <table role="presentation" style="width: 100%; border-collapse: collapse;">
-                      <tr>
-                        <td style="width: 140px; font-size: 13px; font-weight: 600; color: #6c757d; vertical-align: top;">
-                          Phone
-                        </td>
-                        <td style="font-size: 14px; color: #2c3e50;">
-                          ${phone || '<span style="color: #adb5bd; font-style: italic;">Not provided</span>'}
-                        </td>
-                      </tr>
-                    </table>
-                  </td>
-                </tr>
-                
-                <!-- Inquiry Type -->
-                <tr>
-                  <td style="padding: 12px 0; border-bottom: 1px solid #e9ecef;">
-                    <table role="presentation" style="width: 100%; border-collapse: collapse;">
-                      <tr>
-                        <td style="width: 140px; font-size: 13px; font-weight: 600; color: #6c757d; vertical-align: top;">
-                          Inquiry Type
-                        </td>
-                        <td style="font-size: 14px; color: #2c3e50;">
-                          <span style="display: inline-block; padding: 4px 12px; background-color: #2c3e50; color: #ffffff; border-radius: 4px; font-size: 12px; font-weight: 500;">
-                            ${type}
-                          </span>
-                        </td>
-                      </tr>
-                    </table>
-                  </td>
-                </tr>
-                
-                ${subject ? `
-                <!-- Subject -->
-                <tr>
-                  <td style="padding: 12px 0; border-bottom: 1px solid #e9ecef;">
-                    <table role="presentation" style="width: 100%; border-collapse: collapse;">
-                      <tr>
-                        <td style="width: 140px; font-size: 13px; font-weight: 600; color: #6c757d; vertical-align: top;">
-                          Subject
-                        </td>
-                        <td style="font-size: 14px; color: #2c3e50; font-weight: 500;">
-                          ${subject}
-                        </td>
-                      </tr>
-                    </table>
-                  </td>
-                </tr>
-                ` : ''}
-                
-                <!-- Message -->
-                <tr>
-                  <td style="padding: 12px 0;">
-                    <table role="presentation" style="width: 100%; border-collapse: collapse;">
-                      <tr>
-                        <td style="width: 140px; font-size: 13px; font-weight: 600; color: #6c757d; vertical-align: top; padding-top: 4px;">
-                          Message
-                        </td>
-                        <td style="font-size: 14px; color: #495057; line-height: 1.6;">
-                          <div style="background-color: #ffffff; padding: 16px; border-radius: 6px; border: 1px solid #e9ecef;">
-                            ${message || '<span style="color: #adb5bd; font-style: italic;">No message provided</span>'}
-                          </div>
-                        </td>
-                      </tr>
-                    </table>
-                  </td>
-                </tr>
-                
-                ${filename ? `
-                <!-- Attachment -->
-                <tr>
-                  <td style="padding: 12px 0; border-top: 1px solid #e9ecef;">
-                    <table role="presentation" style="width: 100%; border-collapse: collapse;">
-                      <tr>
-                        <td style="width: 140px; font-size: 13px; font-weight: 600; color: #6c757d; vertical-align: top;">
-                          Attachment
-                        </td>
-                        <td style="font-size: 14px; color: #2c3e50;">
-                          <span style="display: inline-flex; align-items: center; padding: 8px 12px; background-color: #e9ecef; border-radius: 4px; font-size: 13px;">
-                            📎 ${filename}
-                          </span>
-                        </td>
-                      </tr>
-                    </table>
-                  </td>
-                </tr>
-                ` : ''}
-                
-              </table>
-            </td>
-          </tr>
-        </table>
-        
-        <div style="margin-top: 24px; padding: 16px; background-color: #fff3cd; border-left: 4px solid #ffc107; border-radius: 4px;">
-          <p style="margin: 0; font-size: 13px; color: #856404; line-height: 1.5;">
-            <strong>⏰ Action Required:</strong> Please respond to this inquiry within 2 hours during business hours.
-          </p>
-        </div>
-        `,
-        false
-      ),
+      html: getEmailTemplate(name, emailContent, false),
       attachments: (attachment && typeof attachment === 'string' && attachment.includes("base64,")) ? [
         {
           filename: filename || 'attachment.pdf',
@@ -303,9 +208,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       ] : []
     });
 
+    console.log('✅ Agency notification sent');
+
     // 2. Send Confirmation to User
     await transporter.sendMail({
-      from: `"Happy Dental Agency" <${process.env.EMAIL_USER}>`,
+      from: `"Happy Dental Agency" <${emailUser}>`,
       to: email,
       subject: `Thank you for contacting Happy Dental Agency`,
       html: getEmailTemplate(
@@ -316,7 +223,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       ),
     });
 
-    console.log('All emails sent successfully');
+    console.log('✅ User confirmation sent');
+    console.log('🎉 All emails sent successfully');
+
     return res.status(200).json({ success: true, message: 'Emails sent successfully' });
   } catch (error) {
     console.error('--- SMTP Execution Error ---');
