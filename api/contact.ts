@@ -2,7 +2,79 @@ import nodemailer from 'nodemailer';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 
 // Professional Email Template Helper - Minimal & Structured Design
-const getEmailTemplate = (name: string, content: string, isConfirmation: boolean) => `
+const getEmailTemplate = (name: string, content: string, isConfirmation: boolean, type: string = 'General Inquiry') => {
+  let title = isConfirmation ? 'Thank You for Contacting Us' : 'New Contact Inquiry';
+  let body = '';
+
+  if (isConfirmation) {
+    switch (type) {
+      case 'Dental Practice Booking Request':
+        title = 'Booking Request Received';
+        body = `
+          <p style="margin: 0 0 24px; font-size: 16px; color: #2c3e50; line-height: 1.6;">Hello <strong>${name}</strong>,</p>
+          <p style="margin: 0 0 24px; font-size: 15px; color: #4a5568; line-height: 1.7;">
+            We have successfully received your <strong>dental nurse booking request</strong>. Our team is already looking through our vetted network to find the perfect professional for your practice.
+          </p>
+          <div style="background-color: #f8f9fa; border-left: 4px solid #2c3e50; padding: 20px; margin: 24px 0; border-radius: 4px;">
+            <p style="margin: 0; font-size: 14px; color: #495057; line-height: 1.6;">
+              <strong>What Happens Next?</strong><br>
+              A placement coordinator will contact you within <strong>2 hours</strong> (during business hours) to confirm the details and finalize the booking.
+            </p>
+          </div>
+        `;
+        break;
+
+      case 'Timesheet Submission':
+        title = 'Timesheet Received Successfully';
+        body = `
+          <p style="margin: 0 0 24px; font-size: 16px; color: #2c3e50; line-height: 1.6;">Hello <strong>${name}</strong>,</p>
+          <p style="margin: 0 0 24px; font-size: 15px; color: #4a5568; line-height: 1.7;">
+            Your <strong>electronic timesheet</strong> has been successfully submitted to our office and recorded.
+          </p>
+          <p style="margin: 0 0 24px; font-size: 15px; color: #4a5568; line-height: 1.7;">
+            A copy of this submission has also been kept for your records. We will process this alongside our regular payroll cycle.
+          </p>
+        `;
+        break;
+
+      case 'Nurse Registration Inquiry':
+        title = 'Welcome to the Agency Network';
+        body = `
+          <p style="margin: 0 0 24px; font-size: 16px; color: #2c3e50; line-height: 1.6;">Hello <strong>${name}</strong>,</p>
+          <p style="margin: 0 0 24px; font-size: 15px; color: #4a5568; line-height: 1.7;">
+            Thank you for registering with <strong>Happy Dental Agency</strong>. We are excited to help you find flexible locum shifts or your next permanent role.
+          </p>
+          <div style="background-color: #f8f9fa; border-left: 4px solid #2c3e50; padding: 20px; margin: 24px 0; border-radius: 4px;">
+            <p style="margin: 0; font-size: 14px; color: #495057; line-height: 1.6;">
+              <strong>Verification Process</strong><br>
+              Our registration team will review your submitted documents and GDC credentials. We will contact you shortly to complete the onboarding process.
+            </p>
+          </div>
+        `;
+        break;
+
+      default:
+        body = `
+          <p style="margin: 0 0 24px; font-size: 16px; color: #2c3e50; line-height: 1.6;">Hello <strong>${name}</strong>,</p>
+          <p style="margin: 0 0 24px; font-size: 15px; color: #4a5568; line-height: 1.7;">
+            Thank you for reaching out to us regarding <strong>${type}</strong>. We have received your message and our team is currently reviewing your enquiry.
+          </p>
+          <div style="background-color: #f8f9fa; border-left: 4px solid #2c3e50; padding: 20px; margin: 24px 0; border-radius: 4px;">
+            <p style="margin: 0; font-size: 14px; color: #495057; line-height: 1.6;">
+              <strong>Typical Response Time</strong><br>
+              We aim to respond to all inquiries within 2-4 hours during business hours.
+            </p>
+          </div>
+        `;
+    }
+  } else {
+    body = `
+      <h2 style="margin: 0 0 24px; font-size: 18px; font-weight: 600; color: #2c3e50;">New Inquiry Details</h2>
+      ${content}
+    `;
+  }
+
+  return `
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,69 +86,31 @@ const getEmailTemplate = (name: string, content: string, isConfirmation: boolean
     <tr>
       <td align="center" style="padding: 40px 20px;">
         <table role="presentation" style="max-width: 600px; width: 100%; border-collapse: collapse; background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
-          
-          <!-- Header -->
           <tr>
             <td style="background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%); padding: 32px 40px; text-align: center;">
-              <h1 style="margin: 0; font-size: 26px; font-weight: 600; color: #ffffff; letter-spacing: -0.5px;">
-                Happy Dental Agency
-              </h1>
-              <p style="margin: 8px 0 0; font-size: 13px; color: #ecf0f1; opacity: 0.9;">
-                ${isConfirmation ? 'Thank You for Contacting Us' : 'New Contact Inquiry'}
-              </p>
+              <h1 style="margin: 0; font-size: 26px; font-weight: 600; color: #ffffff; letter-spacing: -0.5px;">Happy Dental Agency</h1>
+              <p style="margin: 8px 0 0; font-size: 13px; color: #ecf0f1; opacity: 0.9;">${title}</p>
             </td>
           </tr>
-          
-          <!-- Main Content -->
           <tr>
-            <td style="padding: 40px;">
-              ${isConfirmation ? `
-                <p style="margin: 0 0 24px; font-size: 16px; color: #2c3e50; line-height: 1.6;">
-                  Hello <strong>${name}</strong>,
-                </p>
-                <p style="margin: 0 0 24px; font-size: 15px; color: #4a5568; line-height: 1.7;">
-                  Thank you for reaching out to Happy Dental Agency. We have successfully received your inquiry and our team is reviewing your message.
-                </p>
-                <div style="background-color: #f8f9fa; border-left: 4px solid #2c3e50; padding: 20px; margin: 24px 0; border-radius: 4px;">
-                  <p style="margin: 0; font-size: 14px; color: #495057; line-height: 1.6;">
-                    <strong>What's Next?</strong><br>
-                    Our placement coordinators will review your details and respond within 2 hours during business hours (Mon-Fri, 8:00 AM - 6:00 PM).
-                  </p>
-                </div>
-              ` : `
-                <h2 style="margin: 0 0 24px; font-size: 18px; font-weight: 600; color: #2c3e50;">
-                  New Inquiry Details
-                </h2>
-                ${content}
-              `}
-            </td>
+            <td style="padding: 40px;">${body}</td>
           </tr>
-          
-          <!-- Footer -->
           <tr>
             <td style="background-color: #f8f9fa; padding: 32px 40px; border-top: 1px solid #e9ecef;">
               <table role="presentation" style="width: 100%; border-collapse: collapse;">
                 <tr>
                   <td style="text-align: center;">
-                    <p style="margin: 0 0 8px; font-size: 13px; color: #6c757d; line-height: 1.5;">
-                      <strong>Happy Dental Agency</strong>
-                    </p>
-                    <p style="margin: 0 0 4px; font-size: 12px; color: #868e96;">
-                      Capital Office, 124 City Road<br>
-                      London, EC1V 2NX, United Kingdom
-                    </p>
+                    <p style="margin: 0 0 8px; font-size: 13px; color: #6c757d; line-height: 1.5;"><strong>Happy Dental Agency</strong></p>
+                    <p style="margin: 0 0 4px; font-size: 12px; color: #868e96;">Capital Office, 124 City Road<br>London, EC1V 2NX, United Kingdom</p>
                     <p style="margin: 0 0 16px; font-size: 12px; color: #868e96;">
                       <a href="mailto:info@happydentalagency.co.uk" style="color: #2c3e50; text-decoration: none;">info@happydentalagency.co.uk</a>
                     </p>
-                    <p style="margin: 0; font-size: 11px; color: #adb5bd;">
-                      &copy; ${new Date().getFullYear()} Happy Dental Agency. All rights reserved.
-                    </p>
+                    <p style="margin: 0; font-size: 11px; color: #adb5bd;">&copy; ${new Date().getFullYear()} Happy Dental Agency. All rights reserved.</p>
                   </td>
                 </tr>
               </table>
             </td>
           </tr>
-          
         </table>
       </td>
     </tr>
@@ -84,6 +118,7 @@ const getEmailTemplate = (name: string, content: string, isConfirmation: boolean
 </body>
 </html>
 `;
+};
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'POST') {
@@ -145,7 +180,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     console.log('📧 Sending notification email to agency...');
 
-    // Build email content
+    // Build email content for agency
     const emailContent = `
       <table role="presentation" style="width: 100%; border-collapse: collapse; margin-bottom: 24px;">
         <tr>
@@ -214,12 +249,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       from: `"Happy Dental Agency" <${emailUser}>`,
       to: email,
       subject: `Thank you for contacting Happy Dental Agency`,
-      html: getEmailTemplate(
-        name,
-        `<p>Thank you for reaching out to Happy Dental Agency. We have successfully received your inquiry regarding <strong>${type}</strong>.</p>
-         <p>Our team is dedicated to connecting the finest dental professionals with leading practices, and we are excited to assist you.</p>`,
-        true
-      ),
+      html: getEmailTemplate(name, '', true, type),
     });
 
     console.log('✅ User confirmation sent');
