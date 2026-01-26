@@ -111,7 +111,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     // 1. Send Notification to Agency
     await transporter.sendMail({
       from: `"Happy Dental System" <${process.env.EMAIL_USER}>`,
-      to: 'info@happydentalagency.co.uk',
+      to: process.env.RECIPIENT_EMAIL || 'info@happydentalagency.co.uk',
       subject: `New ${type} from ${name}`,
       html: getEmailTemplate(
         name,
