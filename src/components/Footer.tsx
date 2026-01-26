@@ -69,12 +69,24 @@ const Footer = () => {
               Our Services
             </h4>
             <ul className="space-y-2 text-sm text-white/80">
-              <li>Locum Dental Nurses</li>
-              <li>Permanent Placements</li>
-              <li>Trainee Nurse Support</li>
-              <li>Emergency Cover</li>
-              <li>Holiday & Sickness Cover</li>
-              <li>Practice Liaison</li>
+              <li>
+                <Link to="/dental-nurses#qualified-section" className="hover:text-champagne transition-colors">Locum Dental Nurses</Link>
+              </li>
+              <li>
+                <Link to="/dental-practices#services" className="hover:text-champagne transition-colors">Permanent Placements</Link>
+              </li>
+              <li>
+                <Link to="/dental-nurses#trainee-section" className="hover:text-champagne transition-colors">Trainee Nurse Support</Link>
+              </li>
+              <li>
+                <Link to="/dental-practices#services" className="hover:text-champagne transition-colors">Emergency Cover</Link>
+              </li>
+              <li>
+                <Link to="/dental-practices#services" className="hover:text-champagne transition-colors">Holiday & Sickness Cover</Link>
+              </li>
+              <li>
+                <Link to="/contact" className="hover:text-champagne transition-colors">Practice Liaison</Link>
+              </li>
             </ul>
           </div>
 

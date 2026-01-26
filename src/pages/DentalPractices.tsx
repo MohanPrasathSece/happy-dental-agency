@@ -52,7 +52,7 @@ const DentalPractices = () => {
       />
 
       {/* Services Section */}
-      <section className="section-padding bg-white">
+      <section id="services" className="section-padding bg-white scroll-mt-20">
         <div className="container-custom">
           <div className="text-center max-w-3xl mx-auto mb-12">
             <h2 className="text-3xl font-heading font-bold text-navy mb-4">
