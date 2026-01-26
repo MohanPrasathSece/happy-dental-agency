@@ -178,7 +178,7 @@ const Contact = () => {
         </div>
       </section>
 
-      <MapSection />
+      <MapSection variant="office" />
 
       {/* FAQs */}
       <section className="section-padding bg-background">
