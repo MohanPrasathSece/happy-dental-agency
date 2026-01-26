@@ -80,7 +80,8 @@ const TimesheetForm = () => {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    ...data,
+                    name: data.nurseName,
+                    email: data.nurseEmail,
                     type: "Timesheet Submission",
                     subject: `Timesheet: ${data.nurseName} - ${data.practiceName} (${data.date})`,
                     message: `Timesheet Details:
