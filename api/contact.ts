@@ -102,7 +102,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   // Configure Google SMTP (Gmail)
-  // Note: App Passwords are usually 16 characters. We strip spaces just in case.
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     host: 'smtp.gmail.com',
@@ -112,9 +111,24 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       user: process.env.EMAIL_USER,
       pass: process.env.EMAIL_PASS.replace(/\s/g, ''),
     },
+    // Add connection timeout
+    connectionTimeout: 10000,
+    greetingTimeout: 10000,
   });
 
   try {
+    // Verify connection configuration
+    try {
+      await transporter.verify();
+      console.log('SMTP connection verified successfully');
+    } catch (verifyError) {
+      console.error('SMTP Verification Error:', verifyError);
+      return res.status(500).json({
+        error: 'Email service connection failed',
+        details: verifyError instanceof Error ? verifyError.message : 'Unknown verification error'
+      });
+    }
+
     // 1. Send Notification to Agency
     await transporter.sendMail({
       from: `"Happy Dental System" <${process.env.EMAIL_USER}>`,
@@ -288,6 +302,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(200).json({ success: true, message: 'Emails sent successfully' });
   } catch (error) {
     console.error('Email error:', error);
-    return res.status(500).json({ error: 'Failed to send emails' });
+    return res.status(500).json({
+      error: 'Failed to send emails',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
   }
 }
