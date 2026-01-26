@@ -167,7 +167,7 @@ Message: ${data.message || "None"}
         }, 100);
       }
     }
-  }, []);
+  }, [roleParam, window.location.hash]);
 
   return (
     <Form {...form}>

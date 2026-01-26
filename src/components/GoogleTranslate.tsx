@@ -74,9 +74,9 @@ const GoogleTranslate = () => {
       <Button
         variant="outline"
         size="sm"
-        className={`gap-2 h-10 px-4 text-navy transition-all duration-300 border-2 rounded-full ${isVisible
-          ? "border-gold bg-gold/10 shadow-lg scale-105"
-          : "border-primary hover:border-gold hover:bg-gold/5 shadow-soft"
+        className={`gap-2 px-3 py-2 text-navy transition-all duration-300 border border-navy/10 rounded-xl font-semibold ${isVisible
+          ? "bg-primary/20 shadow-md"
+          : "hover:bg-primary/20"
           }`}
         onClick={() => setIsVisible(!isVisible)}
       >
@@ -84,7 +84,7 @@ const GoogleTranslate = () => {
         <span className="font-bold uppercase tracking-tight text-[11px] sm:text-xs">
           {languages.find((l) => l.code === currentLang)?.label || "EN"}
         </span>
-        <span className="text-[11px] sm:text-xs font-bold border-l border-navy/20 pl-2">
+        <span className="text-[11px] sm:text-xs font-bold border-l border-navy/20 pl-2 hidden xl:inline">
           Select Language
         </span>
       </Button>

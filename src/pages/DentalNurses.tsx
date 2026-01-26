@@ -94,7 +94,7 @@ const DentalNurses = () => {
                   <img
                     src="/images/uk%20nurse%205.png"
                     alt="Qualified Dental Nurse"
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-navy/5 group-hover:bg-transparent transition-colors duration-500" />
                 </div>
@@ -172,7 +172,7 @@ const DentalNurses = () => {
                   <img
                     src="/images/black%20nurse%20in%20classroom.png"
                     alt="Trainee Dental Nurse"
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-primary/5 group-hover:bg-transparent transition-colors duration-500" />
                 </div>
@@ -198,7 +198,7 @@ const DentalNurses = () => {
               </p>
             </div>
             <Link to="/timesheet">
-              <Button variant="cta" size="lg" className="h-14 px-10 text-base shadow-xl hover:shadow-primary/20 group">
+              <Button variant="cta" size="lg" className="h-14 px-10 text-base group shadow-sm hover:shadow-md">
                 Go to Timesheet Form
                 <ArrowRight className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
               </Button>

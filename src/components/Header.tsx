@@ -56,18 +56,18 @@ const Header = () => {
                 : "bg-white xl:bg-transparent xl:py-6"
                 }`}
         >
-            <div className="flex items-center justify-between px-4 md:px-6 xl:px-8">
-                <Link to="/" className="relative z-10 xl:ml-4">
+            <div className="flex items-center justify-between px-4 md:px-8 xl:px-12">
+                <Link to="/" className="relative z-10 xl:ml-12">
                     <Logo size="sm" showText={false} />
                 </Link>
 
                 {/* Desktop Navigation */}
-                <nav className="hidden xl:flex items-center gap-0.5">
+                <nav className="hidden xl:flex items-center gap-1">
                     {navLinks.map((link) => (
                         <Link
                             key={link.path}
                             to={link.path}
-                            className={`px-3 py-2 rounded-lg text-[13px] font-medium transition-all duration-200 whitespace-nowrap ${isActive(link.path)
+                            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${isActive(link.path)
                                 ? "bg-primary text-primary-foreground"
                                 : "text-foreground hover:bg-primary/50 hover:text-primary-foreground"
                                 }`}
@@ -78,29 +78,28 @@ const Header = () => {
                 </nav>
 
                 {/* Desktop Actions */}
-                <div className="hidden xl:flex items-center gap-2">
+                <div className="hidden xl:flex items-center gap-4 xl:mr-4">
                     <a href="tel:+447944624039">
-                        <Button variant="outline" size="sm" className="gap-2 border-champagne-dark text-navy hover:bg-primary hover:text-primary-foreground px-3">
+                        <Button variant="outline" size="default" className="gap-2 border-champagne-dark text-navy hover:bg-primary hover:text-primary-foreground">
                             <Phone className="w-4 h-4" />
-                            <span className="hidden 2xl:inline">Call Us</span>
+                            Call Us
                         </Button>
                     </a>
-                    <Link to="/dental-practices">
-                        <Button variant="cta" size="sm" className="px-4 whitespace-nowrap">
-                            Book for a Nurse
-                        </Button>
-                    </Link>
-                    <div className="scale-90 origin-right">
-                        <GoogleTranslate />
-                    </div>
+                    <GoogleTranslate />
                 </div>
 
-                {/* Mobile Menu Button */}
+                {/* Mobile/Tablet Actions (Visible up to XL) */}
+                <div className="flex items-center gap-2 xl:hidden ml-auto mr-2">
+                    <GoogleTranslate />
+                </div>
+
+                {/* Mobile/Tablet Menu Button */}
                 <button
                     onClick={() => setIsOpen(!isOpen)}
-                    className="xl:hidden relative z-[60] p-2 text-foreground hover:bg-primary/20 rounded-lg transition-colors"
+                    className="xl:hidden relative z-[60] flex items-center gap-2 px-3 py-2 text-navy hover:bg-primary/20 rounded-xl border border-navy/10 transition-all font-semibold"
                     aria-label="Toggle menu"
                 >
+                    <span className="text-[12px] tracking-widest hidden sm:inline">MENU</span>
                     {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
                 </button>
 
