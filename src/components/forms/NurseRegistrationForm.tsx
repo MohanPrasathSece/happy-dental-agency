@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -59,6 +59,14 @@ const NurseRegistrationForm = () => {
   });
 
   const nurseStatus = form.watch("nurseStatus");
+  const workPreference = form.watch("workPreference");
+
+  // Reset work preference if trainee is selected and locum was previously chosen
+  useEffect(() => {
+    if (nurseStatus === "trainee" && (workPreference === "locum" || workPreference === "both")) {
+      form.setValue("workPreference", "permanent");
+    }
+  }, [nurseStatus, workPreference, form]);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -242,18 +250,30 @@ Message: ${data.message || "None"}
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Work Preference *</FormLabel>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <Select
+                  onValueChange={field.onChange}
+                  value={field.value}
+                >
                   <FormControl>
                     <SelectTrigger>
                       <SelectValue placeholder="Select preference" />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    <SelectItem value="locum">Locum Only</SelectItem>
+                    <SelectItem value="locum" disabled={nurseStatus === "trainee"}>
+                      Locum Only {nurseStatus === "trainee" && "(Qualified Only)"}
+                    </SelectItem>
                     <SelectItem value="permanent">Permanent Only</SelectItem>
-                    <SelectItem value="both">Both Locum & Permanent</SelectItem>
+                    <SelectItem value="both" disabled={nurseStatus === "trainee"}>
+                      Both Locum & Permanent {nurseStatus === "trainee" && "(Qualified Only)"}
+                    </SelectItem>
                   </SelectContent>
                 </Select>
+                {nurseStatus === "trainee" && (
+                  <FormDescription className="text-amber-600 font-medium">
+                    Trainees are eligible for permanent placements only while studying.
+                  </FormDescription>
+                )}
                 <FormMessage />
               </FormItem>
             )}

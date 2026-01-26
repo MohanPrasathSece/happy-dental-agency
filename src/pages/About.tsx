@@ -149,11 +149,10 @@ const About = () => {
                             </div>
                         </div>
                         <div className="order-1 lg:order-2 grid grid-cols-2 gap-4">
-                            {/* 1. Qualified Dental Nurse */}
                             <div className="space-y-4 pt-8">
                                 <div className="aspect-[4/5] bg-navy/5 rounded-3xl overflow-hidden shadow-lg border border-border group relative">
                                     <img
-                                        src="/images/uk%20nurse%204.png"
+                                        src="/images/black%20nurse%202.png"
                                         alt="Qualified Dental Nurse"
                                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                                     />
@@ -171,7 +170,7 @@ const About = () => {
                                 {/* 2. Trainee Dental Nurse */}
                                 <div className="aspect-square bg-primary/5 rounded-3xl overflow-hidden shadow-lg border border-border group relative">
                                     <img
-                                        src="/images/uk%20nurse%205.png"
+                                        src="/images/black%20nurse%203.png"
                                         alt="Trainee Dental Nurse"
                                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                                     />

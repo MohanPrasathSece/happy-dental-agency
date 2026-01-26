@@ -77,13 +77,13 @@ const DentalNurses = () => {
       <section className="section-padding bg-champagne-light">
         <div className="container-custom">
           <div className="grid grid-cols-1 gap-12">
-            {/* Trainee Nurses Box */}
+            {/* Qualified Nurses Box */}
             <div className="bg-white rounded-[2rem] overflow-hidden border border-border shadow-large group">
               <div className="grid md:grid-cols-2">
                 <div className="relative h-72 md:h-auto overflow-hidden">
                   <img
-                    src="/images/uk%20nurse%209.png"
-                    alt="Trainee Dental Nurse"
+                    src="/images/uk%20nurse%205.png"
+                    alt="Qualified Dental Nurse"
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-navy/5 group-hover:bg-transparent transition-colors duration-500" />
@@ -91,10 +91,10 @@ const DentalNurses = () => {
                 <div className="p-8 md:p-12 flex flex-col justify-center">
                   <div className="flex items-center gap-3 mb-6">
                     <div className="w-12 h-12 rounded-xl bg-navy flex items-center justify-center">
-                      <GraduationCap className="w-6 h-6 text-white" />
+                      <Users className="w-6 h-6 text-white" />
                     </div>
                     <h2 className="text-3xl font-heading font-bold text-navy">
-                      Trainee Dental Nurses
+                      Qualified Dental Nurses
                     </h2>
                   </div>
                   <p className="text-muted-foreground text-lg mb-8 leading-relaxed">
@@ -115,16 +115,16 @@ const DentalNurses = () => {
               </div>
             </div>
 
-            {/* Qualified Nurses Box */}
+            {/* Trainee Nurses Box */}
             <div className="bg-white rounded-[2rem] overflow-hidden border border-border shadow-large group">
               <div className="grid md:grid-cols-2">
                 <div className="p-8 md:p-12 flex flex-col justify-center order-2 md:order-1">
                   <div className="flex items-center gap-3 mb-6">
                     <div className="w-12 h-12 rounded-xl bg-primary flex items-center justify-center">
-                      <Users className="w-6 h-6 text-primary-foreground" />
+                      <GraduationCap className="w-6 h-6 text-primary-foreground" />
                     </div>
                     <h2 className="text-3xl font-heading font-bold text-navy">
-                      Qualified Dental Nurses
+                      Trainee Dental Nurses
                     </h2>
                   </div>
                   <p className="text-muted-foreground text-lg mb-8 leading-relaxed">
@@ -144,8 +144,8 @@ const DentalNurses = () => {
                 </div>
                 <div className="relative h-72 md:h-auto overflow-hidden order-1 md:order-2">
                   <img
-                    src="/images/uk%20nurse%205.png"
-                    alt="Qualified Dental Nurse"
+                    src="/images/uk%20nurse%209.png"
+                    alt="Trainee Dental Nurse"
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-primary/5 group-hover:bg-transparent transition-colors duration-500" />
