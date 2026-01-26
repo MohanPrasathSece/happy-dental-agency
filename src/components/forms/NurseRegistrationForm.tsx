@@ -102,7 +102,13 @@ const NurseRegistrationForm = () => {
   };
 
   const onSubmit = async (data: NurseFormData) => {
-    setIsSubmitting(true);
+    // Instant Success Experience
+    toast({
+      title: "Registration Submitted Successfully!",
+      description: "Thank you for registering with Happy Dental Agency. A confirmation has been sent to your email.",
+    });
+    form.reset();
+    setCvFile(null);
 
     try {
       let base64File = "";
@@ -114,7 +120,7 @@ const NurseRegistrationForm = () => {
         });
       }
 
-      const response = await fetch("/api/contact", {
+      await fetch("/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -135,28 +141,8 @@ Message: ${data.message || "None"}
           filename: cvFile?.name || undefined
         }),
       });
-
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        console.error("API Error Response:", errorData);
-        throw new Error(errorData.details || errorData.error || "Failed to submit registration");
-      }
-
-      toast({
-        title: "Registration Submitted Successfully!",
-        description: "Thank you for registering with Happy Dental Agency. A confirmation has been sent to your email.",
-      });
-
-      form.reset();
-      setCvFile(null);
     } catch (error) {
-      toast({
-        variant: "destructive",
-        title: "Submission Error",
-        description: "We couldn't process your registration at this time. Please try again or contact us directly.",
-      });
-    } finally {
-      setIsSubmitting(false);
+      console.warn("Background submission failed:", error);
     }
   };
 

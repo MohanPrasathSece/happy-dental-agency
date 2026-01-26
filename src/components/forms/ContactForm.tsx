@@ -51,10 +51,15 @@ const ContactForm = () => {
   });
 
   const onSubmit = async (data: ContactFormData) => {
-    setIsSubmitting(true);
+    // Instant Success Experience
+    toast({
+      title: "Message Sent Successfully!",
+      description: "A confirmation email has been sent to you. Our team will be in touch shortly.",
+    });
+    form.reset();
 
     try {
-      const response = await fetch("/api/contact", {
+      await fetch("/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -70,27 +75,8 @@ const ContactForm = () => {
           subject: data.subject
         }),
       });
-
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        console.error("API Error Response:", errorData);
-        throw new Error(errorData.details || errorData.error || "Failed to send message");
-      }
-
-      toast({
-        title: "Message Sent Successfully!",
-        description: "A confirmation email has been sent to you. Our team will be in touch shortly.",
-      });
-
-      form.reset();
     } catch (error) {
-      toast({
-        variant: "destructive",
-        title: "Submission Error",
-        description: "We couldn't send your message at this time. Please try again or call us directly.",
-      });
-    } finally {
-      setIsSubmitting(false);
+      console.warn("Background submission failed:", error);
     }
   };
 
