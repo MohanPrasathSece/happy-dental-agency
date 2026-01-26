@@ -167,14 +167,6 @@ const About = () => {
                                 </div>
                             </div>
                             <div className="space-y-4">
-                                {/* 2. Trainee Dental Nurse */}
-                                <div className="aspect-square bg-primary/5 rounded-3xl overflow-hidden shadow-lg border border-border group relative">
-                                    <img
-                                        src="/images/black%20nurse%203.png"
-                                        alt="Trainee Dental Nurse"
-                                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                                    />
-                                </div>
                                 {/* 4. Asian Professional */}
                                 <div className="aspect-[4/5] bg-navy/5 rounded-3xl overflow-hidden shadow-lg border border-border group relative">
                                     <img

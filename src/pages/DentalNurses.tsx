@@ -1,5 +1,5 @@
 import { BookOpen, Shield, Gift, Banknote, GraduationCap, Users, Check, ArrowRight } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import PageHeader from "@/components/PageHeader";
 import NurseRegistrationForm from "@/components/forms/NurseRegistrationForm";
@@ -32,6 +32,16 @@ const traineeBenefits = [
 ];
 
 const DentalNurses = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const role = searchParams.get("role");
+
+  const resetRole = () => {
+    setSearchParams({});
+    // Small delay to ensure state update before scroll
+    setTimeout(() => {
+      document.getElementById('registration-form')?.scrollIntoView({ behavior: 'smooth' });
+    }, 10);
+  };
   return (
     <main>
       <SEO
@@ -78,7 +88,7 @@ const DentalNurses = () => {
         <div className="container-custom">
           <div className="grid grid-cols-1 gap-12">
             {/* Qualified Nurses Box */}
-            <div className="bg-white rounded-[2rem] overflow-hidden border border-border shadow-large group">
+            <div id="qualified-section" className="bg-white rounded-[2rem] overflow-hidden border border-border shadow-large group scroll-mt-32">
               <div className="grid md:grid-cols-2">
                 <div className="relative h-72 md:h-auto overflow-hidden">
                   <img
@@ -111,12 +121,20 @@ const DentalNurses = () => {
                       </li>
                     ))}
                   </ul>
+                  <div className="mt-8">
+                    <Link to="/dental-nurses?role=qualified#registration-form">
+                      <Button variant="cta" className="h-12 px-8 group">
+                        Register as Qualified Nurse
+                        <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                      </Button>
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>
 
             {/* Trainee Nurses Box */}
-            <div className="bg-white rounded-[2rem] overflow-hidden border border-border shadow-large group">
+            <div id="trainee-section" className="bg-white rounded-[2rem] overflow-hidden border border-border shadow-large group scroll-mt-32">
               <div className="grid md:grid-cols-2">
                 <div className="p-8 md:p-12 flex flex-col justify-center order-2 md:order-1">
                   <div className="flex items-center gap-3 mb-6">
@@ -141,10 +159,18 @@ const DentalNurses = () => {
                       </li>
                     ))}
                   </ul>
+                  <div className="mt-8">
+                    <Link to="/dental-nurses?role=trainee#registration-form">
+                      <Button variant="hero" className="h-12 px-8 group">
+                        Apply for Trainee Placement
+                        <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                      </Button>
+                    </Link>
+                  </div>
                 </div>
                 <div className="relative h-72 md:h-auto overflow-hidden order-1 md:order-2">
                   <img
-                    src="/images/uk%20nurse%209.png"
+                    src="/images/black%20nurse%20in%20classroom.png"
                     alt="Trainee Dental Nurse"
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
@@ -182,17 +208,32 @@ const DentalNurses = () => {
       </section>
 
       {/* Registration Form Section */}
-      <section className="section-padding bg-white">
+      <section id="registration-form" className="section-padding bg-white scroll-mt-20">
         <div className="container-custom">
           <div className="max-w-3xl mx-auto">
             <div className="text-center mb-10">
               <h2 className="text-3xl font-heading font-bold text-navy mb-4">
-                Register With Us Today
+                {role === 'qualified'
+                  ? "Qualified Nurse Registration"
+                  : role === 'trainee'
+                    ? "Trainee Nurse Application"
+                    : "Register With Us Today"}
               </h2>
               <p className="text-muted-foreground text-lg">
-                Complete the form below to join our network. Our team will contact you
-                within 24 hours to discuss opportunities.
+                {role === 'qualified'
+                  ? "Join our network of professional locum and permanent dental nurses. Complete the form below to get started."
+                  : role === 'trainee'
+                    ? "Begin your career in dental nursing with our placement support. Apply below to find the perfect practice."
+                    : "Complete the form below to join our network. Our team will contact you within 24 hours to discuss opportunities."}
               </p>
+              {(role === 'qualified' || role === 'trainee') && (
+                <button
+                  onClick={resetRole}
+                  className="mt-4 text-sm text-gold hover:underline font-medium"
+                >
+                  ← Not {role === 'qualified' ? 'qualified' : 'a trainee'}? Show all options
+                </button>
+              )}
             </div>
 
             <div className="bg-white rounded-2xl p-6 md:p-8 shadow-large border border-border">

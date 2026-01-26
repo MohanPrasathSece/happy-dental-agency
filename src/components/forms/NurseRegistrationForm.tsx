@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -42,6 +43,8 @@ const nurseSchema = z.object({
 type NurseFormData = z.infer<typeof nurseSchema>;
 
 const NurseRegistrationForm = () => {
+  const [searchParams] = useSearchParams();
+  const roleParam = searchParams.get("role");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [cvFile, setCvFile] = useState<File | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -54,9 +57,17 @@ const NurseRegistrationForm = () => {
       phone: "",
       location: "",
       gdcNumber: "",
+      nurseStatus: (roleParam === "trainee" || roleParam === "qualified") ? roleParam : undefined,
       message: "",
     },
   });
+
+  // Handle URL role parameter changes
+  useEffect(() => {
+    if (roleParam === "trainee" || roleParam === "qualified") {
+      form.setValue("nurseStatus", roleParam);
+    }
+  }, [roleParam, form]);
 
   const nurseStatus = form.watch("nurseStatus");
   const workPreference = form.watch("workPreference");
@@ -145,6 +156,19 @@ Message: ${data.message || "None"}
     }
   };
 
+  // Scroll to anchor if present in URL
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (hash) {
+      const element = document.getElementById(hash.substring(1));
+      if (element) {
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: "smooth" });
+        }, 100);
+      }
+    }
+  }, []);
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -205,44 +229,49 @@ Message: ${data.message || "None"}
             )}
           />
 
-          <FormField
-            control={form.control}
-            name="nurseStatus"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Your Status *</FormLabel>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select your status" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    <SelectItem value="qualified">Qualified Dental Nurse</SelectItem>
-                    <SelectItem value="trainee">Trainee Dental Nurse</SelectItem>
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+          {!roleParam && (
+            <FormField
+              control={form.control}
+              name="nurseStatus"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Your Status *</FormLabel>
+                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select your status" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="qualified">Qualified Dental Nurse</SelectItem>
+                      <SelectItem value="trainee">Trainee Dental Nurse</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          )}
 
-          <FormField
-            control={form.control}
-            name="gdcNumber"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>GDC Number {nurseStatus === "qualified" && "*"}</FormLabel>
-                <FormControl>
-                  <Input placeholder="e.g., 123456" {...field} />
-                </FormControl>
-                <FormDescription>
-                  Required for qualified nurses
-                </FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+          {/* GDC Number - Only show/require for Qualified or if status is qualified */}
+          {(nurseStatus === "qualified" || (!nurseStatus && !roleParam)) && (
+            <FormField
+              control={form.control}
+              name="gdcNumber"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>GDC Number *</FormLabel>
+                  <FormControl>
+                    <Input placeholder="e.g., 123456" {...field} />
+                  </FormControl>
+                  <FormDescription>
+                    Required for qualified nurses
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          )}
 
           <FormField
             control={form.control}
@@ -351,7 +380,7 @@ Message: ${data.message || "None"}
           ) : (
             <>
               <Send className="w-4 h-4" />
-              Submit Registration
+              {roleParam === 'trainee' ? 'Submit Placement Application' : 'Submit Registration'}
             </>
           )}
         </Button>

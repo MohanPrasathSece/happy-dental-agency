@@ -56,12 +56,13 @@ const HeroSection = () => {
                                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                             </Button>
                         </Link>
-                        <Link to="/dental-nurses" className="w-full sm:w-auto">
-                            <Button variant="hero-outline" size="xl" className="w-full">
+                        <Link to="/dental-nurses?role=qualified#qualified-section" className="w-full sm:w-auto">
+                            <Button variant="cta" size="xl" className="w-full group">
                                 Register as a Nurse
+                                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                             </Button>
                         </Link>
-                        <Link to="/dental-nurses" className="w-full sm:w-auto">
+                        <Link to="/dental-nurses?role=trainee#trainee-section" className="w-full sm:w-auto">
                             <Button variant="hero-outline" size="xl" className="w-full">
                                 Register as a Trainee Nurse
                             </Button>
