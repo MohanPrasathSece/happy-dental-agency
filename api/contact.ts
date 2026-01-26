@@ -92,9 +92,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   console.log('--- Incoming Contact Request ---');
   console.log('Time:', new Date().toISOString());
-  console.log('Type:', req.body.type);
-  console.log('Name:', req.body.name);
-  console.log('Email:', req.body.email);
+  console.log('Body:', JSON.stringify(req.body));
 
   const { name, email, phone, message, type = 'General Inquiry', subject, attachment, filename } = req.body;
 

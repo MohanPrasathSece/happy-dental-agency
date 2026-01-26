@@ -96,7 +96,11 @@ const TimesheetForm = () => {
                 }),
             });
 
-            if (!response.ok) throw new Error("Failed to submit timesheet");
+            if (!response.ok) {
+                const errorData = await response.json().catch(() => ({}));
+                console.error("Timesheet API Error:", errorData);
+                throw new Error(errorData.details || errorData.error || "Failed to submit timesheet");
+            }
 
             toast({
                 title: "Timesheet Submitted!",
@@ -105,10 +109,11 @@ const TimesheetForm = () => {
             form.reset();
             setStep(1);
         } catch (error) {
+            console.error("Timesheet Submission Catch:", error);
             toast({
                 variant: "destructive",
-                title: "Error",
-                description: "Could not submit timesheet. Please check your connection.",
+                title: "Submission Error",
+                description: error instanceof Error ? error.message : "Could not submit timesheet. Please try again.",
             });
         } finally {
             setIsSubmitting(false);
