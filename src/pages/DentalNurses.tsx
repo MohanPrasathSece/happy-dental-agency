@@ -1,4 +1,6 @@
-import { BookOpen, Shield, Gift, Banknote, GraduationCap, Users, Check } from "lucide-react";
+import { BookOpen, Shield, Gift, Banknote, GraduationCap, Users, Check, ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 import PageHeader from "@/components/PageHeader";
 import NurseRegistrationForm from "@/components/forms/NurseRegistrationForm";
 import CTASection from "@/components/sections/CTASection";
@@ -39,7 +41,7 @@ const DentalNurses = () => {
       <PageHeader
         badge="For Dental Nurses"
         title="Join Our Nursing Network"
-        subtitle="Whether you're a qualified dental nurse seeking opportunities or a trainee looking for placements, we're here to support your career."
+        subtitle="Whether you're a trainee looking for placements or a qualified dental nurse seeking opportunities, we're here to support your career."
       />
 
       {/* Incentives Section */}
@@ -71,61 +73,110 @@ const DentalNurses = () => {
         </div>
       </section>
 
-      {/* Qualified & Trainee Sections */}
+      {/* Qualified & Trainee Sections with Photos */}
       <section className="section-padding bg-champagne-light">
         <div className="container-custom">
-          <div className="grid lg:grid-cols-2 gap-8">
-            {/* Qualified Nurses */}
-            <div className="bg-white rounded-2xl p-6 md:p-8 border border-border">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 rounded-xl bg-primary flex items-center justify-center">
-                  <Users className="w-6 h-6 text-primary-foreground" />
+          <div className="grid grid-cols-1 gap-12">
+            {/* Trainee Nurses Box */}
+            <div className="bg-white rounded-[2rem] overflow-hidden border border-border shadow-large group">
+              <div className="grid md:grid-cols-2">
+                <div className="relative h-72 md:h-auto overflow-hidden">
+                  <img
+                    src="/images/uk%20nurse%209.png"
+                    alt="Trainee Dental Nurse"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-navy/5 group-hover:bg-transparent transition-colors duration-500" />
                 </div>
-                <h2 className="text-2xl font-heading font-bold text-navy">
-                  Qualified Dental Nurses
-                </h2>
-              </div>
-              <p className="text-muted-foreground mb-6">
-                Take control of your career with flexible work opportunities that suit your lifestyle.
-                Join our network of professionals and access the best dental practices across the UK.
-              </p>
-              <ul className="space-y-3">
-                {qualifiedBenefits.map((benefit, index) => (
-                  <li key={index} className="flex items-start gap-3">
-                    <div className="w-5 h-5 rounded-full bg-success flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <Check className="w-3 h-3 text-white" />
+                <div className="p-8 md:p-12 flex flex-col justify-center">
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="w-12 h-12 rounded-xl bg-navy flex items-center justify-center">
+                      <GraduationCap className="w-6 h-6 text-white" />
                     </div>
-                    <span className="text-foreground text-sm">{benefit}</span>
-                  </li>
-                ))}
-              </ul>
+                    <h2 className="text-3xl font-heading font-bold text-navy">
+                      Trainee Dental Nurses
+                    </h2>
+                  </div>
+                  <p className="text-muted-foreground text-lg mb-8 leading-relaxed">
+                    Take control of your career with flexible work opportunities that suit your lifestyle.
+                    Join our network of professionals and access the best dental practices across the UK.
+                  </p>
+                  <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {qualifiedBenefits.map((benefit, index) => (
+                      <li key={index} className="flex items-start gap-3">
+                        <div className="w-5 h-5 rounded-full bg-success flex items-center justify-center flex-shrink-0 mt-1">
+                          <Check className="w-3 h-3 text-white" />
+                        </div>
+                        <span className="text-foreground text-sm font-medium">{benefit}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
             </div>
 
-            {/* Trainee Nurses */}
-            <div className="bg-white rounded-2xl p-6 md:p-8 border border-border">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 rounded-xl bg-navy flex items-center justify-center">
-                  <GraduationCap className="w-6 h-6 text-white" />
-                </div>
-                <h2 className="text-2xl font-heading font-bold text-navy">
-                  Trainee Dental Nurses
-                </h2>
-              </div>
-              <p className="text-muted-foreground mb-6">
-                Struggling to find a placement during your dental nursing course? We're here to help!
-                We liaise directly with practices to secure positions while you complete your training.
-              </p>
-              <ul className="space-y-3">
-                {traineeBenefits.map((benefit, index) => (
-                  <li key={index} className="flex items-start gap-3">
-                    <div className="w-5 h-5 rounded-full bg-success flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <Check className="w-3 h-3 text-white" />
+            {/* Qualified Nurses Box */}
+            <div className="bg-white rounded-[2rem] overflow-hidden border border-border shadow-large group">
+              <div className="grid md:grid-cols-2">
+                <div className="p-8 md:p-12 flex flex-col justify-center order-2 md:order-1">
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="w-12 h-12 rounded-xl bg-primary flex items-center justify-center">
+                      <Users className="w-6 h-6 text-primary-foreground" />
                     </div>
-                    <span className="text-foreground text-sm">{benefit}</span>
-                  </li>
-                ))}
-              </ul>
+                    <h2 className="text-3xl font-heading font-bold text-navy">
+                      Qualified Dental Nurses
+                    </h2>
+                  </div>
+                  <p className="text-muted-foreground text-lg mb-8 leading-relaxed">
+                    Struggling to find a placement during your dental nursing course? We're here to help!
+                    We liaise directly with practices to secure positions while you complete your training.
+                  </p>
+                  <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {traineeBenefits.map((benefit, index) => (
+                      <li key={index} className="flex items-start gap-3">
+                        <div className="w-5 h-5 rounded-full bg-success flex items-center justify-center flex-shrink-0 mt-1">
+                          <Check className="w-3 h-3 text-white" />
+                        </div>
+                        <span className="text-foreground text-sm font-medium">{benefit}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="relative h-72 md:h-auto overflow-hidden order-1 md:order-2">
+                  <img
+                    src="/images/uk%20nurse%205.png"
+                    alt="Qualified Dental Nurse"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-primary/5 group-hover:bg-transparent transition-colors duration-500" />
+                </div>
+              </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Timesheet Banner */}
+      <section className="bg-navy py-12 md:py-16 -mt-8">
+        <div className="container-custom">
+          <div className="bg-white/5 backdrop-blur-sm rounded-3xl p-8 md:p-12 border border-white/10 flex flex-col lg:flex-row items-center justify-between gap-8 text-center lg:text-left">
+            <div>
+              <div className="inline-flex items-center gap-2 bg-gold/20 text-gold px-4 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest mb-4">
+                Electronic Submissions
+              </div>
+              <h2 className="text-2xl md:text-3xl font-heading font-bold text-white mb-4">
+                Daily Timesheet
+              </h2>
+              <p className="text-white/80 text-base md:text-lg max-w-2xl leading-relaxed">
+                Finished your shift? Submit your electronic timesheet here. Quick, easy, and automatically shared with the practice and our team.
+              </p>
+            </div>
+            <Link to="/timesheet">
+              <Button variant="cta" size="lg" className="h-14 px-10 text-base shadow-xl hover:shadow-primary/20 group">
+                Go to Timesheet Form
+                <ArrowRight className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
+              </Button>
+            </Link>
           </div>
         </div>
       </section>

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Phone, Home, Info, Building2, Heart, Workflow, Mail } from "lucide-react";
+import { Menu, X, Phone, Home, Info, Building2, Heart, Workflow, Mail, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Logo from "./Logo";
 import GoogleTranslate from "./GoogleTranslate";
@@ -43,6 +43,7 @@ const Header = () => {
         { name: "Dental Practices", path: "/dental-practices", icon: Building2 },
         { name: "Dental Nurses", path: "/dental-nurses", icon: Heart },
         { name: "How It Works", path: "/how-it-works", icon: Workflow },
+        { name: "Timesheet", path: "/timesheet", icon: Clock },
         { name: "Contact", path: "/contact", icon: Mail },
     ];
 

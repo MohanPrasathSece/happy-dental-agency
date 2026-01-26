@@ -88,56 +88,112 @@ const DentalPractices = () => {
         </div>
       </section>
 
-      {/* Benefits & Booking Form Section */}
-      <section className="section-padding bg-champagne-light">
+      {/* Professional Excellence Section */}
+      <section className="section-padding bg-slate-50 border-y border-border/50">
         <div className="container-custom">
-          <div className="grid lg:grid-cols-2 gap-12 items-start">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            <div className="animate-fade-in order-2 lg:order-1">
+              <span className="inline-block bg-navy text-white px-4 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest mb-6">
+                Vetted & Qualified
+              </span>
+              <h2 className="text-3xl md:text-4xl font-heading font-bold text-navy mb-6 leading-tight">
+                Excellence in <br />
+                <span className="text-gold">Dental Nursing</span> Support
+              </h2>
+              <div className="space-y-6 text-muted-foreground text-lg leading-relaxed">
+                <p>
+                  At Happy Dental Agency, we take recruitment beyond just filling shifts. Our team consists of highly skilled, GDC-registered professionals who are passionate about patient care.
+                </p>
+                <p>
+                  Every nurse in our network undergoes a rigorous vetting process, including enhanced DBS checks and qualification verification, ensuring that your practice remains efficient.
+                </p>
+              </div>
+              <div className="mt-8 flex flex-wrap gap-4">
+                <div className="px-4 py-2 bg-white rounded-lg border border-border shadow-sm text-sm font-semibold text-navy">
+                  ✓ GDC Registered
+                </div>
+                <div className="px-4 py-2 bg-white rounded-lg border border-border shadow-sm text-sm font-semibold text-navy">
+                  ✓ DBS Verified
+                </div>
+                <div className="px-4 py-2 bg-white rounded-lg border border-border shadow-sm text-sm font-semibold text-navy">
+                  ✓ Fully Insured
+                </div>
+              </div>
+            </div>
+            <div className="relative order-1 lg:order-2">
+              <div className="aspect-square rounded-[3rem] overflow-hidden shadow-2xl">
+                <img
+                  src="/images/uk%20nurse%208.png"
+                  alt="Professional Dental Nursing Team"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              {/* Decorative blobs */}
+              <div className="absolute -top-10 -right-10 w-40 h-40 bg-gold/10 rounded-full blur-3xl -z-10" />
+              <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-navy/5 rounded-full blur-3xl -z-10" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Benefits & Booking Form Section */}
+      <section className="section-padding bg-white">
+        <div className="container-custom">
+
+          <div className="grid lg:grid-cols-2 gap-16 items-center mb-16">
             {/* Benefits */}
-            <div>
-              <h2 className="text-2xl md:text-3xl font-heading font-bold text-navy mb-6">
+            <div className="animate-slide-up">
+              <span className="inline-block bg-navy text-white px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest mb-6">
+                Practice Benefits
+              </span>
+              <h2 className="text-3xl md:text-4xl font-heading font-bold text-navy mb-6">
                 Why Partner With Us?
               </h2>
-              <p className="text-muted-foreground mb-8">
+              <p className="text-muted-foreground text-lg mb-8 leading-relaxed">
                 We understand the unique staffing challenges dental practices face.
-                Our commitment to quality and reliability sets us apart.
+                Our commitment to quality, speed, and reliability sets us apart as
+                the UK's trusted nursing partner.
               </p>
 
-              <ul className="space-y-3">
+              <div className="grid sm:grid-cols-2 gap-4 mb-10">
                 {benefits.map((benefit, index) => (
-                  <li key={index} className="flex items-start gap-3">
-                    <div className="w-5 h-5 rounded-full bg-success flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <Check className="w-3 h-3 text-white" />
+                  <div key={index} className="flex items-center gap-3 p-3 bg-white rounded-xl border border-border/50 shadow-sm">
+                    <div className="w-6 h-6 rounded-full bg-success/10 flex items-center justify-center flex-shrink-0">
+                      <Check className="w-3.5 h-3.5 text-success" />
                     </div>
-                    <span className="text-foreground">{benefit}</span>
-                  </li>
+                    <span className="text-sm font-medium text-navy/80">{benefit}</span>
+                  </div>
                 ))}
-              </ul>
+              </div>
 
               {/* Support Box */}
-              <div className="mt-8 p-6 bg-white rounded-2xl border border-border">
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-primary flex items-center justify-center">
-                    <Headphones className="w-6 h-6 text-primary-foreground" />
+              <div className="p-6 bg-navy text-white rounded-2xl shadow-xl border border-navy-light/20 relative overflow-hidden group">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -mr-16 -mt-16 blur-2xl group-hover:bg-white/10 transition-colors" />
+                <div className="flex items-center gap-5 relative z-10">
+                  <div className="w-14 h-14 rounded-xl bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20">
+                    <Headphones className="w-7 h-7 text-white" />
                   </div>
                   <div>
-                    <p className="font-semibold text-navy">Need Immediate Help?</p>
-                    <a href="tel:+447944624039" className="text-navy hover:underline font-semibold">
-                      Call us: +44 7944 624 039
+                    <p className="text-white/70 text-sm font-medium">Need Immediate Help?</p>
+                    <a href="tel:+447944624039" className="text-xl font-heading font-bold hover:text-gold transition-colors block">
+                      +44 7944 624 039
                     </a>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Booking Form */}
-            <div className="bg-white rounded-2xl p-6 md:p-8 shadow-large">
-              <h2 className="text-2xl font-heading font-bold text-navy mb-2">
-                Book a Dental Nurse
-              </h2>
-              <p className="text-muted-foreground mb-6">
-                Fill out the form below and we'll respond within 2 hours.
-              </p>
-              <BookingForm />
+            {/* Booking Form Card */}
+            <div className="bg-white rounded-[2.5rem] shadow-2xl border border-border animate-fade-in">
+              <div className="p-8 md:p-12">
+                <div className="text-center mb-10">
+                  <h3 className="text-3xl font-heading font-bold text-navy mb-3">Book a Nurse</h3>
+                  <p className="text-muted-foreground">
+                    Complete the form below and we'll respond within 2 hours.
+                  </p>
+                </div>
+                <BookingForm />
+              </div>
             </div>
           </div>
         </div>

@@ -17,8 +17,8 @@ const HeroSection = () => {
             <div className="absolute inset-0 overflow-hidden">
                 <div className="absolute top-20 right-10 w-64 h-64 bg-champagne-dark/20 rounded-full blur-3xl" />
                 <div className="absolute bottom-20 left-10 w-96 h-96 bg-gold/10 rounded-full blur-3xl" />
-                <div className="absolute top-0 right-0 w-1/2 h-full hidden lg:block opacity-10">
-                    <img src="/hero-dental.png" alt="Dental Office" className="w-full h-full object-cover" />
+                <div className="absolute top-0 right-0 w-1/2 h-full hidden lg:block opacity-20">
+                    <img src="/images/uk nurse 6.png" alt="Dental Professional" className="w-full h-full object-cover" />
                 </div>
             </div>
 
