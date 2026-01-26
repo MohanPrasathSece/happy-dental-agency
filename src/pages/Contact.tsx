@@ -25,14 +25,14 @@ const contactInfo = [
     title: "WhatsApp",
     primary: "+44 7944 624 039",
     secondary: "Quick chat support",
-    link: "https://wa.me/447123456789",
+    link: "https://wa.me/447944624039",
   },
   {
     icon: MapPin,
     title: "Location",
-    primary: "United Kingdom",
-    secondary: "UK-wide service",
-    link: null,
+    primary: "Capital Office, 124 City Road",
+    secondary: "London, EC1V 2NX",
+    link: "https://maps.google.com/?q=Capital+Office,+124+City+Road,+London,+EC1V+2NX",
   },
 ];
 
@@ -67,8 +67,8 @@ const Contact = () => {
   return (
     <main>
       <SEO
-        title="Contact Us | Dental Agency London & UK Support"
-        description="Get in touch with Happy Dental Agency London. Reach our professional support team for staffing inquiries or nurse registration across the UK."
+        title="Contact Us | UK Dental Agency Support"
+        description="Get in touch with Happy Dental Agency. Reach our professional support team for staffing inquiries or nurse registration across the entire UK."
       />
       <PageHeader
         badge="Contact Us"
@@ -163,7 +163,7 @@ const Contact = () => {
                     <span>+44 7944 624 039</span>
                   </a>
                   <a
-                    href="https://wa.me/447123456789"
+                    href="https://wa.me/447944624039"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-3 p-3 bg-green-600/20 rounded-lg hover:bg-green-600/30 transition-colors"

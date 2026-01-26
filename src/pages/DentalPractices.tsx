@@ -43,7 +43,7 @@ const DentalPractices = () => {
     <main>
       <SEO
         title="Book Dental Nurses | Staffing for Dental Practices UK"
-        description="Reliable locum and permanent dental nurse staffing for UK dental practices. Fast response times and fully vetted qualified nurses in London and nationwide."
+        description="Reliable locum and permanent dental nurse staffing for UK-wide dental practices. Fast response times and fully vetted qualified nurses available across the country."
       />
       <PageHeader
         badge="For Dental Practices"

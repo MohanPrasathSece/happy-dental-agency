@@ -110,7 +110,14 @@ const Footer = () => {
               </li>
               <li className="flex items-start gap-3 text-sm text-white/80">
                 <MapPin className="w-4 h-4 mt-0.5 text-champagne flex-shrink-0" />
-                <span>United Kingdom</span>
+                <a
+                  href="https://maps.google.com/?q=Capital+Office,+124+City+Road,+London,+EC1V+2NX"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-champagne transition-colors"
+                >
+                  Capital Office, 124 City Road<br />London, EC1V 2NX
+                </a>
               </li>
               <li className="flex items-start gap-3 text-sm text-white/80">
                 <Clock className="w-4 h-4 mt-0.5 text-champagne flex-shrink-0" />

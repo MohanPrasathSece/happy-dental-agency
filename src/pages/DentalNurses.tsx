@@ -46,7 +46,7 @@ const DentalNurses = () => {
     <main>
       <SEO
         title="Jobs for Dental Nurses | Locum & Permanent Roles UK"
-        description="Join leading dental nursing agencies in London and across the UK. Register for flexible locum shifts or permanent nursing roles with great benefits."
+        description="Join our leading dental nursing agency with opportunities across the entire UK. Register for flexible locum shifts or permanent nursing roles with great benefits."
       />
       <PageHeader
         badge="For Dental Nurses"

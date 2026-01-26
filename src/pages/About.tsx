@@ -80,7 +80,7 @@ const About = () => {
             <section className="section-padding bg-white overflow-hidden">
                 <div className="container-custom">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                        <div className="animate-slide-up order-2 lg:order-1">
+                        <div className="animate-slide-up order-2 lg:order-2">
                             <div className="inline-flex items-center gap-2 bg-navy text-white px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-widest mb-8">
                                 LEADERSHIP
                             </div>
@@ -111,7 +111,7 @@ const About = () => {
                             </div>
                         </div>
 
-                        <div className="relative lg:h-[700px] rounded-[2.5rem] overflow-hidden group shadow-2xl order-1 lg:order-2">
+                        <div className="relative lg:h-[700px] rounded-[2.5rem] overflow-hidden group shadow-2xl order-1 lg:order-1">
                             <img
                                 src="/ceo-office.png"
                                 alt="Professional Dental Office"

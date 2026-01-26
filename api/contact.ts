@@ -62,7 +62,8 @@ const getEmailTemplate = (name: string, content: string, isConfirmation: boolean
                       <strong>Happy Dental Agency</strong>
                     </p>
                     <p style="margin: 0 0 4px; font-size: 12px; color: #868e96;">
-                      United Kingdom
+                      Capital Office, 124 City Road<br>
+                      London, EC1V 2NX, United Kingdom
                     </p>
                     <p style="margin: 0 0 16px; font-size: 12px; color: #868e96;">
                       <a href="mailto:info@happydentalagency.co.uk" style="color: #2c3e50; text-decoration: none;">info@happydentalagency.co.uk</a>

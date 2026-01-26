@@ -51,19 +51,19 @@ const WhyChooseUsSection = () => {
               needs of dental practices and the importance of reliable, skilled nursing staff.
             </p>
 
-            {/* Stats */}
-            <div className="grid grid-cols-1 xs:grid-cols-3 gap-6 sm:gap-8">
+            {/* Values instead of numbers */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8">
               <div className="text-center md:text-left">
-                <p className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-navy">500+</p>
-                <p className="text-xs sm:text-sm text-muted-foreground mt-1 uppercase tracking-wider font-semibold">Nurses</p>
+                <p className="text-xl md:text-2xl font-heading font-bold text-navy uppercase">Expert</p>
+                <p className="text-xs sm:text-sm text-muted-foreground mt-1 uppercase tracking-wider font-semibold">Nursing Staff</p>
               </div>
               <div className="text-center md:text-left">
-                <p className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-navy">200+</p>
-                <p className="text-xs sm:text-sm text-muted-foreground mt-1 uppercase tracking-wider font-semibold">Practices</p>
+                <p className="text-xl md:text-2xl font-heading font-bold text-navy uppercase">Trusted</p>
+                <p className="text-xs sm:text-sm text-muted-foreground mt-1 uppercase tracking-wider font-semibold">Dental Partner</p>
               </div>
               <div className="text-center md:text-left">
-                <p className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-navy">98%</p>
-                <p className="text-xs sm:text-sm text-muted-foreground mt-1 uppercase tracking-wider font-semibold">Happy</p>
+                <p className="text-xl md:text-2xl font-heading font-bold text-navy uppercase">Quality</p>
+                <p className="text-xs sm:text-sm text-muted-foreground mt-1 uppercase tracking-wider font-semibold">Service First</p>
               </div>
             </div>
           </div>
