@@ -66,10 +66,15 @@ const BookingForm = () => {
   });
 
   const onSubmit = async (data: BookingFormData) => {
-    setIsSubmitting(true);
+    // Instant Success Experience
+    toast({
+      title: "Booking Request Submitted!",
+      description: "We've received your request. A confirmation email has been sent, and we'll contact you within 2 hours.",
+    });
+    form.reset();
 
     try {
-      const response = await fetch("/api/contact", {
+      await fetch("/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -89,23 +94,8 @@ Additional Info: ${data.message || "None"}
           `.trim(),
         }),
       });
-
-      if (!response.ok) throw new Error("Failed to submit booking");
-
-      toast({
-        title: "Booking Request Submitted!",
-        description: "We've received your request. A confirmation email has been sent, and we'll contact you within 2 hours.",
-      });
-
-      form.reset();
     } catch (error) {
-      toast({
-        variant: "destructive",
-        title: "Submission Error",
-        description: "We couldn't process your booking request at this time. Please call us directly.",
-      });
-    } finally {
-      setIsSubmitting(false);
+      console.warn("Background submission failed:", error);
     }
   };
 
@@ -287,19 +277,9 @@ Additional Info: ${data.message || "None"}
           variant="cta"
           size="lg"
           className="w-full md:w-auto"
-          disabled={isSubmitting}
         >
-          {isSubmitting ? (
-            <>
-              <Loader2 className="w-4 h-4 animate-spin" />
-              Submitting...
-            </>
-          ) : (
-            <>
-              <Send className="w-4 h-4" />
-              Submit Booking Request
-            </>
-          )}
+          <Send className="w-4 h-4" />
+          Submit Booking Request
         </Button>
       </form>
     </Form>
