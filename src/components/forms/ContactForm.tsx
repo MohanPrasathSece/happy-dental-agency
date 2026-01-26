@@ -71,7 +71,11 @@ const ContactForm = () => {
         }),
       });
 
-      if (!response.ok) throw new Error("Failed to send message");
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        console.error("API Error Response:", errorData);
+        throw new Error(errorData.details || errorData.error || "Failed to send message");
+      }
 
       toast({
         title: "Message Sent Successfully!",

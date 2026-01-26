@@ -136,7 +136,11 @@ Message: ${data.message || "None"}
         }),
       });
 
-      if (!response.ok) throw new Error("Failed to submit registration");
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        console.error("API Error Response:", errorData);
+        throw new Error(errorData.details || errorData.error || "Failed to submit registration");
+      }
 
       toast({
         title: "Registration Submitted Successfully!",
