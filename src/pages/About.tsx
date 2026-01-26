@@ -66,7 +66,7 @@ const About = () => {
 
                         <div className="relative rounded-[2.5rem] overflow-hidden shadow-2xl animate-fade-in group">
                             <img
-                                src="/about-dental.png"
+                                src="/about-dental-new.png"
                                 alt="Dental Professionals Collaborating"
                                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                             />
