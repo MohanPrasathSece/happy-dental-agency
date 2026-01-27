@@ -6,7 +6,7 @@ import Logo from "../Logo";
 const HeroSection = () => {
     const highlights = [
         "Fully Qualified Nurses",
-        "UK-Wide Service",
+        "London-Wide Service",
         "Fast Response",
         "Reliable Staffing",
     ];
@@ -31,7 +31,7 @@ const HeroSection = () => {
                     <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm rounded-full px-4 py-2 mb-6 md:mb-8 shadow-soft animate-fade-in">
                         <span className="w-2 h-2 bg-success rounded-full animate-pulse" />
                         <span className="text-xs sm:text-sm font-medium text-navy">
-                            Trusted Dental Nursing Agency in the UK
+                            Trusted Dental Nursing Agency in London
                         </span>
                     </div>
 
@@ -45,7 +45,7 @@ const HeroSection = () => {
                     {/* Subheading */}
                     <p className="text-base md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8 animate-slide-up" style={{ animationDelay: "0.1s" }}>
                         Connecting dental practices with qualified and trainee dental nurses
-                        across the United Kingdom. Fast, reliable, and professional staffing solutions.
+                        across London. Fast, reliable, and professional staffing solutions.
                     </p>
 
                     {/* CTA Buttons */}

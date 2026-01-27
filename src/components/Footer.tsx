@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Phone, Mail, MapPin, Clock, Facebook, Linkedin, Instagram } from "lucide-react";
+import { Phone, Mail, MapPin, Clock, Facebook, Linkedin, Instagram, Twitter } from "lucide-react";
 import Logo from "./Logo";
 
 const Footer = () => {
@@ -14,7 +14,7 @@ const Footer = () => {
           <div className="space-y-4">
             <Logo size="sm" showText={false} />
             <p className="text-white/80 text-sm leading-relaxed">
-              Your trusted partner for dental nursing recruitment across the UK.
+              Your trusted partner for dental nursing recruitment across London.
               Connecting dental practices with qualified and trainee dental nurses.
             </p>
             <div className="flex gap-3">
@@ -32,6 +32,22 @@ const Footer = () => {
                 aria-label="Instagram"
               >
                 <Instagram className="w-5 h-5" />
+              </a>
+
+              <a
+                href="#"
+                className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-champagne hover:text-navy transition-all"
+                aria-label="LinkedIn"
+              >
+                <Linkedin className="w-5 h-5" />
+              </a>
+
+              <a
+                href="#"
+                className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-champagne hover:text-navy transition-all"
+                aria-label="Twitter"
+              >
+                <Twitter className="w-5 h-5" />
               </a>
             </div>
           </div>

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Phone, Home, Info, Building2, Heart, Workflow, Mail, Clock } from "lucide-react";
+import { Menu, X, Phone, Home, Info, Building2, Heart, Workflow, Mail, Clock, Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Logo from "./Logo";
 import GoogleTranslate from "./GoogleTranslate";
@@ -161,6 +161,31 @@ const Header = () => {
                                 })}
                             </div>
                         </nav>
+                        {/* Social Links & Footer Info */}
+                        <div className="p-6 border-t border-border/50 bg-muted/30">
+                            <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-4">Follow Us</p>
+                            <div className="flex gap-4 mb-6">
+                                {[
+                                    { icon: Facebook, label: "Facebook", link: "#" },
+                                    { icon: Instagram, label: "Instagram", link: "#" },
+                                    { icon: Linkedin, label: "LinkedIn", link: "#" },
+                                    { icon: Twitter, label: "Twitter", link: "#" },
+                                ].map((social) => (
+                                    <a
+                                        key={social.label}
+                                        href={social.link}
+                                        className="w-10 h-10 rounded-lg bg-background border border-border flex items-center justify-center text-navy hover:bg-primary hover:text-primary-foreground transition-all shadow-sm"
+                                        aria-label={social.label}
+                                    >
+                                        <social.icon className="w-5 h-5" />
+                                    </a>
+                                ))}
+                            </div>
+                            <div className="space-y-1">
+                                <p className="text-[10px] text-muted-foreground">© 2024 Happy Dental Agency</p>
+                                <p className="text-[10px] text-muted-foreground">All rights reserved.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

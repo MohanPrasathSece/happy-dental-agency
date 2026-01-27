@@ -16,7 +16,7 @@ const incentives = [
 const qualifiedBenefits = [
   "Flexible locum and permanent opportunities",
   "Work-life balance with shifts that suit you",
-  "Access to practices across the UK",
+  "Access to practices across London",
   "Regular work with consistent income",
   "Professional development support",
   "Dedicated account manager",
@@ -45,8 +45,8 @@ const DentalNurses = () => {
   return (
     <main>
       <SEO
-        title="Jobs for Dental Nurses | Locum & Permanent Roles UK"
-        description="Join our leading dental nursing agency with opportunities across the entire UK. Register for flexible locum shifts or permanent nursing roles with great benefits."
+        title="Jobs for Dental Nurses | Locum & Permanent Roles London"
+        description="Join our leading dental nursing agency with opportunities across London. Register for flexible locum shifts or permanent nursing roles with great benefits."
       />
       <PageHeader
         badge="For Dental Nurses"
@@ -109,7 +109,7 @@ const DentalNurses = () => {
                   </div>
                   <p className="text-muted-foreground text-lg mb-8 leading-relaxed">
                     Take control of your career with flexible work opportunities that suit your lifestyle.
-                    Join our network of professionals and access the best dental practices across the UK.
+                    Join our network of professionals and access the best dental practices across London.
                   </p>
                   <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {qualifiedBenefits.map((benefit, index) => (

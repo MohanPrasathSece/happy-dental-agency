@@ -51,7 +51,7 @@ const ServicesSection = () => {
           </h2>
           <p className="text-muted-foreground text-lg">
             We provide a full range of recruitment services to meet the staffing
-            needs of dental practices across the UK.
+            needs of dental practices across London.
           </p>
         </div>
 

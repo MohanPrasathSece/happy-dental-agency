@@ -1,6 +1,6 @@
 import PageHeaderComp from "@/components/PageHeader";
 import CTASection from "@/components/sections/CTASection";
-import { Target, Eye, Heart, Shield, Award, Users, GraduationCap } from "lucide-react";
+import { Target, Eye, Heart, Shield, Award, Users, GraduationCap, Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
 import SEO from "@/components/SEO";
 
 const About = () => {
@@ -25,13 +25,13 @@ const About = () => {
     return (
         <main>
             <SEO
-                title="About Us | UK Dental Nursing Recruitment Experts"
-                description="Learn about Happy Dental Agency's mission to provide the best dental nursing staffing solutions across the UK. Dedicated to excellence and diversity."
+                title="About Us | London Dental Nursing Recruitment Experts"
+                description="Learn about Happy Dental Agency's mission to provide the best dental nursing staffing solutions across London. Dedicated to excellence and diversity."
             />
             <PageHeaderComp
                 badge="About Us"
                 title="Our Journey & Mission"
-                subtitle="Dedicated to connecting the best dental talent with leading practices across the UK."
+                subtitle="Dedicated to connecting the best dental talent with leading practices across London."
             />
 
             {/* Mission Section */}
@@ -100,13 +100,29 @@ const About = () => {
                                 Our commitment goes beyond simple staffing. We are dedicated to elevating the dental nursing profession by ensuring every placement reflects the high standards our practices expect and our nurses deserve.
                             </p>
 
-                            <div className="flex items-center gap-4">
-                                <div className="w-12 h-12 rounded-full bg-navy flex items-center justify-center text-white shadow-lg">
-                                    <Award className="w-6 h-6" />
+                            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
+                                <div className="flex items-center gap-4">
+                                    <div className="w-12 h-12 rounded-full bg-navy flex items-center justify-center text-white shadow-lg">
+                                        <Award className="w-6 h-6" />
+                                    </div>
+                                    <div>
+                                        <p className="font-heading font-bold text-xl text-navy">Akosua Dapaah</p>
+                                        <p className="text-muted-foreground font-semibold text-sm">CEO & Founder</p>
+                                    </div>
                                 </div>
-                                <div>
-                                    <p className="font-heading font-bold text-xl text-navy">Akosua Dapaah</p>
-                                    <p className="text-muted-foreground font-semibold text-sm">CEO & Founder</p>
+                                <div className="flex gap-3 pl-0 sm:pl-6 sm:border-l border-border">
+                                    <a href="#" className="w-10 h-10 rounded-full border border-border flex items-center justify-center text-navy hover:bg-navy hover:text-white transition-all shadow-sm" aria-label="LinkedIn">
+                                        <Linkedin className="w-4 h-4" />
+                                    </a>
+                                    <a href="#" className="w-10 h-10 rounded-full border border-border flex items-center justify-center text-navy hover:bg-navy hover:text-white transition-all shadow-sm" aria-label="Twitter">
+                                        <Twitter className="w-4 h-4" />
+                                    </a>
+                                    <a href="#" className="w-10 h-10 rounded-full border border-border flex items-center justify-center text-navy hover:bg-navy hover:text-white transition-all shadow-sm" aria-label="Instagram">
+                                        <Instagram className="w-4 h-4" />
+                                    </a>
+                                    <a href="#" className="w-10 h-10 rounded-full border border-border flex items-center justify-center text-navy hover:bg-navy hover:text-white transition-all shadow-sm" aria-label="Facebook">
+                                        <Facebook className="w-4 h-4" />
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -132,7 +148,7 @@ const About = () => {
                                 Celebrating <span className="text-gold">Diversity</span> in Dentistry
                             </h2>
                             <p className="text-muted-foreground text-lg mb-6 leading-relaxed">
-                                At Happy Dental Agency, we take immense pride in our multi-cultural and diverse network of dental professionals. We understand that representation matters—not just for our staff, but for the varied patient communities they serve across the UK.
+                                At Happy Dental Agency, we take immense pride in our multi-cultural and diverse network of dental professionals. We understand that representation matters—not just for our staff, but for the varied patient communities they serve across London.
                             </p>
                             <p className="text-muted-foreground text-lg mb-8 leading-relaxed">
                                 From qualified dental nurses and dedicated trainees to professionals from all backgrounds and faiths, we create an environment where everyone feels valued and supported. Whether it's accommodating religious requirements like the hijab or celebrating our Asian and international colleagues, diversity is our strength.

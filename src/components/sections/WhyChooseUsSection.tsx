@@ -13,8 +13,8 @@ const reasons = [
   },
   {
     icon: MapPin,
-    title: "UK-Wide Coverage",
-    description: "Serving dental practices across England, Scotland, Wales, and Northern Ireland.",
+    title: "London Coverage",
+    description: "Serving dental practices across the city of London with efficient staffing solutions.",
   },
   {
     icon: Star,

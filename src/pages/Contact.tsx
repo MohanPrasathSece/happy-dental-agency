@@ -1,4 +1,4 @@
-import { Phone, Mail, MapPin, Clock, MessageCircle } from "lucide-react";
+import { Phone, Mail, MapPin, Clock, MessageCircle, Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
 import PageHeader from "@/components/PageHeader";
 import ContactForm from "@/components/forms/ContactForm";
 import CTASection from "@/components/sections/CTASection";
@@ -47,7 +47,7 @@ const faqs = [
   },
   {
     question: "What areas do you cover?",
-    answer: "We provide services across the entire United Kingdom including England, Scotland, Wales, and Northern Ireland.",
+    answer: "We currently provide services throughout London. We have plans to expand to other parts of the UK in the near future.",
   },
   {
     question: "How much does it cost?",
@@ -67,8 +67,8 @@ const Contact = () => {
   return (
     <main>
       <SEO
-        title="Contact Us | UK Dental Agency Support"
-        description="Get in touch with Happy Dental Agency. Reach our professional support team for staffing inquiries or nurse registration across the entire UK."
+        title="Contact Us | London Dental Agency Support"
+        description="Get in touch with Happy Dental Agency. Reach our professional support team for staffing inquiries or nurse registration across London."
       />
       <PageHeader
         badge="Contact Us"
@@ -148,29 +148,30 @@ const Contact = () => {
                 </p>
               </div>
 
-              {/* Quick Actions */}
-              <div className="bg-navy rounded-2xl p-6 text-white">
-                <h3 className="font-heading font-semibold mb-4">Need Immediate Assistance?</h3>
-                <p className="text-white/80 text-sm mb-4">
-                  For urgent staffing needs or time-sensitive enquiries, please call us directly or message us on WhatsApp.
+              {/* Social Media */}
+              <div className="bg-white rounded-2xl p-6 border border-border shadow-soft">
+                <h3 className="font-heading font-semibold text-navy mb-4">Follow Us</h3>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Stay updated with our latest news and recruitment opportunities on social media.
                 </p>
-                <div className="space-y-3">
-                  <a
-                    href="tel:+447944624039"
-                    className="flex items-center gap-3 p-3 bg-white/10 rounded-lg hover:bg-white/20 transition-colors"
-                  >
-                    <Phone className="w-5 h-5 text-champagne" />
-                    <span>+44 7944 624 039</span>
-                  </a>
-                  <a
-                    href="https://wa.me/447944624039"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-3 p-3 bg-green-600/20 rounded-lg hover:bg-green-600/30 transition-colors"
-                  >
-                    <MessageCircle className="w-5 h-5 text-green-400" />
-                    <span>Chat on WhatsApp</span>
-                  </a>
+                <div className="flex gap-4">
+                  {[
+                    { icon: Facebook, label: "Facebook", link: "#", color: "hover:text-blue-600 hover:bg-blue-50" },
+                    { icon: Instagram, label: "Instagram", link: "#", color: "hover:text-pink-600 hover:bg-pink-50" },
+                    { icon: Linkedin, label: "LinkedIn", link: "#", color: "hover:text-blue-700 hover:bg-blue-50" },
+                    { icon: Twitter, label: "Twitter", link: "#", color: "hover:text-sky-500 hover:bg-sky-50" },
+                  ].map((social) => (
+                    <a
+                      key={social.label}
+                      href={social.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`w-12 h-12 rounded-xl bg-muted flex items-center justify-center transition-all ${social.color}`}
+                      aria-label={social.label}
+                    >
+                      <social.icon className="w-6 h-6" />
+                    </a>
+                  ))}
                 </div>
               </div>
             </div>

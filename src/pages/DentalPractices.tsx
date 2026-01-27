@@ -34,7 +34,7 @@ const benefits = [
   "No placement fees for locum bookings",
   "Satisfaction guarantee on all placements",
   "Dedicated account manager support",
-  "UK-wide coverage",
+  "London-wide coverage",
   "24/7 emergency support line",
 ];
 
@@ -42,8 +42,8 @@ const DentalPractices = () => {
   return (
     <main>
       <SEO
-        title="Book Dental Nurses | Staffing for Dental Practices UK"
-        description="Reliable locum and permanent dental nurse staffing for UK-wide dental practices. Fast response times and fully vetted qualified nurses available across the country."
+        title="Book Dental Nurses | Staffing for Dental Practices London"
+        description="Reliable locum and permanent dental nurse staffing for London dental practices. Fast response times and fully vetted qualified nurses available across the city."
       />
       <PageHeader
         badge="For Dental Practices"
@@ -152,7 +152,7 @@ const DentalPractices = () => {
               <p className="text-muted-foreground text-lg mb-8 leading-relaxed">
                 We understand the unique staffing challenges dental practices face.
                 Our commitment to quality, speed, and reliability sets us apart as
-                the UK's trusted nursing partner.
+                London's trusted nursing partner.
               </p>
 
               <div className="grid sm:grid-cols-2 gap-4 mb-10">

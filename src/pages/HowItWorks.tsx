@@ -66,8 +66,8 @@ const HowItWorks = () => {
   return (
     <main>
       <SEO
-        title="How It Works | Recruitment Process UK"
-        description="Our simple recruitment process for dental practices and nurses. Learn how we match quality practices across the UK with top nursing talent."
+        title="How It Works | Recruitment Process London"
+        description="Our simple recruitment process for dental practices and nurses. Learn how we match quality practices across London with top nursing talent."
       />
       <PageHeader
         badge="How It Works"
