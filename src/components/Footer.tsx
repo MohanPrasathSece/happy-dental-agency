@@ -27,7 +27,9 @@ const Footer = () => {
               </a>
 
               <a
-                href="#"
+                href="https://instagram.com/happydentalagencyuk"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-champagne hover:text-navy transition-all"
                 aria-label="Instagram"
               >

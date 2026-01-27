@@ -90,15 +90,14 @@ const TimesheetForm = () => {
                     email: data.nurseEmail,
                     type: "Timesheet Submission",
                     subject: `Timesheet: ${data.nurseName} - ${data.practiceName} (${data.date})`,
-                    message: `Timesheet Details:
-            Nurse: ${data.nurseName} (${data.nurseEmail})
-            Practice: ${data.practiceName}
-            Date: ${data.date}
-            Hours: ${data.startTime} to ${data.endTime} (Break: ${data.breakDuration}m)
-            Total: ${data.totalHours} hrs
-            Verified by: ${data.verifierName} (${data.verifierRole})
-            Feedback: ${data.feedback}
-          `
+                    message: `<strong>Timesheet Details:</strong><br><br>` +
+                        `<strong>Nurse:</strong> ${data.nurseName} (${data.nurseEmail})<br>` +
+                        `<strong>Practice:</strong> ${data.practiceName}<br>` +
+                        `<strong>Date:</strong> ${data.date}<br>` +
+                        `<strong>Hours:</strong> ${data.startTime} to ${data.endTime} (Break: ${data.breakDuration}m)<br>` +
+                        `<strong>Total:</strong> ${data.totalHours} hrs<br>` +
+                        `<strong>Verified by:</strong> ${data.verifierName} (${data.verifierRole})<br>` +
+                        `<strong>Feedback:</strong> ${data.feedback || 'None provided'}`
                 }),
             });
         } catch (error) {

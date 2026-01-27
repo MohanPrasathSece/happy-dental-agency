@@ -229,71 +229,7 @@ const HowItWorks = () => {
         </div>
       </section>
 
-      {/* Resources & Templates */}
-      <section className="section-padding bg-white">
-        <div className="container-custom">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <div className="inline-flex items-center gap-2 bg-navy text-white px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest mb-6">
-              RESOURCES
-            </div>
-            <h2 className="text-3xl md:text-5xl font-heading font-bold text-navy mb-6">
-              Templates & <span className="text-gold">Documents</span>
-            </h2>
-            <p className="text-muted-foreground text-xl">
-              Professional tools and ready-to-use templates for your daily dental practice operations.
-            </p>
-          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Gentle Reminder */}
-            <div className="bg-card rounded-[2.5rem] p-8 border border-border flex flex-col hover:shadow-2xl transition-all duration-500">
-              <div className="w-16 h-16 rounded-2xl bg-primary/20 flex items-center justify-center mb-8">
-                <Mail className="w-8 h-8 text-navy" />
-              </div>
-              <h3 className="text-2xl font-heading font-bold text-navy mb-4">Gentle Reminder</h3>
-              <p className="text-muted-foreground mb-8 flex-1">
-                A professional template to remind dental nurses or practices about upcoming shifts, documentation, or feedback.
-              </p>
-              <div className="bg-muted p-4 rounded-xl text-xs font-mono text-muted-foreground mb-6">
-                "Hi [Name], just a gentle reminder about your upcoming shift at [Practice] on [Date]. Please ensure your timesheet is ready for verification."
-              </div>
-              <Button variant="outline" className="w-full border-gold text-navy hover:bg-gold hover:text-white">
-                Copy Template
-              </Button>
-            </div>
-
-            {/* Official Letterhead */}
-            <div className="bg-card rounded-[2.5rem] p-8 border border-border flex flex-col hover:shadow-2xl transition-all duration-500">
-              <div className="w-16 h-16 rounded-2xl bg-navy flex items-center justify-center mb-8 text-white">
-                <FileCheck className="w-8 h-8" />
-              </div>
-              <h3 className="text-2xl font-heading font-bold text-navy mb-4">Official Letterhead</h3>
-              <p className="text-muted-foreground mb-8 flex-1">
-                Download our official letterhead featuring the Happy Dental Agency logo. Ideal for professional correspondence and certifications.
-              </p>
-              <Button className="w-full bg-navy hover:bg-navy/90 text-white">
-                Download Letterhead
-              </Button>
-            </div>
-
-            {/* Electronic Timesheet */}
-            <div className="bg-card rounded-[2.5rem] p-8 border border-border flex flex-col hover:shadow-2xl transition-all duration-500">
-              <div className="w-16 h-16 rounded-2xl bg-gold/20 flex items-center justify-center mb-8 text-gold">
-                <Clock className="w-8 h-8" />
-              </div>
-              <h3 className="text-2xl font-heading font-bold text-navy mb-4">E-Timesheet</h3>
-              <p className="text-muted-foreground mb-8 flex-1">
-                Fast, secure, and automatic. Use our online portal to submit and verify shift hours at the end of every placement.
-              </p>
-              <Link to="/timesheet">
-                <Button variant="cta" className="w-full">
-                  Access Portal
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
 
       <CTASection variant="general" />
     </main>

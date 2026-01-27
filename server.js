@@ -95,101 +95,113 @@ const getEmailTemplate = (name, content, isConfirmation) => `
 `;
 
 app.post('/api/contact', async (req, res) => {
-    console.log('--- Incoming Contact Request ---');
-    console.log('Time:', new Date().toISOString());
-    console.log('Type:', req.body.type);
-    console.log('Name:', req.body.name);
-    console.log('Email:', req.body.email);
+  console.log('--- Incoming Contact Request ---');
+  console.log('Time:', new Date().toISOString());
+  console.log('Type:', req.body.type);
+  console.log('Name:', req.body.name);
+  console.log('Email:', req.body.email);
 
-    const { name, email, phone, message, type = 'General Inquiry', subject, attachment, filename } = req.body;
+  const { name, email, phone, message, type = 'General Inquiry', subject, attachment, filename } = req.body;
 
-    if (!email || !name) {
-        console.error('Validation Error: Missing name or email');
-        return res.status(400).json({ error: 'Name and Email are required' });
+  if (!email || !name) {
+    console.error('Validation Error: Missing name or email');
+    return res.status(400).json({ error: 'Name and Email are required' });
+  }
+
+  // Check for environment variables
+  if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+    console.error('Missing environment variables: EMAIL_USER or EMAIL_PASS');
+    return res.status(500).json({ error: 'Server configuration error' });
+  }
+
+  // Configure Google SMTP (Gmail)
+  const emailUser = String(process.env.EMAIL_USER || '').trim();
+  const emailPass = String(process.env.EMAIL_PASS || '').replace(/\s/g, '');
+
+  const transporter = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true, // Use SSL
+    auth: {
+      user: emailUser,
+      pass: emailPass,
+    },
+    tls: {
+      rejectUnauthorized: false
     }
+  });
 
-    // Check for environment variables
-    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
-        console.error('Missing environment variables: EMAIL_USER or EMAIL_PASS');
-        return res.status(500).json({ error: 'Server configuration error' });
-    }
-
-    // Configure Google SMTP (Gmail)
-    const emailUser = String(process.env.EMAIL_USER || '').trim();
-    const emailPass = String(process.env.EMAIL_PASS || '').replace(/\s/g, '');
-
-    const transporter = nodemailer.createTransport({
-        host: 'smtp.gmail.com',
-        port: 465,
-        secure: true, // Use SSL
-        auth: {
-            user: emailUser,
-            pass: emailPass,
-        },
-        tls: {
-            rejectUnauthorized: false
-        }
-    });
-
+  try {
+    // Verify connection configuration
+    console.log('Attempting SMTP Verification for:', emailUser);
     try {
-        // Verify connection configuration
-        console.log('Attempting SMTP Verification for:', emailUser);
-        try {
-            await transporter.verify();
-            console.log('✅ SMTP Verification Success');
-        } catch (verifyError) {
-            console.error('❌ Critical SMTP Verification Failure:');
-            console.error('Error Code:', verifyError.code);
-            console.error('Error Message:', verifyError.message);
-            if (verifyError.response) console.error('SMTP Response:', verifyError.response);
+      await transporter.verify();
+      console.log('✅ SMTP Verification Success');
+    } catch (verifyError) {
+      console.error('❌ Critical SMTP Verification Failure:');
+      console.error('Error Code:', verifyError.code);
+      console.error('Error Message:', verifyError.message);
+      if (verifyError.response) console.error('SMTP Response:', verifyError.response);
 
-            return res.status(500).json({
-                error: 'Email service connection failed',
-                code: verifyError.code,
-                details: verifyError.message
-            });
-        }
+      return res.status(500).json({
+        error: 'Email service connection failed',
+        code: verifyError.code,
+        details: verifyError.message
+      });
+    }
 
-        console.log('📧 Sending notification email to agency...');
+    console.log('📧 Sending notification email to agency...');
 
-        // Build email content
-        const emailContent = `
+    // Format message to handle newlines if it's plain text
+    const formattedMessage = message
+      ? (message.includes('<br>') || message.includes('<strong>')
+        ? message
+        : message.replace(/\n/g, '<br>'))
+      : 'No message provided';
+
+    // Build email content
+    const emailContent = `
       <table role="presentation" style="width: 100%; border-collapse: collapse; margin-bottom: 24px;">
         <tr>
-          <td style="padding: 16px; background-color: #f8f9fa; border-radius: 6px;">
+          <td style="padding: 24px; background-color: #f8fafc; border-radius: 12px; border: 1px solid #e2e8f0;">
             <table role="presentation" style="width: 100%; border-collapse: collapse;">
               <tr>
-                <td style="padding: 12px 0; border-bottom: 1px solid #e9ecef;">
-                  <strong>Name:</strong> ${name}
+                <td style="padding: 12px 0; border-bottom: 1px solid #edf2f7;">
+                  <span style="color: #64748b; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600;">Name</span><br>
+                  <span style="color: #1e293b; font-size: 15px; font-weight: 500;">${name}</span>
                 </td>
               </tr>
               <tr>
-                <td style="padding: 12px 0; border-bottom: 1px solid #e9ecef;">
-                  <strong>Email:</strong> <a href="mailto:${email}">${email}</a>
+                <td style="padding: 12px 0; border-bottom: 1px solid #edf2f7;">
+                  <span style="color: #64748b; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600;">Email</span><br>
+                  <a href="mailto:${email}" style="color: #2563eb; font-size: 15px; text-decoration: none; font-weight: 500;">${email}</a>
                 </td>
               </tr>
               <tr>
-                <td style="padding: 12px 0; border-bottom: 1px solid #e9ecef;">
-                  <strong>Phone:</strong> ${phone || 'Not provided'}
+                <td style="padding: 12px 0; border-bottom: 1px solid #edf2f7;">
+                  <span style="color: #64748b; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600;">Phone</span><br>
+                  <span style="color: #1e293b; font-size: 15px; font-weight: 500;">${phone || 'Not provided'}</span>
                 </td>
               </tr>
               <tr>
-                <td style="padding: 12px 0; border-bottom: 1px solid #e9ecef;">
-                  <strong>Type:</strong> ${type}
+                <td style="padding: 12px 0; border-bottom: 1px solid #edf2f7;">
+                  <span style="color: #64748b; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600;">Type</span><br>
+                  <span style="padding: 4px 12px; background-color: #e2e8f0; border-radius: 9999px; font-size: 12px; color: #475569; font-weight: 600; display: inline-block; margin-top: 4px;">${type}</span>
                 </td>
               </tr>
               ${subject ? `
               <tr>
-                <td style="padding: 12px 0; border-bottom: 1px solid #e9ecef;">
-                  <strong>Subject:</strong> ${subject}
+                <td style="padding: 12px 0; border-bottom: 1px solid #edf2f7;">
+                  <span style="color: #64748b; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600;">Subject</span><br>
+                  <span style="color: #1e293b; font-size: 15px; font-weight: 500;">${subject}</span>
                 </td>
               </tr>
               ` : ''}
               <tr>
-                <td style="padding: 12px 0;">
-                  <strong>Message:</strong><br>
-                  <div style="background-color: #ffffff; padding: 16px; border-radius: 6px; border: 1px solid #e9ecef; margin-top: 8px;">
-                    ${message || 'No message provided'}
+                <td style="padding: 20px 0 0;">
+                  <span style="color: #64748b; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600;">Message Content</span><br>
+                  <div style="background-color: #ffffff; padding: 20px; border-radius: 8px; border: 1px solid #e2e8f0; margin-top: 10px; line-height: 1.6; color: #334155; font-size: 14px;">
+                    ${formattedMessage}
                   </div>
                 </td>
               </tr>
@@ -199,70 +211,70 @@ app.post('/api/contact', async (req, res) => {
       </table>
     `;
 
-        // 1. Send Notification to Agency
-        await transporter.sendMail({
-            from: `"Happy Dental System" <${emailUser}>`,
-            to: process.env.RECIPIENT_EMAIL || 'info@happydentalagency.co.uk',
-            subject: `New ${type} from ${name}`,
-            html: getEmailTemplate(name, emailContent, false),
-            attachments: (attachment && typeof attachment === 'string' && attachment.includes("base64,")) ? [
-                {
-                    filename: filename || 'attachment.pdf',
-                    content: attachment.split("base64,")[1],
-                    encoding: 'base64'
-                }
-            ] : []
-        });
+    // 1. Send Notification to Agency
+    await transporter.sendMail({
+      from: `"Happy Dental System" <${emailUser}>`,
+      to: process.env.RECIPIENT_EMAIL || 'info@happydentalagency.co.uk',
+      subject: `New ${type} from ${name}`,
+      html: getEmailTemplate(name, emailContent, false),
+      attachments: (attachment && typeof attachment === 'string' && attachment.includes("base64,")) ? [
+        {
+          filename: filename || 'attachment.pdf',
+          content: attachment.split("base64,")[1],
+          encoding: 'base64'
+        }
+      ] : []
+    });
 
-        console.log('✅ Agency notification sent');
+    console.log('✅ Agency notification sent');
 
-        // 2. Send Confirmation to User
-        await transporter.sendMail({
-            from: `"Happy Dental Agency" <${emailUser}>`,
-            to: email,
-            subject: `Thank you for contacting Happy Dental Agency`,
-            html: getEmailTemplate(
-                name,
-                `<p>Thank you for reaching out to Happy Dental Agency. We have successfully received your inquiry regarding <strong>${type}</strong>.</p>
+    // 2. Send Confirmation to User
+    await transporter.sendMail({
+      from: `"Happy Dental Agency" <${emailUser}>`,
+      to: email,
+      subject: `Thank you for contacting Happy Dental Agency`,
+      html: getEmailTemplate(
+        name,
+        `<p>Thank you for reaching out to Happy Dental Agency. We have successfully received your inquiry regarding <strong>${type}</strong>.</p>
          <p>Our team is dedicated to connecting the finest dental professionals with leading practices, and we are excited to assist you.</p>`,
-                true
-            ),
-        });
+        true
+      ),
+    });
 
-        console.log('✅ User confirmation sent');
-        console.log('🎉 All emails sent successfully');
+    console.log('✅ User confirmation sent');
+    console.log('🎉 All emails sent successfully');
 
-        return res.status(200).json({ success: true, message: 'Emails sent successfully' });
-    } catch (error) {
-        console.error('--- SMTP Execution Error ---');
-        console.error('Error Name:', error.name);
-        console.error('Error Message:', error.message);
-        if (error.code) console.error('Error Code:', error.code);
-        if (error.response) console.error('SMTP Response:', error.response);
+    return res.status(200).json({ success: true, message: 'Emails sent successfully' });
+  } catch (error) {
+    console.error('--- SMTP Execution Error ---');
+    console.error('Error Name:', error.name);
+    console.error('Error Message:', error.message);
+    if (error.code) console.error('Error Code:', error.code);
+    if (error.response) console.error('SMTP Response:', error.response);
 
-        return res.status(500).json({
-            error: 'Failed to send emails',
-            code: error.code,
-            details: error.message
-        });
-    }
+    return res.status(500).json({
+      error: 'Failed to send emails',
+      code: error.code,
+      details: error.message
+    });
+  }
 });
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
-    res.json({
-        status: 'ok',
-        env: {
-            EMAIL_USER: !!process.env.EMAIL_USER,
-            EMAIL_PASS: !!process.env.EMAIL_PASS,
-            RECIPIENT_EMAIL: !!process.env.RECIPIENT_EMAIL,
-        },
-        node: process.version
-    });
+  res.json({
+    status: 'ok',
+    env: {
+      EMAIL_USER: !!process.env.EMAIL_USER,
+      EMAIL_PASS: !!process.env.EMAIL_PASS,
+      RECIPIENT_EMAIL: !!process.env.RECIPIENT_EMAIL,
+    },
+    node: process.version
+  });
 });
 
 app.listen(PORT, () => {
-    console.log(`\n🚀 Backend API Server running on http://localhost:${PORT}`);
-    console.log(`📧 Email API: http://localhost:${PORT}/api/contact`);
-    console.log(`💚 Health Check: http://localhost:${PORT}/api/health\n`);
+  console.log(`\n🚀 Backend API Server running on http://localhost:${PORT}`);
+  console.log(`📧 Email API: http://localhost:${PORT}/api/contact`);
+  console.log(`💚 Health Check: http://localhost:${PORT}/api/health\n`);
 });
