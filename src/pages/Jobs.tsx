@@ -331,9 +331,9 @@ const Jobs = () => {
                                                 setFormData({ ...formData, resume: file });
                                             }
                                         }}
-                                        className="cursor-pointer file:cursor-pointer file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-navy/10 file:text-navy hover:file:bg-navy/20"
+                                        className="h-10"
                                     />
-                                    <p className="text-[11px] text-muted-foreground">Upload your CV/resume to complete your application</p>
+                                    <p className="text-xs text-muted-foreground">Upload your CV/resume (PDF, DOC, or DOCX format)</p>
                                 </div>
 
                                 <Button
