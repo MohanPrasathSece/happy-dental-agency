@@ -2,10 +2,18 @@
 import { useEffect, useState } from "react";
 import AdminLayout from "@/components/admin/AdminLayout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Briefcase, Users, Eye, Plus, ArrowUpRight, TrendingUp } from "lucide-react";
+import { Briefcase, Users, Eye, Plus, ArrowUpRight, TrendingUp, Loader2 } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import {
+    ResponsiveContainer,
+    BarChart,
+    Bar,
+    XAxis,
+    Tooltip,
+    Cell
+} from "recharts";
 
 const AdminDashboard = () => {
     const [stats, setStats] = useState({
@@ -14,6 +22,7 @@ const AdminDashboard = () => {
         registrations: 0,
         visitors: 0
     });
+    const [chartData, setChartData] = useState<any[]>([]);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
@@ -45,6 +54,28 @@ const AdminDashboard = () => {
                     registrations: regsCount || 0,
                     visitors: visitorsCount || 0
                 });
+
+                // Fetch last 7 days for the chart
+                const sevenDaysAgo = new Date();
+                sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+                const { data: views } = await supabase
+                    .from('page_views')
+                    .select('created_at')
+                    .gte('created_at', sevenDaysAgo.toISOString());
+
+                if (views) {
+                    const daysMap: Record<string, number> = {};
+                    for (let i = 6; i >= 0; i--) {
+                        const d = new Date();
+                        d.setDate(d.getDate() - i);
+                        daysMap[d.toLocaleDateString('en-GB', { weekday: 'short' })] = 0;
+                    }
+                    views.forEach(v => {
+                        const day = new Date(v.created_at).toLocaleDateString('en-GB', { weekday: 'short' });
+                        if (daysMap[day] !== undefined) daysMap[day]++;
+                    });
+                    setChartData(Object.entries(daysMap).map(([name, views]) => ({ name, views })));
+                }
             } catch (e) {
                 console.error(e);
             } finally {
@@ -135,24 +166,43 @@ const AdminDashboard = () => {
             {/* Analytics Section */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-4">
                 <Card className="col-span-1 lg:col-span-2 border-none shadow-sm">
-                    <CardHeader>
+                    <CardHeader className="flex flex-row items-center justify-between">
                         <CardTitle className="text-navy flex items-center gap-2">
                             <TrendingUp className="w-5 h-5 text-gray-400" /> Performance Overview
                         </CardTitle>
+                        <Link to="/admin/analytics">
+                            <Button variant="ghost" size="sm" className="text-xs text-navy hover:text-gold gap-1">
+                                View Full Report <ArrowUpRight className="w-3 h-3" />
+                            </Button>
+                        </Link>
                     </CardHeader>
                     <CardContent>
-                        <div className="h-64 flex items-center justify-center bg-gray-50/50 rounded-xl border border-dashed border-gray-200">
-                            <div className="text-center">
-                                <p className="text-sm font-medium text-gray-400 mb-1">Analytics Visualization</p>
-                                <p className="text-xs text-gray-300">Data collecting...</p>
-                                <div className="mt-4 flex gap-2 justify-center">
-                                    <div className="h-16 w-3 bg-blue-200 rounded-t-sm"></div>
-                                    <div className="h-24 w-3 bg-blue-300 rounded-t-sm"></div>
-                                    <div className="h-10 w-3 bg-blue-200 rounded-t-sm"></div>
-                                    <div className="h-32 w-3 bg-navy rounded-t-sm"></div>
-                                    <div className="h-20 w-3 bg-blue-300 rounded-t-sm"></div>
+                        <div className="h-64 w-full">
+                            {isLoading ? (
+                                <div className="h-full flex items-center justify-center">
+                                    <Loader2 className="w-6 h-6 animate-spin text-navy/20" />
                                 </div>
-                            </div>
+                            ) : (
+                                <ResponsiveContainer width="100%" height="100%">
+                                    <BarChart data={chartData}>
+                                        <XAxis
+                                            dataKey="name"
+                                            axisLine={false}
+                                            tickLine={false}
+                                            tick={{ fontSize: 11, fill: '#94a3b8', fontWeight: 500 }}
+                                        />
+                                        <Tooltip
+                                            cursor={{ fill: 'transparent' }}
+                                            contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}
+                                        />
+                                        <Bar dataKey="views" radius={[4, 4, 0, 0]}>
+                                            {chartData.map((_, index) => (
+                                                <Cell key={index} fill={index === chartData.length - 1 ? '#d4af37' : '#1a2c4e'} />
+                                            ))}
+                                        </Bar>
+                                    </BarChart>
+                                </ResponsiveContainer>
+                            )}
                         </div>
                     </CardContent>
                 </Card>

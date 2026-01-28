@@ -118,3 +118,33 @@ DROP POLICY IF EXISTS "Admins can view analytics" ON public.page_views;
 CREATE POLICY "Admins can view analytics"
 ON public.page_views FOR SELECT
 USING ( auth.role() = 'authenticated' );
+-- 10. Storage Configuration (Buckets)
+-- Note: Run these in the Supabase SQL Editor if buckets don't exist
+-- INSERT INTO storage.buckets (id, name, public) VALUES ('applications', 'applications', true);
+-- INSERT INTO storage.buckets (id, name, public) VALUES ('registrations', 'registrations', true);
+
+-- 11. Storage Policies for 'applications' bucket
+-- Allow public uploads
+CREATE POLICY "Public Upload Applications"
+ON storage.objects FOR INSERT
+TO public
+WITH CHECK (bucket_id = 'applications');
+
+-- Allow public read
+CREATE POLICY "Public View Applications"
+ON storage.objects FOR SELECT
+TO public
+USING (bucket_id = 'applications');
+
+-- 12. Storage Policies for 'registrations' bucket
+-- Allow public uploads
+CREATE POLICY "Public Upload Registrations"
+ON storage.objects FOR INSERT
+TO public
+WITH CHECK (bucket_id = 'registrations');
+
+-- Allow public read
+CREATE POLICY "Public View Registrations"
+ON storage.objects FOR SELECT
+TO public
+USING (bucket_id = 'registrations');

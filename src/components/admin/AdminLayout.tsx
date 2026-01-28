@@ -13,7 +13,8 @@ import {
     Bell,
     Search,
     ChevronRight,
-    UserCheck
+    UserCheck,
+    TrendingUp
 } from "lucide-react";
 import Logo from "../Logo";
 import { supabase } from "@/lib/supabase";
@@ -61,10 +62,8 @@ const AdminLayout = ({ children, title, subtitle, action }: AdminLayoutProps) =>
 
     const navItems = [
         { name: "Dashboard", path: "/admin", icon: LayoutDashboard },
+        { name: "Analytics", path: "/admin/analytics", icon: TrendingUp },
         { name: "Job Listings", path: "/admin/jobs", icon: Briefcase },
-        { name: "Applications", path: "/admin/applications", icon: Users },
-        { name: "Nurse Registrations", path: "/admin/registrations", icon: UserCheck },
-        // { name: "Settings", path: "/admin/settings", icon: Settings },
     ];
 
     return (
