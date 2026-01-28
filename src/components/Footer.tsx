@@ -65,6 +65,7 @@ const Footer = () => {
                 { name: "About Us", path: "/about" },
                 { name: "For Dental Practices", path: "/dental-practices" },
                 { name: "For Dental Nurses", path: "/dental-nurses" },
+                { name: "Jobs", path: "/jobs" },
                 { name: "How It Works", path: "/how-it-works" },
                 { name: "Electronic Timesheet", path: "/timesheet" },
                 { name: "Contact Us", path: "/contact" },
