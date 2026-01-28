@@ -11,6 +11,13 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
 import { toast } from "sonner";
 
 interface Job {
@@ -39,6 +46,7 @@ const Jobs = () => {
         phone: "",
         gdcNumber: "",
         coverLetter: "",
+        hep_b_status: "",
         resume: null as File | null
     });
 
@@ -84,7 +92,7 @@ const Jobs = () => {
     const handleApplyClick = (job: Job) => {
         setSelectedJob(job);
         setIsSuccess(false);
-        setFormData({ name: "", email: "", phone: "", gdcNumber: "", coverLetter: "", resume: null });
+        setFormData({ name: "", email: "", phone: "", gdcNumber: "", coverLetter: "", hep_b_status: "", resume: null });
         setIsApplicationOpen(true);
     };
 
@@ -124,7 +132,8 @@ const Jobs = () => {
                     email: formData.email,
                     phone: formData.phone,
                     gdc_number: formData.gdcNumber,
-                    cover_letter: formData.coverLetter
+                    cover_letter: formData.coverLetter,
+                    hep_b_status: formData.hep_b_status
                 }]);
 
             if (dbError) throw dbError;
@@ -143,6 +152,7 @@ const Jobs = () => {
                         Job Title: ${selectedJob.title}
                         Phone: ${formData.phone}
                         GDC Number: ${formData.gdcNumber}
+                        Hepatitis B Status: ${formData.hep_b_status}
                         
                         Cover Letter / Notes:
                         ${formData.coverLetter}
@@ -306,6 +316,25 @@ const Jobs = () => {
                                             onChange={e => setFormData({ ...formData, gdcNumber: e.target.value })}
                                         />
                                     </div>
+                                </div>
+
+                                <div className="space-y-2">
+                                    <Label>Hepatitis B Vaccination Status *</Label>
+                                    <Select
+                                        required
+                                        onValueChange={value => setFormData({ ...formData, hep_b_status: value })}
+                                        value={formData.hep_b_status}
+                                    >
+                                        <SelectTrigger className="w-full">
+                                            <SelectValue placeholder="Select your status" />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            <SelectItem value="Fully Vaccinated">Fully Vaccinated (Up to date)</SelectItem>
+                                            <SelectItem value="In Progress">In Progress / Partially Vaccinated</SelectItem>
+                                            <SelectItem value="Not Vaccinated">Not Vaccinated</SelectItem>
+                                        </SelectContent>
+                                    </Select>
+                                    <p className="text-xs text-muted-foreground">Required to check if you are protected to assist the dentist.</p>
                                 </div>
 
                                 <div className="space-y-2">

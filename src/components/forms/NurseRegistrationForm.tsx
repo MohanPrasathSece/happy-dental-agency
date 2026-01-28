@@ -38,6 +38,9 @@ const nurseSchema = z.object({
     required_error: "Please select work preference",
   }),
   message: z.string().max(1000).optional(),
+  hepBVaccination: z.enum(["yes", "no", "in_progress"], {
+    required_error: "Please select your Hepatitis B vaccination status",
+  }),
 });
 
 type NurseFormData = z.infer<typeof nurseSchema>;
@@ -59,6 +62,7 @@ const NurseRegistrationForm = () => {
       gdcNumber: "",
       nurseStatus: (roleParam === "trainee" || roleParam === "qualified") ? roleParam : undefined,
       message: "",
+      hepBVaccination: undefined,
     },
   });
 
@@ -133,6 +137,7 @@ const NurseRegistrationForm = () => {
           message: `
 Status: ${data.nurseStatus}
 GDC Number: ${data.gdcNumber || "N/A"}
+Hepatitis B Vaccination: ${data.hepBVaccination === 'yes' ? 'Fully Vaccinated' : data.hepBVaccination === 'in_progress' ? 'In Progress' : 'Not Vaccinated'}
 Location: ${data.location}
 Work Preference: ${data.workPreference}
 Message: ${data.message || "None"}
@@ -262,6 +267,32 @@ Message: ${data.message || "None"}
               )}
             />
           )}
+
+          <FormField
+            control={form.control}
+            name="hepBVaccination"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Hepatitis B Vaccination Status *</FormLabel>
+                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select status" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectItem value="yes">Fully Vaccinated (Up to date)</SelectItem>
+                    <SelectItem value="in_progress">In Progress / Partially Vaccinated</SelectItem>
+                    <SelectItem value="no">Not Vaccinated</SelectItem>
+                  </SelectContent>
+                </Select>
+                <FormDescription>
+                  For clinical protection verify if your Hep B is up to date.
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
           <FormField
             control={form.control}

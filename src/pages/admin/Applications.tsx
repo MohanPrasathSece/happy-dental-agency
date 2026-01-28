@@ -25,6 +25,7 @@ interface Application {
     gdc_number: string;
     status: string;
     cover_letter?: string;
+    hep_b_status?: string;
     created_at: string;
 }
 
@@ -208,6 +209,16 @@ const AdminApplications = () => {
                                     <div className="space-y-1">
                                         <p className="text-xs font-medium text-gray-500 uppercase">GDC Number</p>
                                         <p className="font-mono text-gray-600">{selectedApp.gdc_number || 'N/A'}</p>
+                                    </div>
+                                    <div className="space-y-1">
+                                        <p className="text-xs font-medium text-gray-500 uppercase">Hep B Status</p>
+                                        <Badge variant="outline" className={
+                                            selectedApp.hep_b_status === 'Fully Vaccinated' ? 'bg-green-50 text-green-700 border-green-200' :
+                                                selectedApp.hep_b_status === 'In Progress' ? 'bg-yellow-50 text-yellow-700 border-yellow-200' :
+                                                    'bg-red-50 text-red-700 border-red-200'
+                                        }>
+                                            {selectedApp.hep_b_status || 'Not Specified'}
+                                        </Badge>
                                     </div>
                                 </div>
 
