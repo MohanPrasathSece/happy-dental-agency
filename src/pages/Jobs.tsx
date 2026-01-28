@@ -38,7 +38,8 @@ const Jobs = () => {
         email: "",
         phone: "",
         gdcNumber: "",
-        coverLetter: ""
+        coverLetter: "",
+        resume: null as File | null
     });
 
     useEffect(() => {
@@ -83,7 +84,7 @@ const Jobs = () => {
     const handleApplyClick = (job: Job) => {
         setSelectedJob(job);
         setIsSuccess(false);
-        setFormData({ name: "", email: "", phone: "", gdcNumber: "", coverLetter: "" });
+        setFormData({ name: "", email: "", phone: "", gdcNumber: "", coverLetter: "", resume: null });
         setIsApplicationOpen(true);
     };
 
@@ -93,6 +94,26 @@ const Jobs = () => {
         setIsSubmitting(true);
 
         try {
+            let attachment = "";
+            let filename = "";
+
+            // Convert resume to base64 if uploaded
+            if (formData.resume) {
+                const reader = new FileReader();
+                const filePromise = new Promise<{ base64: string, name: string }>((resolve, reject) => {
+                    reader.onload = () => resolve({
+                        base64: reader.result as string,
+                        name: formData.resume!.name
+                    });
+                    reader.onerror = reject;
+                    reader.readAsDataURL(formData.resume!);
+                });
+
+                const fileData = await filePromise;
+                attachment = fileData.base64;
+                filename = fileData.name;
+            }
+
             // 1. Save to Supabase (Dashboard)
             const { error: dbError } = await supabase
                 .from('applications')
@@ -108,8 +129,8 @@ const Jobs = () => {
 
             if (dbError) throw dbError;
 
-            // 2. Send Notifications (Email)
-            const response = await fetch('http://localhost:3000/api/contact', {
+            // 2. Send Notifications (Email with Resume Attachment)
+            const response = await fetch('/api/contact', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -126,7 +147,9 @@ const Jobs = () => {
                         Cover Letter / Notes:
                         ${formData.coverLetter}
                     `,
-                    subject: `New Application: ${selectedJob.title} - ${formData.name}`
+                    subject: `New Application: ${selectedJob.title} - ${formData.name}`,
+                    attachment: attachment,
+                    filename: filename
                 })
             });
 
@@ -293,6 +316,24 @@ const Jobs = () => {
                                         value={formData.coverLetter}
                                         onChange={e => setFormData({ ...formData, coverLetter: e.target.value })}
                                     />
+                                </div>
+
+                                <div className="space-y-2">
+                                    <Label htmlFor="resume-upload">Resume / CV (PDF, DOC, DOCX) *</Label>
+                                    <Input
+                                        id="resume-upload"
+                                        type="file"
+                                        required
+                                        accept=".pdf,.doc,.docx"
+                                        onChange={(e) => {
+                                            const file = e.target.files?.[0];
+                                            if (file) {
+                                                setFormData({ ...formData, resume: file });
+                                            }
+                                        }}
+                                        className="cursor-pointer file:cursor-pointer file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-navy/10 file:text-navy hover:file:bg-navy/20"
+                                    />
+                                    <p className="text-[11px] text-muted-foreground">Upload your CV/resume to complete your application</p>
                                 </div>
 
                                 <Button
