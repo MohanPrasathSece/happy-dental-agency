@@ -5,12 +5,12 @@
   
   <!-- Homepage - Highest Priority -->
   <url>
-    <loc>https://happydentalagency.co.uk/</loc>
+    <loc>https://www.happydentalagency.co.uk/</loc>
     <lastmod>2026-01-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <image:image>
-      <image:loc>https://happydentalagency.co.uk/og-image-new.png</image:loc>
+      <image:loc>https://www.happydentalagency.co.uk/og-image-new.png</image:loc>
       <image:title>Happy Dental Agency - Best Dental Nurses in London</image:title>
       <image:caption>Premier dental nursing recruitment agency in London providing qualified dental nurses</image:caption>
     </image:image>
@@ -18,12 +18,12 @@
   
   <!-- Dental Practices - High Priority (Main Service) -->
   <url>
-    <loc>https://happydentalagency.co.uk/dental-practices</loc>
+    <loc>https://www.happydentalagency.co.uk/dental-practices</loc>
     <lastmod>2026-01-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.95</priority>
     <image:image>
-      <image:loc>https://happydentalagency.co.uk/images/uk%20nurse%205.png</image:loc>
+      <image:loc>https://www.happydentalagency.co.uk/images/uk%20nurse%205.png</image:loc>
       <image:title>Book Dental Nurses London - Locum and Permanent Staffing</image:title>
       <image:caption>Fast, reliable dental nurse staffing solutions for London dental practices</image:caption>
     </image:image>
@@ -31,12 +31,12 @@
   
   <!-- Dental Nurses - High Priority (Main Service) -->
   <url>
-    <loc>https://happydentalagency.co.uk/dental-nurses</loc>
+    <loc>https://www.happydentalagency.co.uk/dental-nurses</loc>
     <lastmod>2026-01-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.95</priority>
     <image:image>
-      <image:loc>https://happydentalagency.co.uk/images/uk%20nurse%208.png</image:loc>
+      <image:loc>https://www.happydentalagency.co.uk/images/uk%20nurse%208.png</image:loc>
       <image:title>Dental Nurse Jobs London - Register Today</image:title>
       <image:caption>Join our network of professional dental nurses in London with excellent benefits</image:caption>
     </image:image>
@@ -44,7 +44,7 @@
 
   <!-- Jobs Board - High Priority -->
   <url>
-    <loc>https://happydentalagency.co.uk/jobs</loc>
+    <loc>https://www.happydentalagency.co.uk/jobs</loc>
     <lastmod>2026-01-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.90</priority>
@@ -52,19 +52,19 @@
   
   <!-- About - Medium Priority -->
   <url>
-    <loc>https://happydentalagency.co.uk/about</loc>
+    <loc>https://www.happydentalagency.co.uk/about</loc>
     <lastmod>2026-01-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.80</priority>
     <image:image>
-      <image:loc>https://happydentalagency.co.uk/logo_main.png</image:loc>
+      <image:loc>https://www.happydentalagency.co.uk/logo_main.png</image:loc>
       <image:title>About Happy Dental Agency London</image:title>
     </image:image>
   </url>
   
   <!-- How It Works -->
   <url>
-    <loc>https://happydentalagency.co.uk/how-it-works</loc>
+    <loc>https://www.happydentalagency.co.uk/how-it-works</loc>
     <lastmod>2026-01-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.75</priority>
@@ -72,7 +72,7 @@
   
   <!-- Contact -->
   <url>
-    <loc>https://happydentalagency.co.uk/contact</loc>
+    <loc>https://www.happydentalagency.co.uk/contact</loc>
     <lastmod>2026-01-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
@@ -80,7 +80,7 @@
 
   <!-- Timesheet -->
   <url>
-    <loc>https://happydentalagency.co.uk/timesheet</loc>
+    <loc>https://www.happydentalagency.co.uk/timesheet</loc>
     <lastmod>2026-01-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.60</priority>
@@ -88,7 +88,7 @@
   
   <!-- Privacy Policy -->
   <url>
-    <loc>https://happydentalagency.co.uk/privacy</loc>
+    <loc>https://www.happydentalagency.co.uk/privacy</loc>
     <lastmod>2026-01-28</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.30</priority>
@@ -96,7 +96,7 @@
   
   <!-- Terms & Conditions -->
   <url>
-    <loc>https://happydentalagency.co.uk/terms</loc>
+    <loc>https://www.happydentalagency.co.uk/terms</loc>
     <lastmod>2026-01-28</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.30</priority>
