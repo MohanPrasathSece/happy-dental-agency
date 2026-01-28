@@ -102,7 +102,8 @@ const Jobs = () => {
                     name: formData.name,
                     email: formData.email,
                     phone: formData.phone,
-                    gdc_number: formData.gdcNumber
+                    gdc_number: formData.gdcNumber,
+                    cover_letter: formData.coverLetter
                 }]);
 
             if (dbError) throw dbError;
