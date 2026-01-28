@@ -5,7 +5,7 @@ import { supabase } from "@/lib/supabase";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { Loader2, Mail, Phone, Calendar, Eye, CheckCircle2 } from "lucide-react";
+import { Loader2, Mail, Phone, Calendar, Eye, CheckCircle2, FileText, ArrowUpRight } from "lucide-react";
 import { toast } from "sonner";
 import {
     Dialog,
@@ -26,6 +26,8 @@ interface Application {
     status: string;
     cover_letter?: string;
     hep_b_status?: string;
+    resume_url?: string;
+    hep_b_url?: string;
     created_at: string;
 }
 
@@ -211,15 +213,41 @@ const AdminApplications = () => {
                                         <p className="font-mono text-gray-600">{selectedApp.gdc_number || 'N/A'}</p>
                                     </div>
                                     <div className="space-y-1">
-                                        <p className="text-xs font-medium text-gray-500 uppercase">Hep B Status</p>
-                                        <Badge variant="outline" className={
-                                            selectedApp.hep_b_status === 'Fully Vaccinated' ? 'bg-green-50 text-green-700 border-green-200' :
-                                                selectedApp.hep_b_status === 'In Progress' ? 'bg-yellow-50 text-yellow-700 border-yellow-200' :
-                                                    'bg-red-50 text-red-700 border-red-200'
-                                        }>
-                                            {selectedApp.hep_b_status || 'Not Specified'}
-                                        </Badge>
+                                        <p className="text-xs font-medium text-gray-500 uppercase">Hepatitis B</p>
+                                        <div className="flex flex-col gap-2">
+                                            <Badge variant="outline" className={
+                                                selectedApp.hep_b_status === 'Fully Vaccinated' ? 'bg-green-50 text-green-700 border-green-200' :
+                                                    selectedApp.hep_b_status === 'In Progress' ? 'bg-yellow-50 text-yellow-700 border-yellow-200' :
+                                                        'bg-red-50 text-red-700 border-red-200'
+                                            }>
+                                                {selectedApp.hep_b_status || 'Not Specified'}
+                                            </Badge>
+                                            {selectedApp.hep_b_url && (
+                                                <Button size="sm" variant="ghost" className="h-7 text-[10px] gap-1.5 text-navy hover:text-gold" onClick={() => window.open(selectedApp.hep_b_url, '_blank')}>
+                                                    <FileText className="w-3 h-3" /> View Certificate
+                                                </Button>
+                                            )}
+                                        </div>
                                     </div>
+                                </div>
+
+                                <div className="space-y-1">
+                                    <p className="text-xs font-medium text-gray-500 uppercase">Resume / CV</p>
+                                    {selectedApp.resume_url ? (
+                                        <Button
+                                            variant="outline"
+                                            className="w-full justify-between hover:border-gold hover:text-navy"
+                                            onClick={() => window.open(selectedApp.resume_url, '_blank')}
+                                        >
+                                            <span className="flex items-center gap-2">
+                                                <FileText className="w-4 h-4 text-navy" />
+                                                View Candidate Resume
+                                            </span>
+                                            <ArrowUpRight className="w-4 h-4 text-gray-400" />
+                                        </Button>
+                                    ) : (
+                                        <p className="text-sm text-gray-400 italic">No resume uploaded</p>
+                                    )}
                                 </div>
 
                                 <div className="bg-gray-50 p-4 rounded-xl border border-gray-100">

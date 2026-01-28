@@ -24,6 +24,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { toast } from "@/hooks/use-toast";
+import { supabase } from "@/lib/supabase";
 
 const nurseSchema = z.object({
   fullName: z.string().min(2, "Full name is required").max(100),
@@ -146,6 +147,60 @@ const NurseRegistrationForm = () => {
     setHepBFile(null);
 
     try {
+      let cvUrl = "";
+      let hepBUrl = "";
+
+      // Upload CV if present
+      if (currentCvFile) {
+        const fileExt = currentCvFile.name.split('.').pop();
+        const fileName = `${Math.random().toString(36).substring(2)}-${Date.now()}.${fileExt}`;
+        const filePath = `cvs/${fileName}`;
+        const { error: uploadError } = await supabase.storage
+          .from('registrations')
+          .upload(filePath, currentCvFile);
+        if (!uploadError) {
+          const { data: { publicUrl } } = supabase.storage
+            .from('registrations')
+            .getPublicUrl(filePath);
+          cvUrl = publicUrl;
+        }
+      }
+
+      // Upload Hep B if present
+      if (currentHepBFile) {
+        const fileExt = currentHepBFile.name.split('.').pop();
+        const fileName = `${Math.random().toString(36).substring(2)}-${Date.now()}.${fileExt}`;
+        const filePath = `certificates/${fileName}`;
+        const { error: uploadError } = await supabase.storage
+          .from('registrations')
+          .upload(filePath, currentHepBFile);
+        if (!uploadError) {
+          const { data: { publicUrl } } = supabase.storage
+            .from('registrations')
+            .getPublicUrl(filePath);
+          hepBUrl = publicUrl;
+        }
+      }
+
+      // Save to Supabase Database
+      const { error: dbError } = await supabase
+        .from('nurse_registrations')
+        .insert([{
+          full_name: data.fullName,
+          email: data.email,
+          phone: data.phone,
+          location: data.location,
+          nurse_status: data.nurseStatus,
+          gdc_number: data.gdcNumber,
+          work_preference: data.workPreference,
+          hep_b_vaccination: data.hepBVaccination,
+          message: data.message,
+          cv_url: cvUrl,
+          hep_b_url: hepBUrl
+        }]);
+
+      if (dbError) throw dbError;
+
       let base64File = "";
       if (currentCvFile) {
         base64File = await new Promise((resolve) => {
@@ -334,44 +389,6 @@ Message: ${data.message || "None"}
                   For clinical protection verify if your Hep B is up to date.
                 </FormDescription>
                 <FormMessage />
-                {(field.value === 'yes' || field.value === 'in_progress') && (
-                  <div className="mt-3 space-y-2 animate-fade-in">
-                    <label className="text-sm font-medium text-navy">Upload Vaccine Certificate (Optional)</label>
-                    <div className="relative">
-                      <input
-                        ref={hepBFileInputRef}
-                        type="file"
-                        accept=".pdf,.doc,.docx"
-                        onChange={handleHepBFileChange}
-                        className="hidden"
-                        id="hep-b-upload"
-                      />
-                      {hepBFile ? (
-                        <div className="flex items-center gap-3 p-2 bg-primary/20 rounded-lg border border-primary/30">
-                          <FileText className="w-4 h-4 text-navy" />
-                          <span className="text-xs flex-1 truncate">{hepBFile.name}</span>
-                          <button
-                            type="button"
-                            onClick={removeHepBFile}
-                            className="p-1 hover:bg-white/50 rounded"
-                          >
-                            <X className="w-3 h-3" />
-                          </button>
-                        </div>
-                      ) : (
-                        <label
-                          htmlFor="hep-b-upload"
-                          className="flex items-center justify-center gap-2 p-3 border border-dashed border-border rounded-lg cursor-pointer hover:border-primary hover:bg-primary/5 transition-all text-center"
-                        >
-                          <Upload className="w-4 h-4 text-muted-foreground" />
-                          <span className="text-xs text-muted-foreground">
-                            Upload Certificate (PDF, DOC)
-                          </span>
-                        </label>
-                      )}
-                    </div>
-                  </div>
-                )}
               </FormItem>
             )}
           />
@@ -443,6 +460,44 @@ Message: ${data.message || "None"}
                   <Upload className="w-5 h-5 text-muted-foreground" />
                   <span className="text-sm text-muted-foreground">
                     Click to upload CV (PDF, DOC)
+                  </span>
+                </label>
+              )}
+            </div>
+          </div>
+
+          {/* Hep B Certificate Upload */}
+          <div className="space-y-2">
+            <label className="text-sm font-medium">Hepatitis B Certificate</label>
+            <div className="relative">
+              <input
+                ref={hepBFileInputRef}
+                type="file"
+                accept=".pdf,.doc,.docx"
+                onChange={handleHepBFileChange}
+                className="hidden"
+                id="hep-b-upload-nurse"
+              />
+              {hepBFile ? (
+                <div className="flex items-center gap-3 p-3 bg-primary/30 rounded-lg border border-champagne-dark">
+                  <FileText className="w-5 h-5 text-navy" />
+                  <span className="text-sm flex-1 truncate">{hepBFile.name}</span>
+                  <button
+                    type="button"
+                    onClick={removeHepBFile}
+                    className="p-1 hover:bg-white/50 rounded"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                </div>
+              ) : (
+                <label
+                  htmlFor="hep-b-upload-nurse"
+                  className="flex items-center justify-center gap-2 p-4 border-2 border-dashed border-border rounded-lg cursor-pointer hover:border-champagne-dark hover:bg-primary/20 transition-all text-center"
+                >
+                  <Upload className="w-5 h-5 text-muted-foreground" />
+                  <span className="text-sm text-muted-foreground">
+                    Upload Certificate (Optional)
                   </span>
                 </label>
               )}

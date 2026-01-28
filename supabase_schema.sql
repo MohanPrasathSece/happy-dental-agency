@@ -43,9 +43,44 @@ CREATE TABLE IF NOT EXISTS public.applications (
     email text NOT NULL,
     phone text,
     gdc_number text,
+    cover_letter text,
+    hep_b_status text,
+    resume_url text,
+    hep_b_url text,
     status text DEFAULT 'pending',
     created_at timestamp with time zone DEFAULT timezone('utc'::text, now()) NOT NULL
 );
+
+-- 4.1 Create Nurse Registrations Table
+CREATE TABLE IF NOT EXISTS public.nurse_registrations (
+    id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+    full_name text NOT NULL,
+    email text NOT NULL,
+    phone text NOT NULL,
+    location text NOT NULL,
+    nurse_status text NOT NULL, -- 'qualified' or 'trainee'
+    gdc_number text,
+    work_preference text NOT NULL,
+    hep_b_vaccination text NOT NULL,
+    message text,
+    cv_url text,
+    hep_b_url text,
+    status text DEFAULT 'pending',
+    created_at timestamp with time zone DEFAULT timezone('utc'::text, now()) NOT NULL
+);
+
+-- 4.2 Enable RLS for nurse_registrations
+ALTER TABLE public.nurse_registrations ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "Public can insert registrations" ON public.nurse_registrations;
+CREATE POLICY "Public can insert registrations"
+ON public.nurse_registrations FOR INSERT
+WITH CHECK ( true );
+
+DROP POLICY IF EXISTS "Admins can view registrations" ON public.nurse_registrations;
+CREATE POLICY "Admins can view registrations"
+ON public.nurse_registrations FOR SELECT
+USING ( auth.role() = 'authenticated' );
 
 -- 5. Enable RLS for APPLICATIONS
 ALTER TABLE public.applications ENABLE ROW LEVEL SECURITY;

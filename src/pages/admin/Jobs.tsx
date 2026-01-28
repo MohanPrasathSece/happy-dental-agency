@@ -2,13 +2,14 @@
 import { useState, useEffect } from "react";
 import AdminLayout from "@/components/admin/AdminLayout";
 import { Button } from "@/components/ui/button";
-import { Plus, Pencil, Trash2, MapPin, Banknote, Calendar, Briefcase, Users, Mail, Phone, FileText } from "lucide-react";
+import { Plus, Pencil, Trash2, MapPin, Banknote, Calendar, Briefcase, Users, Mail, Phone, FileText, ArrowUpRight } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { toast } from "sonner";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 interface Job {
@@ -30,6 +31,9 @@ interface Application {
     phone: string;
     gdc_number: string;
     cover_letter?: string;
+    hep_b_status?: string;
+    resume_url?: string;
+    hep_b_url?: string;
     status: string;
     created_at: string;
 }
@@ -342,17 +346,17 @@ const AdminJobs = () => {
                                             </p>
                                         </div>
                                         <span className={`px-3 py-1 rounded-full text-xs font-semibold ${applicant.status === 'pending' ? 'bg-yellow-100 text-yellow-700' :
-                                                applicant.status === 'reviewed' ? 'bg-blue-100 text-blue-700' :
-                                                    'bg-green-100 text-green-700'
+                                            applicant.status === 'reviewed' ? 'bg-blue-100 text-blue-700' :
+                                                'bg-green-100 text-green-700'
                                             }`}>
                                             {applicant.status}
                                         </span>
                                     </div>
 
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                                         <div className="flex items-center gap-2 text-sm text-gray-700">
                                             <Mail className="w-4 h-4 text-navy/60" />
-                                            <a href={`mailto:${applicant.email}`} className="hover:underline hover:text-gold">
+                                            <a href={`mailto:${applicant.email}`} className="hover:underline hover:text-gold truncate">
                                                 {applicant.email}
                                             </a>
                                         </div>
@@ -364,22 +368,49 @@ const AdminJobs = () => {
                                         </div>
                                     </div>
 
-                                    {applicant.gdc_number && (
-                                        <div className="mb-3">
-                                            <p className="text-sm text-gray-600">
-                                                <strong className="text-navy">GDC Number:</strong> {applicant.gdc_number}
-                                            </p>
+                                    <div className="grid grid-cols-2 gap-4 mb-4 pt-4 border-t border-gray-100">
+                                        <div className="space-y-1">
+                                            <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">GDC Number</p>
+                                            <p className="text-sm font-medium text-navy">{applicant.gdc_number || 'N/A'}</p>
                                         </div>
-                                    )}
+                                        <div className="space-y-1">
+                                            <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Hep B Status</p>
+                                            <Badge variant="outline" className="text-[10px] h-5">
+                                                {applicant.hep_b_status || 'Not Specified'}
+                                            </Badge>
+                                        </div>
+                                    </div>
 
-                                    {applicant.cover_letter && (
-                                        <div className="mt-3 pt-3 border-t border-gray-200">
-                                            <div className="flex items-center gap-2 mb-2">
-                                                <FileText className="w-4 h-4 text-navy/60" />
-                                                <strong className="text-sm text-navy">Cover Letter / Notes:</strong>
-                                            </div>
-                                            <p className="text-sm text-gray-700 whitespace-pre-wrap bg-white p-3 rounded-lg border border-gray-100">
-                                                {applicant.cover_letter}
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+                                        {(applicant as any).resume_url && (
+                                            <Button
+                                                variant="outline"
+                                                size="sm"
+                                                className="h-9 gap-2 justify-start border-gray-200 hover:border-gold"
+                                                onClick={() => window.open((applicant as any).resume_url, '_blank')}
+                                            >
+                                                <FileText className="w-4 h-4 text-navy" />
+                                                <span className="text-xs">Download Resume</span>
+                                            </Button>
+                                        )}
+                                        {(applicant as any).hep_b_url && (
+                                            <Button
+                                                variant="outline"
+                                                size="sm"
+                                                className="h-9 gap-2 justify-start border-gray-200 hover:border-gold"
+                                                onClick={() => window.open((applicant as any).hep_b_url, '_blank')}
+                                            >
+                                                <FileText className="w-4 h-4 text-navy" />
+                                                <span className="text-xs">Vaccine Cert</span>
+                                            </Button>
+                                        )}
+                                    </div>
+
+                                    {(applicant as any).cover_letter && (
+                                        <div className="mt-2 pt-3 border-t border-gray-100">
+                                            <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Cover Letter / Notes</p>
+                                            <p className="text-sm text-gray-700 whitespace-pre-wrap bg-white p-3 rounded-lg border border-gray-100 italic">
+                                                {(applicant as any).cover_letter}
                                             </p>
                                         </div>
                                     )}

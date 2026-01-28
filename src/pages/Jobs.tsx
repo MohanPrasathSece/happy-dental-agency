@@ -142,6 +142,45 @@ const Jobs = () => {
                 filename2 = fileData.name;
             }
 
+            let resumeUrl = "";
+            let hepBUrl = "";
+
+            // Upload resume if present
+            if (formData.resume) {
+                const fileExt = formData.resume.name.split('.').pop();
+                const fileName = `${Math.random().toString(36).substring(2)}-${Date.now()}.${fileExt}`;
+                const filePath = `resumes/${fileName}`;
+
+                const { error: uploadError } = await supabase.storage
+                    .from('applications')
+                    .upload(filePath, formData.resume);
+
+                if (!uploadError) {
+                    const { data: { publicUrl } } = supabase.storage
+                        .from('applications')
+                        .getPublicUrl(filePath);
+                    resumeUrl = publicUrl;
+                }
+            }
+
+            // Upload Hep B certificate if present
+            if (formData.hep_b_file) {
+                const fileExt = formData.hep_b_file.name.split('.').pop();
+                const fileName = `${Math.random().toString(36).substring(2)}-${Date.now()}.${fileExt}`;
+                const filePath = `certificates/${fileName}`;
+
+                const { error: uploadError } = await supabase.storage
+                    .from('applications')
+                    .upload(filePath, formData.hep_b_file);
+
+                if (!uploadError) {
+                    const { data: { publicUrl } } = supabase.storage
+                        .from('applications')
+                        .getPublicUrl(filePath);
+                    hepBUrl = publicUrl;
+                }
+            }
+
             // 1. Save to Supabase (Dashboard)
             const { error: dbError } = await supabase
                 .from('applications')
@@ -153,7 +192,9 @@ const Jobs = () => {
                     phone: formData.phone,
                     gdc_number: formData.gdcNumber,
                     cover_letter: formData.coverLetter,
-                    hep_b_status: formData.hep_b_status
+                    hep_b_status: formData.hep_b_status,
+                    resume_url: resumeUrl,
+                    hep_b_url: hepBUrl
                 }]);
 
             if (dbError) throw dbError;
@@ -358,24 +399,22 @@ const Jobs = () => {
                                     </Select>
                                     <p className="text-xs text-muted-foreground">Required to check if you are protected to assist the dentist.</p>
 
-                                    {(formData.hep_b_status === 'Fully Vaccinated' || formData.hep_b_status === 'In Progress') && (
-                                        <div className="mt-3 space-y-2 p-4 bg-muted/20 border border-dashed border-border rounded-xl">
-                                            <Label htmlFor="hep-b-upload" className="text-sm font-semibold text-navy">Upload Vaccine Certificate (Optional)</Label>
-                                            <Input
-                                                id="hep-b-upload"
-                                                type="file"
-                                                accept=".pdf,.doc,.docx"
-                                                onChange={(e) => {
-                                                    const file = e.target.files?.[0];
-                                                    if (file) {
-                                                        setFormData({ ...formData, hep_b_file: file });
-                                                    }
-                                                }}
-                                                className="h-10 mt-1 bg-white"
-                                            />
-                                            <p className="text-[10px] text-muted-foreground italic">Provide proof of protection to assist the dentist.</p>
-                                        </div>
-                                    )}
+                                    <div className="mt-3 space-y-2 p-4 bg-muted/20 border border-dashed border-border rounded-xl">
+                                        <Label htmlFor="hep-b-upload" className="text-sm font-semibold text-navy">Hepatitis B Certificate (Optional)</Label>
+                                        <Input
+                                            id="hep-b-upload"
+                                            type="file"
+                                            accept=".pdf,.doc,.docx"
+                                            onChange={(e) => {
+                                                const file = e.target.files?.[0];
+                                                if (file) {
+                                                    setFormData({ ...formData, hep_b_file: file });
+                                                }
+                                            }}
+                                            className="h-10 mt-1 bg-white"
+                                        />
+                                        <p className="text-[10px] text-muted-foreground italic">Provide proof of protection to assist the dentist.</p>
+                                    </div>
                                 </div>
 
                                 <div className="space-y-2">

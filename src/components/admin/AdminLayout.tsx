@@ -5,13 +5,15 @@ import {
     LayoutDashboard,
     Briefcase,
     Settings,
+    Users,
     LogOut,
     Menu,
     X,
     User,
     Bell,
     Search,
-    ChevronRight
+    ChevronRight,
+    UserCheck
 } from "lucide-react";
 import Logo from "../Logo";
 import { supabase } from "@/lib/supabase";
@@ -60,6 +62,8 @@ const AdminLayout = ({ children, title, subtitle, action }: AdminLayoutProps) =>
     const navItems = [
         { name: "Dashboard", path: "/admin", icon: LayoutDashboard },
         { name: "Job Listings", path: "/admin/jobs", icon: Briefcase },
+        { name: "Applications", path: "/admin/applications", icon: Users },
+        { name: "Nurse Registrations", path: "/admin/registrations", icon: UserCheck },
         // { name: "Settings", path: "/admin/settings", icon: Settings },
     ];
 

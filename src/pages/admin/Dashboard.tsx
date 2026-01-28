@@ -11,6 +11,7 @@ const AdminDashboard = () => {
     const [stats, setStats] = useState({
         jobs: 0,
         applications: 0,
+        registrations: 0,
         visitors: 0
     });
     const [isLoading, setIsLoading] = useState(true);
@@ -28,6 +29,11 @@ const AdminDashboard = () => {
                     .from('applications')
                     .select('*', { count: 'exact', head: true });
 
+                // Get Registrations Count
+                const { count: regsCount } = await supabase
+                    .from('nurse_registrations')
+                    .select('*', { count: 'exact', head: true });
+
                 // Get Visitors Count
                 const { count: visitorsCount } = await supabase
                     .from('page_views')
@@ -36,6 +42,7 @@ const AdminDashboard = () => {
                 setStats({
                     jobs: jobsCount || 0,
                     applications: appsCount || 0,
+                    registrations: regsCount || 0,
                     visitors: visitorsCount || 0
                 });
             } catch (e) {
@@ -49,28 +56,36 @@ const AdminDashboard = () => {
 
     const statCards = [
         {
-            title: "Total Visitors",
+            title: "Nurse Registrations",
+            value: stats.registrations,
+            icon: Users,
+            color: "text-amber-600",
+            bg: "bg-amber-100",
+            desc: "Total nurses joined"
+        },
+        {
+            title: "Job Applications",
+            value: stats.applications,
+            icon: Briefcase,
+            color: "text-purple-600",
+            bg: "bg-purple-100",
+            desc: "For live listings"
+        },
+        {
+            title: "Live Vacancies",
+            value: stats.jobs,
+            icon: ArrowUpRight,
+            color: "text-blue-600",
+            bg: "bg-blue-100",
+            desc: "Currently active"
+        },
+        {
+            title: "Total Visits",
             value: stats.visitors,
             icon: Eye,
             color: "text-green-600",
             bg: "bg-green-100",
-            desc: "Total page views"
-        },
-        {
-            title: "Applications",
-            value: stats.applications,
-            icon: Users,
-            color: "text-purple-600",
-            bg: "bg-purple-100",
-            desc: "Resumes received"
-        },
-        {
-            title: "Active Jobs",
-            value: stats.jobs,
-            icon: Briefcase,
-            color: "text-blue-600",
-            bg: "bg-blue-100",
-            desc: "Live listings"
+            desc: "Page views"
         },
     ];
 
