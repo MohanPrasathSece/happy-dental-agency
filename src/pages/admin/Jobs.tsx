@@ -376,7 +376,7 @@ const AdminJobs = () => {
                                         <div className="space-y-1">
                                             <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Hep B Status</p>
                                             <Badge variant="outline" className={`text-[10px] h-5 ${applicant.hep_b_status === 'Fully Vaccinated' ? 'bg-green-50 text-green-700' :
-                                                    applicant.hep_b_status === 'In Progress' ? 'bg-yellow-50 text-yellow-700' : 'bg-gray-50'
+                                                applicant.hep_b_status === 'In Progress' ? 'bg-yellow-50 text-yellow-700' : 'bg-gray-50'
                                                 }`}>
                                                 {applicant.hep_b_status || 'Not Specified'}
                                             </Badge>
@@ -386,37 +386,41 @@ const AdminJobs = () => {
                                     <div className="space-y-3 mb-4">
                                         <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Documents</p>
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                                            {applicant.resume_url ? (
+                                            {applicant.resume_url && applicant.resume_url.length > 5 ? (
                                                 <Button
                                                     variant="outline"
                                                     size="sm"
-                                                    className="h-10 gap-2 justify-start border-gray-200 hover:border-gold hover:bg-gold/5"
-                                                    onClick={() => window.open(applicant.resume_url, '_blank')}
+                                                    className="h-10 gap-2 justify-start border-gray-200 hover:border-gold hover:bg-gold/5 w-full bg-white shadow-sm"
+                                                    onClick={() => window.open(applicant.resume_url, '_blank', 'noopener,noreferrer')}
                                                 >
-                                                    <FileText className="w-4 h-4 text-navy" />
-                                                    <span className="text-xs font-semibold">View Resume</span>
-                                                    <ArrowUpRight className="w-3 h-3 text-gray-400 ml-auto" />
+                                                    <div className="w-6 h-6 rounded bg-navy/5 flex items-center justify-center">
+                                                        <FileText className="w-3.5 h-3.5 text-navy" />
+                                                    </div>
+                                                    <span className="text-xs font-semibold truncate flex-1 text-left">View Resume / CV</span>
+                                                    <ArrowUpRight className="w-3 h-3 text-gold ml-auto" />
                                                 </Button>
                                             ) : (
-                                                <div className="h-10 border border-dashed border-gray-200 rounded-lg flex items-center justify-center bg-gray-50/50">
-                                                    <span className="text-[10px] text-gray-400 italic">No Resume Uploaded</span>
+                                                <div className="h-10 border border-dashed border-gray-200 rounded-lg flex items-center justify-center bg-gray-50/50 w-full px-3">
+                                                    <span className="text-[10px] text-gray-400 italic">No Resume Provided</span>
                                                 </div>
                                             )}
 
-                                            {applicant.hep_b_url ? (
+                                            {applicant.hep_b_url && applicant.hep_b_url.length > 5 ? (
                                                 <Button
                                                     variant="outline"
                                                     size="sm"
-                                                    className="h-10 gap-2 justify-start border-gray-200 hover:border-gold hover:bg-gold/5"
-                                                    onClick={() => window.open(applicant.hep_b_url, '_blank')}
+                                                    className="h-10 gap-2 justify-start border-gray-200 hover:border-gold hover:bg-gold/5 w-full bg-white shadow-sm"
+                                                    onClick={() => window.open(applicant.hep_b_url, '_blank', 'noopener,noreferrer')}
                                                 >
-                                                    <FileText className="w-4 h-4 text-navy" />
-                                                    <span className="text-xs font-semibold">Vaccine Cert</span>
-                                                    <ArrowUpRight className="w-3 h-3 text-gray-400 ml-auto" />
+                                                    <div className="w-6 h-6 rounded bg-green-50 flex items-center justify-center">
+                                                        <FileText className="w-3.5 h-3.5 text-green-700" />
+                                                    </div>
+                                                    <span className="text-xs font-semibold truncate flex-1 text-left">Vaccine Certificate</span>
+                                                    <ArrowUpRight className="w-3 h-3 text-gold ml-auto" />
                                                 </Button>
                                             ) : (
-                                                <div className="h-10 border border-dashed border-gray-200 rounded-lg flex items-center justify-center bg-gray-50/50">
-                                                    <span className="text-[10px] text-gray-400 italic">No Certificate Uploaded</span>
+                                                <div className="h-10 border border-dashed border-gray-200 rounded-lg flex items-center justify-center bg-gray-50/50 w-full px-3">
+                                                    <span className="text-[10px] text-gray-400 italic font-medium">No Vaccine Cert</span>
                                                 </div>
                                             )}
                                         </div>

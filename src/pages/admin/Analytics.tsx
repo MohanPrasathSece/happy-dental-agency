@@ -159,7 +159,7 @@ const AdminAnalytics = () => {
                     </div>
 
                     {/* Main Chart */}
-                    <Card className="border-none shadow-sm h-[400px]">
+                    <Card className="border-none shadow-sm h-[300px] md:h-[400px]">
                         <CardHeader>
                             <CardTitle className="text-navy flex items-center gap-2">
                                 <TrendingUp className="w-5 h-5 text-gray-400" />

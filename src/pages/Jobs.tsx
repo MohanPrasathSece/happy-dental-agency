@@ -142,42 +142,56 @@ const Jobs = () => {
                 filename2 = fileData.name;
             }
 
-            let resumeUrl = "";
-            let hepBUrl = "";
+            let resumeUrl = null;
+            let hepBUrl = null;
 
             // Upload resume if present
             if (formData.resume) {
-                const fileExt = formData.resume.name.split('.').pop();
-                const fileName = `${Math.random().toString(36).substring(2)}-${Date.now()}.${fileExt}`;
-                const filePath = `resumes/${fileName}`;
+                try {
+                    const fileExt = formData.resume.name.split('.').pop();
+                    const fileName = `${Math.random().toString(36).substring(2)}-${Date.now()}.${fileExt}`;
+                    const filePath = `resumes/${fileName}`;
 
-                const { error: uploadError } = await supabase.storage
-                    .from('applications')
-                    .upload(filePath, formData.resume);
-
-                if (!uploadError) {
-                    const { data: { publicUrl } } = supabase.storage
+                    const { error: uploadError } = await supabase.storage
                         .from('applications')
-                        .getPublicUrl(filePath);
-                    resumeUrl = publicUrl;
+                        .upload(filePath, formData.resume);
+
+                    if (!uploadError) {
+                        const { data: { publicUrl } } = supabase.storage
+                            .from('applications')
+                            .getPublicUrl(filePath);
+                        resumeUrl = publicUrl;
+                        console.log("Resume uploaded successfully:", resumeUrl);
+                    } else {
+                        console.error("Resume upload error:", uploadError);
+                    }
+                } catch (err) {
+                    console.error("Critical resume upload failure:", err);
                 }
             }
 
             // Upload Hep B certificate if present
             if (formData.hep_b_file) {
-                const fileExt = formData.hep_b_file.name.split('.').pop();
-                const fileName = `${Math.random().toString(36).substring(2)}-${Date.now()}.${fileExt}`;
-                const filePath = `certificates/${fileName}`;
+                try {
+                    const fileExt = formData.hep_b_file.name.split('.').pop();
+                    const fileName = `${Math.random().toString(36).substring(2)}-${Date.now()}.${fileExt}`;
+                    const filePath = `certificates/${fileName}`;
 
-                const { error: uploadError } = await supabase.storage
-                    .from('applications')
-                    .upload(filePath, formData.hep_b_file);
-
-                if (!uploadError) {
-                    const { data: { publicUrl } } = supabase.storage
+                    const { error: uploadError } = await supabase.storage
                         .from('applications')
-                        .getPublicUrl(filePath);
-                    hepBUrl = publicUrl;
+                        .upload(filePath, formData.hep_b_file);
+
+                    if (!uploadError) {
+                        const { data: { publicUrl } } = supabase.storage
+                            .from('applications')
+                            .getPublicUrl(filePath);
+                        hepBUrl = publicUrl;
+                        console.log("Certificate uploaded successfully:", hepBUrl);
+                    } else {
+                        console.error("Certificate upload error:", uploadError);
+                    }
+                } catch (err) {
+                    console.error("Critical cert upload failure:", err);
                 }
             }
 
@@ -197,7 +211,10 @@ const Jobs = () => {
                     hep_b_url: hepBUrl
                 }]);
 
-            if (dbError) throw dbError;
+            if (dbError) {
+                console.error("Database insert error:", dbError);
+                throw dbError;
+            }
 
             // 2. Send Notifications (Email with Resume Attachment)
             const response = await fetch('/api/contact', {
