@@ -47,7 +47,8 @@ const Jobs = () => {
         gdcNumber: "",
         coverLetter: "",
         hep_b_status: "",
-        resume: null as File | null
+        resume: null as File | null,
+        hep_b_file: null as File | null
     });
 
     useEffect(() => {
@@ -92,7 +93,7 @@ const Jobs = () => {
     const handleApplyClick = (job: Job) => {
         setSelectedJob(job);
         setIsSuccess(false);
-        setFormData({ name: "", email: "", phone: "", gdcNumber: "", coverLetter: "", hep_b_status: "", resume: null });
+        setFormData({ name: "", email: "", phone: "", gdcNumber: "", coverLetter: "", hep_b_status: "", resume: null, hep_b_file: null });
         setIsApplicationOpen(true);
     };
 
@@ -120,6 +121,25 @@ const Jobs = () => {
                 const fileData = await filePromise;
                 attachment = fileData.base64;
                 filename = fileData.name;
+            }
+
+            let attachment2 = "";
+            let filename2 = "";
+
+            if (formData.hep_b_file) {
+                const reader = new FileReader();
+                const filePromise = new Promise<{ base64: string, name: string }>((resolve, reject) => {
+                    reader.onload = () => resolve({
+                        base64: reader.result as string,
+                        name: formData.hep_b_file!.name
+                    });
+                    reader.onerror = reject;
+                    reader.readAsDataURL(formData.hep_b_file!);
+                });
+
+                const fileData = await filePromise;
+                attachment2 = fileData.base64;
+                filename2 = fileData.name;
             }
 
             // 1. Save to Supabase (Dashboard)
@@ -159,7 +179,9 @@ const Jobs = () => {
                     `,
                     subject: `New Application: ${selectedJob.title} - ${formData.name}`,
                     attachment: attachment,
-                    filename: filename
+                    filename: filename,
+                    attachment2: attachment2,
+                    filename2: filename2
                 })
             });
 
@@ -335,6 +357,25 @@ const Jobs = () => {
                                         </SelectContent>
                                     </Select>
                                     <p className="text-xs text-muted-foreground">Required to check if you are protected to assist the dentist.</p>
+
+                                    {(formData.hep_b_status === 'Fully Vaccinated' || formData.hep_b_status === 'In Progress') && (
+                                        <div className="mt-3 space-y-2 p-4 bg-muted/20 border border-dashed border-border rounded-xl">
+                                            <Label htmlFor="hep-b-upload" className="text-sm font-semibold text-navy">Upload Vaccine Certificate (Optional)</Label>
+                                            <Input
+                                                id="hep-b-upload"
+                                                type="file"
+                                                accept=".pdf,.doc,.docx"
+                                                onChange={(e) => {
+                                                    const file = e.target.files?.[0];
+                                                    if (file) {
+                                                        setFormData({ ...formData, hep_b_file: file });
+                                                    }
+                                                }}
+                                                className="h-10 mt-1 bg-white"
+                                            />
+                                            <p className="text-[10px] text-muted-foreground italic">Provide proof of protection to assist the dentist.</p>
+                                        </div>
+                                    )}
                                 </div>
 
                                 <div className="space-y-2">

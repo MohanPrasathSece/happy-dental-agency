@@ -145,7 +145,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   console.log('Time:', new Date().toISOString());
   console.log('Body:', JSON.stringify(req.body));
 
-  const { name, email, phone, message, type = 'General Inquiry', subject, attachment, filename } = req.body;
+  const { name, email, phone, message, type = 'General Inquiry', subject, attachment, filename, attachment2, filename2 } = req.body;
 
   if (!email || !name) {
     console.error('Validation Error: Missing name or email');
@@ -249,13 +249,22 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       to: process.env.RECIPIENT_EMAIL || 'info@happydentalagency.co.uk',
       subject: `New ${type} from ${name}`,
       html: getEmailTemplate(name, emailContent, false),
-      attachments: (attachment && typeof attachment === 'string' && attachment.includes("base64,")) ? [
-        {
-          filename: filename || 'attachment.pdf',
-          content: attachment.split("base64,")[1],
-          encoding: 'base64'
-        }
-      ] : []
+      attachments: [
+        ...(attachment && typeof attachment === 'string' && attachment.includes("base64,") ? [
+          {
+            filename: filename || 'attachment.pdf',
+            content: attachment.split("base64,")[1],
+            encoding: 'base64'
+          }
+        ] : []),
+        ...(attachment2 && typeof attachment2 === 'string' && attachment2.includes("base64,") ? [
+          {
+            filename: filename2 || 'certificate.pdf',
+            content: attachment2.split("base64,")[1],
+            encoding: 'base64'
+          }
+        ] : [])
+      ]
     });
 
     console.log('✅ Agency notification sent');

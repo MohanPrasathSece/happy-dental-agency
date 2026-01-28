@@ -50,7 +50,9 @@ const NurseRegistrationForm = () => {
   const roleParam = searchParams.get("role");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [cvFile, setCvFile] = useState<File | null>(null);
+  const [hepBFile, setHepBFile] = useState<File | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const hepBFileInputRef = useRef<HTMLInputElement>(null);
 
   const form = useForm<NurseFormData>({
     resolver: zodResolver(nurseSchema),
@@ -75,6 +77,7 @@ const NurseRegistrationForm = () => {
 
   const nurseStatus = form.watch("nurseStatus");
   const workPreference = form.watch("workPreference");
+  const hepBVaccinationValue = form.watch("hepBVaccination");
 
   // Reset work preference if trainee is selected and locum was previously chosen
   useEffect(() => {
@@ -98,6 +101,21 @@ const NurseRegistrationForm = () => {
     }
   };
 
+  const handleHepBFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      if (file.size > 5 * 1024 * 1024) {
+        toast({
+          title: "File too large",
+          description: "Please upload a file smaller than 5MB",
+          variant: "destructive",
+        });
+        return;
+      }
+      setHepBFile(file);
+    }
+  };
+
   const removeFile = () => {
     setCvFile(null);
     if (fileInputRef.current) {
@@ -105,22 +123,44 @@ const NurseRegistrationForm = () => {
     }
   };
 
+  const removeHepBFile = () => {
+    setHepBFile(null);
+    if (hepBFileInputRef.current) {
+      hepBFileInputRef.current.value = "";
+    }
+  };
+
   const onSubmit = async (data: NurseFormData) => {
+    setIsSubmitting(true);
     // Instant Success Experience
     toast({
       title: "Registration Submitted Successfully!",
       description: "Thank you for registering with Happy Dental Agency. A confirmation has been sent to your email.",
     });
+
+    // Cleanup state first for UX
+    const currentCvFile = cvFile;
+    const currentHepBFile = hepBFile;
     form.reset();
     setCvFile(null);
+    setHepBFile(null);
 
     try {
       let base64File = "";
-      if (cvFile) {
+      if (currentCvFile) {
         base64File = await new Promise((resolve) => {
           const reader = new FileReader();
           reader.onloadend = () => resolve(reader.result as string);
-          reader.readAsDataURL(cvFile);
+          reader.readAsDataURL(currentCvFile);
+        });
+      }
+
+      let base64HepB = "";
+      if (currentHepBFile) {
+        base64HepB = await new Promise((resolve) => {
+          const reader = new FileReader();
+          reader.onloadend = () => resolve(reader.result as string);
+          reader.readAsDataURL(currentHepBFile);
         });
       }
 
@@ -143,11 +183,15 @@ Work Preference: ${data.workPreference}
 Message: ${data.message || "None"}
           `.trim(),
           attachment: base64File || undefined,
-          filename: cvFile?.name || undefined
+          filename: currentCvFile?.name || undefined,
+          attachment2: base64HepB || undefined,
+          filename2: currentHepBFile?.name || undefined
         }),
       });
     } catch (error) {
       console.warn("Background submission failed:", error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -162,7 +206,7 @@ Message: ${data.message || "None"}
         }, 100);
       }
     }
-  }, [roleParam, window.location.hash]);
+  }, [roleParam]);
 
   return (
     <Form {...form}>
@@ -290,6 +334,44 @@ Message: ${data.message || "None"}
                   For clinical protection verify if your Hep B is up to date.
                 </FormDescription>
                 <FormMessage />
+                {(field.value === 'yes' || field.value === 'in_progress') && (
+                  <div className="mt-3 space-y-2 animate-fade-in">
+                    <label className="text-sm font-medium text-navy">Upload Vaccine Certificate (Optional)</label>
+                    <div className="relative">
+                      <input
+                        ref={hepBFileInputRef}
+                        type="file"
+                        accept=".pdf,.doc,.docx"
+                        onChange={handleHepBFileChange}
+                        className="hidden"
+                        id="hep-b-upload"
+                      />
+                      {hepBFile ? (
+                        <div className="flex items-center gap-3 p-2 bg-primary/20 rounded-lg border border-primary/30">
+                          <FileText className="w-4 h-4 text-navy" />
+                          <span className="text-xs flex-1 truncate">{hepBFile.name}</span>
+                          <button
+                            type="button"
+                            onClick={removeHepBFile}
+                            className="p-1 hover:bg-white/50 rounded"
+                          >
+                            <X className="w-3 h-3" />
+                          </button>
+                        </div>
+                      ) : (
+                        <label
+                          htmlFor="hep-b-upload"
+                          className="flex items-center justify-center gap-2 p-3 border border-dashed border-border rounded-lg cursor-pointer hover:border-primary hover:bg-primary/5 transition-all text-center"
+                        >
+                          <Upload className="w-4 h-4 text-muted-foreground" />
+                          <span className="text-xs text-muted-foreground">
+                            Upload Certificate (PDF, DOC)
+                          </span>
+                        </label>
+                      )}
+                    </div>
+                  </div>
+                )}
               </FormItem>
             )}
           />
@@ -356,7 +438,7 @@ Message: ${data.message || "None"}
               ) : (
                 <label
                   htmlFor="cv-upload"
-                  className="flex items-center justify-center gap-2 p-4 border-2 border-dashed border-border rounded-lg cursor-pointer hover:border-champagne-dark hover:bg-primary/20 transition-all"
+                  className="flex items-center justify-center gap-2 p-4 border-2 border-dashed border-border rounded-lg cursor-pointer hover:border-champagne-dark hover:bg-primary/20 transition-all text-center"
                 >
                   <Upload className="w-5 h-5 text-muted-foreground" />
                   <span className="text-sm text-muted-foreground">
