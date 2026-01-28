@@ -10,7 +10,8 @@ import {
     X,
     User,
     Bell,
-    Search
+    Search,
+    ChevronRight
 } from "lucide-react";
 import Logo from "../Logo";
 import { supabase } from "@/lib/supabase";
@@ -67,19 +68,22 @@ const AdminLayout = ({ children, title, subtitle, action }: AdminLayoutProps) =>
             {/* Sidebar - Premium Dark Navy */}
             <aside
                 className={`
-          fixed lg:sticky top-0 left-0 h-screen bg-[#0A1628] text-white transition-all duration-300 z-50 shadow-2xl
+          fixed lg:sticky top-0 left-0 h-screen bg-gradient-to-b from-navy via-[#0A1628] to-[#050B14] text-white transition-all duration-300 z-50 shadow-2xl border-r border-white/5
           ${isSidebarOpen ? "w-72" : "w-20 lg:w-72"}
           ${isSidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}
         `}
             >
                 <div className="flex flex-col h-full">
                     {/* Logo Area */}
-                    <div className="h-20 flex items-center px-6 border-b border-white/10 bg-[#0A1628]">
+                    <div className="h-24 flex items-center px-6 border-b border-white/10">
                         <div className={`transition-opacity duration-300 flex items-center gap-3 ${isSidebarOpen ? "opacity-100" : "opacity-0 lg:opacity-100"}`}>
-                            <div className="w-8 h-8 rounded-lg bg-gold/20 flex items-center justify-center text-gold font-bold text-xl">
+                            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-gold to-[#F5C518] flex items-center justify-center text-navy font-black text-xl shadow-lg shadow-gold/20">
                                 H
                             </div>
-                            <span className="font-heading font-bold text-lg tracking-wide text-white">HappyDental</span>
+                            <div className="flex flex-col">
+                                <span className="font-heading font-bold text-lg tracking-wide text-white leading-none">HappyDental</span>
+                                <span className="text-[10px] text-white/40 font-medium tracking-widest uppercase mt-1">Admin Panel</span>
+                            </div>
                         </div>
                         <button
                             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
@@ -90,9 +94,9 @@ const AdminLayout = ({ children, title, subtitle, action }: AdminLayoutProps) =>
                     </div>
 
                     {/* Nav Items */}
-                    <div className="flex-1 py-8 px-4 space-y-2">
-                        <p className={`px-4 text-xs font-semibold text-white/40 uppercase tracking-widest mb-4 ${isSidebarOpen ? "block" : "hidden lg:block"}`}>
-                            Overview
+                    <div className="flex-1 py-8 px-4 space-y-2 overflow-y-auto custom-scrollbar">
+                        <p className={`px-4 text-[10px] font-bold text-gold/60 uppercase tracking-widest mb-4 ${isSidebarOpen ? "block" : "hidden lg:block"}`}>
+                            Main Menu
                         </p>
                         {navItems.map((item) => {
                             const isActive = location.pathname === item.path;
@@ -101,18 +105,19 @@ const AdminLayout = ({ children, title, subtitle, action }: AdminLayoutProps) =>
                                     key={item.path}
                                     to={item.path}
                                     className={`
-                    group flex items-center gap-3 px-4 py-3.5 rounded-xl transition-all duration-200
+                    group flex items-center gap-3 px-4 py-3.5 rounded-xl transition-all duration-300 relative overflow-hidden
                     ${isActive
-                                            ? "bg-gold text-[#0A1628] font-bold shadow-lg shadow-gold/20"
+                                            ? "bg-white/10 text-white font-bold shadow-lg border border-white/5"
                                             : "text-white/60 hover:text-white hover:bg-white/5"}
                   `}
                                 >
-                                    <item.icon size={20} className={isActive ? "text-[#0A1628]" : "text-white/60 group-hover:text-white"} />
-                                    <span className={`${isSidebarOpen ? "block" : "hidden lg:block"}`}>
+                                    {isActive && <div className="absolute left-0 top-0 bottom-0 w-1 bg-gold rounded-r-full" />}
+                                    <item.icon size={20} className={`transition-colors duration-300 ${isActive ? "text-gold" : "text-white/40 group-hover:text-gold"}`} />
+                                    <span className={`${isSidebarOpen ? "block" : "hidden lg:block"} tracking-tight`}>
                                         {item.name}
                                     </span>
                                     {isActive && (
-                                        <div className="ml-auto w-1.5 h-1.5 rounded-full bg-[#0A1628]" />
+                                        <ChevronRight size={16} className={`ml-auto text-white/30 ${isSidebarOpen ? "block" : "hidden lg:block"}`} />
                                     )}
                                 </Link>
                             );
@@ -120,26 +125,29 @@ const AdminLayout = ({ children, title, subtitle, action }: AdminLayoutProps) =>
                     </div>
 
                     {/* User Profile & Logout */}
-                    <div className="p-4 border-t border-white/10 bg-[#081221]">
-                        <div className="flex items-center gap-3 mb-4 px-2">
-                            <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-gold to-yellow-300 p-[2px]">
+                    <div className="p-4 border-t border-white/10 bg-[#06101f]">
+                        <div className="flex items-center gap-3 mb-4 px-2 bg-white/5 p-3 rounded-xl border border-white/5">
+                            <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-gold to-yellow-300 p-[2px] shadow-lg shadow-gold/10">
                                 <div className="w-full h-full rounded-full bg-[#0A1628] flex items-center justify-center text-gold font-bold">
                                     {userEmail.charAt(0).toUpperCase()}
                                 </div>
                             </div>
                             <div className={`overflow-hidden transition-all ${isSidebarOpen ? "block" : "hidden lg:block"}`}>
                                 <p className="text-sm font-bold text-white truncate w-32">{userEmail.split('@')[0]}</p>
-                                <p className="text-xs text-white/40 truncate w-32">Administrator</p>
+                                <p className="text-[10px] text-emerald-400 font-medium tracking-wide flex items-center gap-1.5">
+                                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                                    online
+                                </p>
                             </div>
                         </div>
 
                         <button
                             onClick={handleLogout}
                             className={`
-                w-full flex items-center gap-3 px-4 py-3 rounded-xl text-red-300/80 hover:text-red-200 hover:bg-red-500/10 transition-colors
+                w-full flex items-center gap-3 px-4 py-3 rounded-xl text-red-300/60 hover:text-red-200 hover:bg-red-500/10 transition-colors border border-transparent hover:border-red-500/10
               `}
                         >
-                            <LogOut size={20} />
+                            <LogOut size={18} />
                             <span className={`${isSidebarOpen ? "block" : "hidden lg:block"} text-sm font-medium`}>
                                 Sign Out
                             </span>

@@ -1,21 +1,35 @@
 {
-    "name": "Happy Dental Agency",
-    "short_name": "Happy Dental Agency",
-    "description": "Leading Dental Nursing Recruitment London & UK",
+    "name": "Happy Dental Agency - Best Dental Nurses London",
+    "short_name": "Happy Dental",
+    "description": "London's #1 dental nursing recruitment agency. Book qualified GDC-registered dental nurses for your practice.",
     "start_url": "/",
     "display": "standalone",
     "background_color": "#ffffff",
     "theme_color": "#fff2b2",
+    "orientation": "portrait-primary",
     "icons": [
         {
             "src": "/logo_main.png",
             "sizes": "192x192",
-            "type": "image/png"
+            "type": "image/png",
+            "purpose": "any maskable"
         },
         {
             "src": "/logo_main.png",
             "sizes": "512x512",
-            "type": "image/png"
+            "type": "image/png",
+            "purpose": "any maskable"
         }
-    ]
+    ],
+    "categories": [
+        "health",
+        "medical",
+        "business"
+    ],
+    "lang": "en-GB",
+    "dir": "ltr",
+    "scope": "/",
+    "serviceworker": {
+        "src": "/sw.js"
+    }
 }

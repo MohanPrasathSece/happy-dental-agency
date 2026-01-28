@@ -1,5 +1,13 @@
 User-agent: *
 Allow: /
 
+# Disallow admin and private pages
+Disallow: /admin/
+Disallow: /private/
+
 # Sitemap
 Sitemap: https://happydentalagency.co.uk/sitemap.xml
+Sitemap: https://happydentalagency.co.uk/sitemap-images.xml
+
+# Crawl-delay for respectful crawling
+Crawl-delay: 1

@@ -54,18 +54,34 @@ const getEmailTemplate = (name: string, content: string, isConfirmation: boolean
         break;
 
       default:
-        body = `
-          <p style="margin: 0 0 24px; font-size: 16px; color: #2c3e50; line-height: 1.6;">Hello <strong>${name}</strong>,</p>
-          <p style="margin: 0 0 24px; font-size: 15px; color: #4a5568; line-height: 1.7;">
-            Thank you for reaching out to us regarding <strong>${type}</strong>. We have received your message and our team is currently reviewing your enquiry.
-          </p>
-          <div style="background-color: #f8f9fa; border-left: 4px solid #2c3e50; padding: 20px; margin: 24px 0; border-radius: 4px;">
-            <p style="margin: 0; font-size: 14px; color: #495057; line-height: 1.6;">
-              <strong>Typical Response Time</strong><br>
-              We aim to respond to all inquiries within 2-4 hours during business hours.
+        if (type.startsWith('Job Application')) {
+          title = 'Application Received';
+          body = `
+            <p style="margin: 0 0 24px; font-size: 16px; color: #2c3e50; line-height: 1.6;">Hello <strong>${name}</strong>,</p>
+            <p style="margin: 0 0 24px; font-size: 15px; color: #4a5568; line-height: 1.7;">
+              Thank you for applying for a position with <strong>Happy Dental Agency</strong>. We have successfully received your application and resume.
             </p>
-          </div>
-        `;
+            <div style="background-color: #f8f9fa; border-left: 4px solid #2c3e50; padding: 20px; margin: 24px 0; border-radius: 4px;">
+              <p style="margin: 0; font-size: 14px; color: #495057; line-height: 1.6;">
+                <strong>Next Steps</strong><br>
+                Our recruitment team will review your qualifications and contact you if your profile matches our current requirements.
+              </p>
+            </div>
+          `;
+        } else {
+          body = `
+            <p style="margin: 0 0 24px; font-size: 16px; color: #2c3e50; line-height: 1.6;">Hello <strong>${name}</strong>,</p>
+            <p style="margin: 0 0 24px; font-size: 15px; color: #4a5568; line-height: 1.7;">
+              Thank you for reaching out to us regarding <strong>${type}</strong>. We have received your message and our team is currently reviewing your enquiry.
+            </p>
+            <div style="background-color: #f8f9fa; border-left: 4px solid #2c3e50; padding: 20px; margin: 24px 0; border-radius: 4px;">
+              <p style="margin: 0; font-size: 14px; color: #495057; line-height: 1.6;">
+                <strong>Typical Response Time</strong><br>
+                We aim to respond to all inquiries within 2-4 hours during business hours.
+              </p>
+            </div>
+          `;
+        }
     }
   } else {
     body = `

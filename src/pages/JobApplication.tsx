@@ -24,7 +24,8 @@ const JobApplication = () => {
         email: "",
         phone: "",
         gdcNumber: "",
-        coverLetter: ""
+        coverLetter: "",
+        resume: null as File | null,
     });
 
     useEffect(() => {
@@ -48,7 +49,27 @@ const JobApplication = () => {
         setIsLoading(true);
 
         try {
-            // 1. Save to Supabase
+            let attachment = "";
+            let filename = "";
+
+            if (formData.resume) {
+                // Read the file as base64
+                const reader = new FileReader();
+                const filePromise = new Promise<{ base64: string, name: string }>((resolve, reject) => {
+                    reader.onload = () => resolve({
+                        base64: reader.result as string,
+                        name: formData.resume!.name
+                    });
+                    reader.onerror = reject;
+                    reader.readAsDataURL(formData.resume!);
+                });
+
+                const fileData = await filePromise;
+                attachment = fileData.base64;
+                filename = fileData.name;
+            }
+
+            // 1. Save to Supabase (we'll save without the file for now as we don't have storage configured)
             const { error: dbError } = await supabase
                 .from('applications')
                 .insert([{
@@ -57,7 +78,8 @@ const JobApplication = () => {
                     name: formData.name,
                     email: formData.email,
                     phone: formData.phone,
-                    gdc_number: formData.gdcNumber
+                    gdc_number: formData.gdcNumber,
+                    cover_letter: formData.coverLetter
                     // status is 'pending' by default
                 }]);
 
@@ -65,7 +87,7 @@ const JobApplication = () => {
 
             // 2. Send Notifications (Client & Admin) - calling our existing API
             // We use the 'type' field to distinguish this as a job application
-            const response = await fetch('http://localhost:3000/api/contact', {
+            const response = await fetch('/api/contact', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -82,7 +104,9 @@ const JobApplication = () => {
                         Cover Letter / Notes:
                         ${formData.coverLetter}
                     `,
-                    subject: `New Application: ${jobTitle} - ${formData.name}`
+                    subject: `New Application: ${jobTitle} - ${formData.name}`,
+                    attachment: attachment,
+                    filename: filename
                 })
             });
 
@@ -193,6 +217,24 @@ const JobApplication = () => {
                                     value={formData.coverLetter}
                                     onChange={e => setFormData({ ...formData, coverLetter: e.target.value })}
                                 />
+                            </div>
+
+                            <div className="space-y-2">
+                                <Label htmlFor="resume">Resume / CV (PDF or Word) *</Label>
+                                <Input
+                                    id="resume"
+                                    type="file"
+                                    required
+                                    accept=".pdf,.doc,.docx"
+                                    onChange={e => {
+                                        const file = e.target.files?.[0];
+                                        if (file) {
+                                            setFormData({ ...formData, resume: file });
+                                        }
+                                    }}
+                                    className="cursor-pointer file:cursor-pointer file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-navy/10 file:text-navy hover:file:bg-navy/20"
+                                />
+                                <p className="text-[11px] text-muted-foreground">Please upload your CV in PDF or Word format.</p>
                             </div>
 
                             <Button

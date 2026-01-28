@@ -134,39 +134,42 @@ const AdminJobs = () => {
             title="Jobs Management"
             subtitle="Post, edit, and manage your job listings."
             action={
-                <Button onClick={openNewJob} className="gap-2 bg-navy hover:bg-gold hover:text-navy transition-colors">
-                    <Plus size={18} /> Post New Job
+                <Button
+                    onClick={openNewJob}
+                    className="h-11 px-6 gap-2 bg-gold text-navy font-bold rounded-xl shadow-lg shadow-gold/20 hover:shadow-gold/40 hover:bg-[#F5C518] hover:scale-105 transition-all duration-300"
+                >
+                    <Plus size={18} strokeWidth={2.5} /> Post New Job
                 </Button>
             }
         >
             <div className="grid grid-cols-1 gap-4">
                 {jobs.map((job) => (
-                    <div key={job.id} className="bg-white p-6 rounded-xl border border-border/50 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-6 hover:shadow-md transition-shadow">
-                        <div className="flex-1 space-y-2">
+                    <div key={job.id} className="group bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl hover:shadow-navy/5 hover:border-gold/20 transition-all duration-300 flex flex-col md:flex-row md:items-center justify-between gap-6">
+                        <div className="flex-1 space-y-3">
                             <div className="flex items-center gap-3">
-                                <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider
-                                    ${job.type === 'Locum' ? 'bg-purple-100 text-purple-700' : 'bg-blue-100 text-blue-700'}
+                                <span className={`px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider shadow-sm
+                                    ${job.type === 'Locum' ? 'bg-purple-50 text-purple-700 border border-purple-100' : 'bg-blue-50 text-blue-700 border border-blue-100'}
                                 `}>
                                     {job.type}
                                 </span>
-                                <span className="text-muted-foreground text-xs flex items-center gap-1">
-                                    <Calendar className="w-3 h-3" />
+                                <span className="text-gray-400 text-xs flex items-center gap-1.5 font-medium">
+                                    <Calendar className="w-3.5 h-3.5" />
                                     {new Date(job.created_at).toLocaleDateString()}
                                 </span>
                             </div>
-                            <h3 className="text-lg font-bold text-navy">{job.title}</h3>
-                            <div className="flex gap-4 text-sm text-muted-foreground">
-                                <span className="flex items-center gap-1"><MapPin className="w-3 h-3" /> {job.location}</span>
-                                <span className="flex items-center gap-1"><Banknote className="w-3 h-3" /> {job.salary}</span>
+                            <h3 className="text-xl font-heading font-bold text-navy group-hover:text-gold transition-colors duration-300">{job.title}</h3>
+                            <div className="flex flex-wrap gap-4 text-sm text-gray-500">
+                                <span className="flex items-center gap-1.5 bg-gray-50 px-2.5 py-1 rounded-lg border border-gray-100"><MapPin className="w-3.5 h-3.5 text-navy/70" /> {job.location}</span>
+                                <span className="flex items-center gap-1.5 bg-gray-50 px-2.5 py-1 rounded-lg border border-gray-100"><Banknote className="w-3.5 h-3.5 text-navy/70" /> {job.salary}</span>
                             </div>
                         </div>
 
-                        <div className="flex items-center gap-2">
-                            <Button variant="outline" size="sm" onClick={() => openEditJob(job)} className="text-blue-600 hover:text-blue-700 hover:bg-blue-50">
-                                <Pencil size={16} />
+                        <div className="flex items-center gap-3 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 transform md:translate-x-4 md:group-hover:translate-x-0">
+                            <Button variant="outline" size="icon" onClick={() => openEditJob(job)} className="h-10 w-10 rounded-xl border-gray-200 text-gray-500 hover:text-blue-600 hover:bg-blue-50 hover:border-blue-200 transition-colors">
+                                <Pencil size={18} />
                             </Button>
-                            <Button variant="outline" size="sm" onClick={() => handleDelete(job.id)} className="text-red-600 hover:text-red-700 hover:bg-red-50">
-                                <Trash2 size={16} />
+                            <Button variant="outline" size="icon" onClick={() => handleDelete(job.id)} className="h-10 w-10 rounded-xl border-gray-200 text-gray-500 hover:text-red-600 hover:bg-red-50 hover:border-red-200 transition-colors">
+                                <Trash2 size={18} />
                             </Button>
                         </div>
                     </div>

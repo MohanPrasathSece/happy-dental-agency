@@ -19,7 +19,7 @@ const MapSection = ({ variant = 'home' }: MapSectionProps) => {
             <div className="container-custom">
                 <div className="text-center max-w-3xl mx-auto mb-12">
                     <span className="inline-block bg-white text-navy px-4 py-1.5 rounded-full text-sm font-semibold mb-4 shadow-soft border border-border">
-                        Our Reach
+                        Service Areas
                     </span>
                     <h2 className="text-3xl font-heading font-bold text-navy mb-4">
                         {variant === 'office' ? 'Our Location' : 'Service Areas'}
