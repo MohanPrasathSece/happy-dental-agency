@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import AdminLayout from "@/components/admin/AdminLayout";
 import { Button } from "@/components/ui/button";
-import { Plus, Pencil, Trash2, MapPin, Banknote, Calendar, Briefcase } from "lucide-react";
+import { Plus, Pencil, Trash2, MapPin, Banknote, Calendar, Briefcase, Users, Mail, Phone, FileText } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { toast } from "sonner";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -21,6 +21,19 @@ interface Job {
     created_at: string;
 }
 
+interface Application {
+    id: string;
+    job_id: string;
+    job_title: string;
+    name: string;
+    email: string;
+    phone: string;
+    gdc_number: string;
+    cover_letter?: string;
+    status: string;
+    created_at: string;
+}
+
 const AdminJobs = () => {
     const [jobs, setJobs] = useState<Job[]>([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -28,6 +41,12 @@ const AdminJobs = () => {
     const [currentJob, setCurrentJob] = useState<Partial<Job>>({});
     const [isEditing, setIsEditing] = useState(false);
     const [isSaving, setIsSaving] = useState(false);
+
+    // Applicants viewing state
+    const [isApplicantsDialogOpen, setIsApplicantsDialogOpen] = useState(false);
+    const [selectedJobForApplicants, setSelectedJobForApplicants] = useState<Job | null>(null);
+    const [applicants, setApplicants] = useState<Application[]>([]);
+    const [loadingApplicants, setLoadingApplicants] = useState(false);
 
     const fetchJobs = async () => {
         setIsLoading(true);
@@ -129,6 +148,35 @@ const AdminJobs = () => {
         setIsDialogOpen(true);
     };
 
+    const fetchApplicantsForJob = async (jobId: string) => {
+        setLoadingApplicants(true);
+        try {
+            const { data, error } = await supabase
+                .from('applications')
+                .select('*')
+                .eq('job_id', jobId)
+                .order('created_at', { ascending: false });
+
+            if (error) {
+                console.error(error);
+                toast.error("Failed to fetch applicants");
+            } else {
+                setApplicants(data || []);
+            }
+        } catch (e) {
+            console.error(e);
+            toast.error("Error loading applicants");
+        } finally {
+            setLoadingApplicants(false);
+        }
+    };
+
+    const openApplicantsDialog = (job: Job) => {
+        setSelectedJobForApplicants(job);
+        setIsApplicantsDialogOpen(true);
+        fetchApplicantsForJob(job.id);
+    };
+
     return (
         <AdminLayout
             title="Jobs Management"
@@ -165,6 +213,9 @@ const AdminJobs = () => {
                         </div>
 
                         <div className="flex items-center gap-3 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 transform md:translate-x-4 md:group-hover:translate-x-0">
+                            <Button variant="outline" size="sm" onClick={() => openApplicantsDialog(job)} className="h-10 px-3 rounded-xl border-gray-200 text-gray-600 hover:text-green-600 hover:bg-green-50 hover:border-green-200 transition-colors gap-2">
+                                <Users size={16} /> Applicants
+                            </Button>
                             <Button variant="outline" size="icon" onClick={() => openEditJob(job)} className="h-10 w-10 rounded-xl border-gray-200 text-gray-500 hover:text-blue-600 hover:bg-blue-50 hover:border-blue-200 transition-colors">
                                 <Pencil size={18} />
                             </Button>
@@ -254,6 +305,98 @@ const AdminJobs = () => {
                         <Button variant="outline" onClick={() => setIsDialogOpen(false)}>Cancel</Button>
                         <Button onClick={handleSaveJob} className="bg-navy text-white hover:bg-gold hover:text-navy" disabled={isSaving}>
                             {isSaving ? "Saving..." : (isEditing ? "Save Changes" : "Post Job")}
+                        </Button>
+                    </div>
+                </DialogContent>
+            </Dialog>
+
+            {/* Applicants Dialog */}
+            <Dialog open={isApplicantsDialogOpen} onOpenChange={setIsApplicantsDialogOpen}>
+                <DialogContent className="max-w-4xl bg-white max-h-[85vh] overflow-y-auto">
+                    <DialogHeader>
+                        <DialogTitle className="text-2xl">Applicants for {selectedJobForApplicants?.title}</DialogTitle>
+                        <p className="text-sm text-muted-foreground mt-1">
+                            {applicants.length} {applicants.length === 1 ? 'applicant' : 'applicants'} found
+                        </p>
+                    </DialogHeader>
+
+                    <div className="space-y-4 mt-4">
+                        {loadingApplicants ? (
+                            <div className="flex justify-center py-12">
+                                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-navy"></div>
+                            </div>
+                        ) : applicants.length > 0 ? (
+                            applicants.map((applicant) => (
+                                <div key={applicant.id} className="bg-gray-50 rounded-xl p-5 border border-gray-200 hover:border-gold/50 hover:shadow-md transition-all">
+                                    <div className="flex items-start justify-between mb-3">
+                                        <div>
+                                            <h3 className="text-lg font-bold text-navy">{applicant.name}</h3>
+                                            <p className="text-xs text-muted-foreground">
+                                                Applied on {new Date(applicant.created_at).toLocaleDateString('en-GB', {
+                                                    day: 'numeric',
+                                                    month: 'long',
+                                                    year: 'numeric',
+                                                    hour: '2-digit',
+                                                    minute: '2-digit'
+                                                })}
+                                            </p>
+                                        </div>
+                                        <span className={`px-3 py-1 rounded-full text-xs font-semibold ${applicant.status === 'pending' ? 'bg-yellow-100 text-yellow-700' :
+                                                applicant.status === 'reviewed' ? 'bg-blue-100 text-blue-700' :
+                                                    'bg-green-100 text-green-700'
+                                            }`}>
+                                            {applicant.status}
+                                        </span>
+                                    </div>
+
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
+                                        <div className="flex items-center gap-2 text-sm text-gray-700">
+                                            <Mail className="w-4 h-4 text-navy/60" />
+                                            <a href={`mailto:${applicant.email}`} className="hover:underline hover:text-gold">
+                                                {applicant.email}
+                                            </a>
+                                        </div>
+                                        <div className="flex items-center gap-2 text-sm text-gray-700">
+                                            <Phone className="w-4 h-4 text-navy/60" />
+                                            <a href={`tel:${applicant.phone}`} className="hover:underline hover:text-gold">
+                                                {applicant.phone}
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    {applicant.gdc_number && (
+                                        <div className="mb-3">
+                                            <p className="text-sm text-gray-600">
+                                                <strong className="text-navy">GDC Number:</strong> {applicant.gdc_number}
+                                            </p>
+                                        </div>
+                                    )}
+
+                                    {applicant.cover_letter && (
+                                        <div className="mt-3 pt-3 border-t border-gray-200">
+                                            <div className="flex items-center gap-2 mb-2">
+                                                <FileText className="w-4 h-4 text-navy/60" />
+                                                <strong className="text-sm text-navy">Cover Letter / Notes:</strong>
+                                            </div>
+                                            <p className="text-sm text-gray-700 whitespace-pre-wrap bg-white p-3 rounded-lg border border-gray-100">
+                                                {applicant.cover_letter}
+                                            </p>
+                                        </div>
+                                    )}
+                                </div>
+                            ))
+                        ) : (
+                            <div className="text-center py-12">
+                                <Users className="w-12 h-12 text-gray-300 mx-auto mb-3" />
+                                <h3 className="text-lg font-semibold text-gray-600">No applicants yet</h3>
+                                <p className="text-sm text-gray-500">Applications will appear here when candidates apply for this position.</p>
+                            </div>
+                        )}
+                    </div>
+
+                    <div className="flex justify-end mt-4 pt-4 border-t">
+                        <Button variant="outline" onClick={() => setIsApplicantsDialogOpen(false)}>
+                            Close
                         </Button>
                     </div>
                 </DialogContent>

@@ -40,7 +40,7 @@ const AdminLogin = () => {
             {/* Left Side - Hero / Branding */}
             <div className="hidden lg:flex relative bg-navy flex-col justify-between p-12 lg:p-16 overflow-hidden">
                 <div className="relative z-10">
-                    <Logo size="lg" theme="dark" showText={true} />
+                    <Logo size="lg" variant="light" showText={true} />
                 </div>
 
                 <div className="relative z-10 space-y-6 max-w-lg">
@@ -100,7 +100,6 @@ const AdminLogin = () => {
                                 <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 group-focus-within:text-navy transition-colors" />
                                 <Input
                                     type="email"
-                                    placeholder="admin@happydental.com"
                                     className="pl-10 h-12 bg-gray-50 border-gray-200 focus:bg-white transition-all rounded-xl"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
@@ -118,7 +117,6 @@ const AdminLogin = () => {
                                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 group-focus-within:text-navy transition-colors" />
                                 <Input
                                     type="password"
-                                    placeholder="••••••••"
                                     className="pl-10 h-12 bg-gray-50 border-gray-200 focus:bg-white transition-all rounded-xl"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}

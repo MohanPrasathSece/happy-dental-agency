@@ -108,7 +108,7 @@ const AdminDashboard = () => {
                     </CardHeader>
                     <CardContent className="space-y-4">
                         <p className="text-white/80 text-sm">Post a new vacancy instantly.</p>
-                        <Link to="/admin/jobs">
+                        <Link to="/admin/jobs" className="block mt-2">
                             <Button className="w-full bg-white text-navy hover:bg-gold hover:text-navy font-bold">
                                 <Plus className="w-4 h-4 mr-2" /> Post New Job
                             </Button>
