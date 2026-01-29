@@ -44,7 +44,7 @@ const WhyChooseUsSection = () => {
               Why Choose Us
             </span>
             <h2 className="text-3xl md:text-4xl font-heading font-bold text-navy mb-6">
-              The Trusted Choice for Dental Recruitment
+              The Trusted Choice for Dental Nursing Staffing in London
             </h2>
             <p className="text-muted-foreground text-lg mb-8">
               With years of experience in dental staffing, we understand the unique

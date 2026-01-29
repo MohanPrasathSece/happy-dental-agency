@@ -47,7 +47,7 @@ const ServicesSection = () => {
             <Logo size="sm" showText={false} />
           </div>
           <h2 className="text-3xl md:text-4xl font-heading font-bold text-navy mb-4">
-            Comprehensive Dental Nursing Solutions
+            The #1 Dental Nursing Agency in London
           </h2>
           <p className="text-muted-foreground text-lg">
             We provide a full range of recruitment services to meet the staffing

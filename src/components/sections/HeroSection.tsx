@@ -37,9 +37,8 @@ const HeroSection = () => {
 
                     {/* Main Heading */}
                     <h1 className="text-3xl xs:text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-navy mb-6 animate-slide-up">
-                        Your Reliable Partner for{" "}
-                        <span className="text-navy">Dental Nursing</span>{" "}
-                        Recruitment
+                        The Best <span className="text-navy">Dental Nursing</span>{" "}
+                        Agency in London
                     </h1>
 
                     {/* Subheading */}
