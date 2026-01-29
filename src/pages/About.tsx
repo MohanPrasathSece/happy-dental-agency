@@ -111,7 +111,7 @@ const About = () => {
                                     </div>
                                 </div>
                                 <div className="flex gap-3 pl-0 sm:pl-6 sm:border-l border-border">
-                                    <a href="#" className="w-10 h-10 rounded-full border border-border flex items-center justify-center text-navy hover:bg-navy hover:text-white transition-all shadow-sm" aria-label="LinkedIn">
+                                    <a href="https://www.linkedin.com/in/happy-dental-agency-uk" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full border border-border flex items-center justify-center text-navy hover:bg-navy hover:text-white transition-all shadow-sm" aria-label="LinkedIn">
                                         <Linkedin className="w-4 h-4" />
                                     </a>
                                     <a href="https://x.com/happydentalAG" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full border border-border flex items-center justify-center text-navy hover:bg-navy hover:text-white transition-all shadow-sm" aria-label="Twitter">

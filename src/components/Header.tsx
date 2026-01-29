@@ -169,7 +169,7 @@ const Header = () => {
                                 {[
                                     { icon: Facebook, label: "Facebook", link: "#" },
                                     { icon: Instagram, label: "Instagram", link: "#" },
-                                    { icon: Linkedin, label: "LinkedIn", link: "#" },
+                                    { icon: Linkedin, label: "LinkedIn", link: "https://www.linkedin.com/in/happy-dental-agency-uk" },
                                     { icon: Twitter, label: "Twitter", link: "https://x.com/happydentalAG" },
                                 ].map((social) => (
                                     <a

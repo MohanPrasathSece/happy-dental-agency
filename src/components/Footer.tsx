@@ -37,7 +37,9 @@ const Footer = () => {
               </a>
 
               <a
-                href="#"
+                href="https://www.linkedin.com/in/happy-dental-agency-uk"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-champagne hover:text-navy transition-all"
                 aria-label="LinkedIn"
               >
