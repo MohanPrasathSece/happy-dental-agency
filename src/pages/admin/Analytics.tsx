@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from "react";
-import AdminLayout from "@/components/admin/AdminLayout";
+import AdminPage from "@/components/admin/AdminPage";
 import { supabase } from "@/lib/supabase";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -105,7 +105,7 @@ const AdminAnalytics = () => {
     }, []);
 
     return (
-        <AdminLayout
+        <AdminPage
             title="Website Analytics"
             subtitle="Understand how visitors are interacting with your site."
         >
@@ -280,7 +280,7 @@ const AdminAnalytics = () => {
                     </div>
                 </div>
             )}
-        </AdminLayout>
+        </AdminPage>
     );
 };
 

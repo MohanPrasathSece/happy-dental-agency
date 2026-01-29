@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { supabase } from "@/lib/supabase";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -73,15 +74,28 @@ const TimesheetForm = () => {
     };
 
     const onSubmit = async (data: TimesheetFormData) => {
-        // Instant Success Experience
-        toast({
-            title: "Timesheet Submitted!",
-            description: "The timesheet has been sent to the office and a copy to your email.",
-        });
-        form.reset();
-        setStep(1);
-
+        setIsSubmitting(true);
         try {
+            // 1. Save to Supabase
+            const { error } = await supabase
+                .from('timesheets')
+                .insert([{
+                    nurse_name: data.nurseName,
+                    nurse_email: data.nurseEmail,
+                    practice_name: data.practiceName,
+                    shift_date: data.date,
+                    start_time: data.startTime,
+                    end_time: data.endTime,
+                    break_duration: parseInt(data.breakDuration),
+                    total_hours: parseFloat(data.totalHours),
+                    verifier_name: data.verifierName,
+                    verifier_role: data.verifierRole,
+                    feedback: data.feedback
+                }]);
+
+            if (error) throw error;
+
+            // 2. Send Email Notification
             await fetch("/api/contact", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -100,8 +114,23 @@ const TimesheetForm = () => {
                         `<strong>Feedback:</strong> ${data.feedback || 'None provided'}`
                 }),
             });
+
+            toast({
+                title: "Timesheet Submitted!",
+                description: "The timesheet has been saved and sent to the office.",
+            });
+            form.reset();
+            setStep(1);
+
         } catch (error) {
-            console.warn("Background submission failed:", error);
+            console.error("Submission failed:", error);
+            toast({
+                title: "Submission Failed",
+                description: "There was an error submitting your timesheet. Please try again.",
+                variant: "destructive"
+            });
+        } finally {
+            setIsSubmitting(false);
         }
     };
 
@@ -122,7 +151,14 @@ const TimesheetForm = () => {
             </div>
 
             <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+                <form onSubmit={form.handleSubmit(onSubmit, (errors) => {
+                    console.error("Form Validation Errors:", errors);
+                    toast({
+                        title: "Validation Error",
+                        description: "Please check all fields. Some required information is missing.",
+                        variant: "destructive"
+                    });
+                })} className="space-y-8">
                     {step === 1 && (
                         <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-500">
                             <div className="flex items-center gap-3 mb-2">
@@ -157,7 +193,10 @@ const TimesheetForm = () => {
                                     )}
                                 />
                             </div>
-                            <Button type="button" onClick={() => setStep(2)} className="w-full h-12">
+                            <Button type="button" onClick={async () => {
+                                const isValid = await form.trigger(["nurseName", "nurseEmail"]);
+                                if (isValid) setStep(2);
+                            }} className="w-full h-12">
                                 Next: Shift Details
                             </Button>
                         </div>
@@ -261,7 +300,10 @@ const TimesheetForm = () => {
                                 <Button type="button" variant="outline" onClick={() => setStep(1)} className="flex-1 h-12">
                                     Back
                                 </Button>
-                                <Button type="button" onClick={() => setStep(3)} className="flex-[2] h-12">
+                                <Button type="button" onClick={async () => {
+                                    const isValid = await form.trigger(["practiceName", "date", "breakDuration", "startTime", "endTime", "totalHours"]);
+                                    if (isValid) setStep(3);
+                                }} className="flex-[2] h-12">
                                     Next: Verification
                                 </Button>
                             </div>

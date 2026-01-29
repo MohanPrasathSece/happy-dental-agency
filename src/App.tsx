@@ -16,13 +16,15 @@ import Terms from "./pages/Terms";
 import Timesheet from "./pages/Timesheet";
 import NotFound from "./pages/NotFound";
 import Jobs from "./pages/Jobs";
-import JobApplication from "./pages/JobApplication";
 import AdminLogin from "./pages/admin/Login";
 import AdminDashboard from "./pages/admin/Dashboard";
 import AdminJobs from "./pages/admin/Jobs";
 import AdminApplications from "./pages/admin/Applications";
 import AdminRegistrations from "./pages/admin/Registrations";
 import AdminAnalytics from "./pages/admin/Analytics";
+import AdminTimesheets from "./pages/admin/Timesheets";
+import { AdminProvider } from "./context/AdminContext";
+import AdminShell from "./components/admin/AdminShell";
 
 const queryClient = new QueryClient();
 
@@ -51,11 +53,20 @@ const App = () => (
 
           {/* Admin Routes */}
           <Route path="/admin/login" element={<AdminLogin />} />
-          <Route path="/admin" element={<AdminDashboard />} />
-          <Route path="/admin/jobs" element={<AdminJobs />} />
-          <Route path="/admin/applications" element={<AdminApplications />} />
-          <Route path="/admin/registrations" element={<AdminRegistrations />} />
-          <Route path="/admin/analytics" element={<AdminAnalytics />} />
+
+          {/* Admin Dashboard Routes wrapped in Provider and Shell */}
+          <Route path="/admin" element={
+            <AdminProvider>
+              <AdminShell />
+            </AdminProvider>
+          }>
+            <Route index element={<AdminDashboard />} />
+            <Route path="jobs" element={<AdminJobs />} />
+            <Route path="applications" element={<AdminApplications />} />
+            <Route path="registrations" element={<AdminRegistrations />} />
+            <Route path="analytics" element={<AdminAnalytics />} />
+            <Route path="timesheets" element={<AdminTimesheets />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </TooltipProvider>

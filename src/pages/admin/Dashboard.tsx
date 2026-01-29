@@ -1,7 +1,8 @@
-
 import { useEffect, useState } from "react";
-import AdminLayout from "@/components/admin/AdminLayout";
+import AdminPage from "@/components/admin/AdminPage";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
+// ... (other imports remain, but remove AdminLayout)
 import { Briefcase, Users, Eye, Plus, ArrowUpRight, TrendingUp, Loader2 } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { Link } from "react-router-dom";
@@ -16,6 +17,7 @@ import {
 } from "recharts";
 
 const AdminDashboard = () => {
+    // ... (state remains)
     const [stats, setStats] = useState({
         jobs: 0,
         applications: 0,
@@ -121,7 +123,7 @@ const AdminDashboard = () => {
     ];
 
     return (
-        <AdminLayout
+        <AdminPage
             title="Dashboard"
             subtitle="Overview of your agency's performance."
         >
@@ -231,7 +233,7 @@ const AdminDashboard = () => {
                     </CardContent>
                 </Card>
             </div>
-        </AdminLayout>
+        </AdminPage>
     );
 };
 

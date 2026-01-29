@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from "react";
-import AdminLayout from "@/components/admin/AdminLayout";
+import AdminPage from "@/components/admin/AdminPage";
 import { supabase } from "@/lib/supabase";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -81,7 +81,7 @@ const AdminRegistrations = () => {
     };
 
     return (
-        <AdminLayout
+        <AdminPage
             title="Nurse Registrations"
             subtitle="Manage registrations for qualified and trainee nurses."
         >
@@ -291,7 +291,7 @@ const AdminRegistrations = () => {
                     )}
                 </DialogContent>
             </Dialog>
-        </AdminLayout>
+        </AdminPage>
     );
 };
 

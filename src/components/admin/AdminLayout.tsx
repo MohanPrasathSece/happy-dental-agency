@@ -14,7 +14,8 @@ import {
     Search,
     ChevronRight,
     UserCheck,
-    TrendingUp
+    TrendingUp,
+    Clock
 } from "lucide-react";
 import Logo from "../Logo";
 import { supabase } from "@/lib/supabase";
@@ -84,8 +85,11 @@ const AdminLayout = ({ children, title, subtitle, action }: AdminLayoutProps) =>
 
     const navItems = [
         { name: "Dashboard", path: "/admin", icon: LayoutDashboard },
+        { name: "Timesheets", path: "/admin/timesheets", icon: Clock },
         { name: "Analytics", path: "/admin/analytics", icon: TrendingUp },
         { name: "Job Listings", path: "/admin/jobs", icon: Briefcase },
+        { name: "Registrations", path: "/admin/registrations", icon: UserCheck },
+        { name: "Applications", path: "/admin/applications", icon: Users },
     ];
 
     return (

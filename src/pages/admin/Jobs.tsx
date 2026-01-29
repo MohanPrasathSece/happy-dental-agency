@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from "react";
-import AdminLayout from "@/components/admin/AdminLayout";
+import AdminPage from "@/components/admin/AdminPage";
 import { Button } from "@/components/ui/button";
 import { Plus, Pencil, Trash2, MapPin, Banknote, Calendar, Briefcase, Users, Mail, Phone, FileText, ArrowUpRight } from "lucide-react";
 import { supabase } from "@/lib/supabase";
@@ -182,7 +182,7 @@ const AdminJobs = () => {
     };
 
     return (
-        <AdminLayout
+        <AdminPage
             title="Jobs Management"
             subtitle="Post, edit, and manage your job listings."
             action={
@@ -454,7 +454,7 @@ const AdminJobs = () => {
                     </div>
                 </DialogContent>
             </Dialog>
-        </AdminLayout>
+        </AdminPage>
     );
 };
 

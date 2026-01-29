@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from "react";
-import AdminLayout from "@/components/admin/AdminLayout";
+import AdminPage from "@/components/admin/AdminPage";
 import { supabase } from "@/lib/supabase";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -74,7 +74,7 @@ const AdminApplications = () => {
     };
 
     return (
-        <AdminLayout
+        <AdminPage
             title="Applications"
             subtitle="Manage incoming job applications."
         >
@@ -272,7 +272,7 @@ const AdminApplications = () => {
                     )}
                 </DialogContent>
             </Dialog>
-        </AdminLayout>
+        </AdminPage>
     );
 };
 
