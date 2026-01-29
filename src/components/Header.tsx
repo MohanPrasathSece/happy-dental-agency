@@ -167,7 +167,7 @@ const Header = () => {
                             <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-4">Follow Us</p>
                             <div className="flex gap-4 mb-6">
                                 {[
-                                    { icon: Facebook, label: "Facebook", link: "#" },
+                                    { icon: Facebook, label: "Facebook", link: "https://www.facebook.com/profile.php?id=61587083437951" },
                                     { icon: Instagram, label: "Instagram", link: "https://instagram.com/happydentalagencyuk" },
                                     { icon: Linkedin, label: "LinkedIn", link: "https://www.linkedin.com/in/happy-dental-agency-uk" },
                                     { icon: Twitter, label: "Twitter", link: "https://x.com/happydentalAG" },
