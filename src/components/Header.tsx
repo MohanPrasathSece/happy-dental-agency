@@ -170,7 +170,7 @@ const Header = () => {
                                     { icon: Facebook, label: "Facebook", link: "#" },
                                     { icon: Instagram, label: "Instagram", link: "#" },
                                     { icon: Linkedin, label: "LinkedIn", link: "#" },
-                                    { icon: Twitter, label: "Twitter", link: "#" },
+                                    { icon: Twitter, label: "Twitter", link: "https://x.com/happydentalAG" },
                                 ].map((social) => (
                                     <a
                                         key={social.label}

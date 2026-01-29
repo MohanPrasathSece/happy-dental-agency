@@ -212,18 +212,28 @@ app.post('/api/contact', async (req, res) => {
     `;
 
     // 1. Send Notification to Agency
+    const attachments = [];
+    if (attachment && typeof attachment === 'string' && attachment.includes("base64,")) {
+      attachments.push({
+        filename: filename || 'attachment.pdf',
+        content: attachment.split("base64,")[1],
+        encoding: 'base64'
+      });
+    }
+    if (req.body.attachment2 && typeof req.body.attachment2 === 'string' && req.body.attachment2.includes("base64,")) {
+      attachments.push({
+        filename: req.body.filename2 || 'attachment2.pdf',
+        content: req.body.attachment2.split("base64,")[1],
+        encoding: 'base64'
+      });
+    }
+
     await transporter.sendMail({
       from: `"Happy Dental System" <${emailUser}>`,
       to: process.env.RECIPIENT_EMAIL || 'info@happydentalagency.co.uk',
       subject: `New ${type} from ${name}`,
       html: getEmailTemplate(name, emailContent, false),
-      attachments: (attachment && typeof attachment === 'string' && attachment.includes("base64,")) ? [
-        {
-          filename: filename || 'attachment.pdf',
-          content: attachment.split("base64,")[1],
-          encoding: 'base64'
-        }
-      ] : []
+      attachments: attachments
     });
 
     console.log('✅ Agency notification sent');

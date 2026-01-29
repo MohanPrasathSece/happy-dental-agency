@@ -159,7 +159,7 @@ const Contact = () => {
                     { icon: Facebook, label: "Facebook", link: "#", color: "hover:text-blue-600 hover:bg-blue-50" },
                     { icon: Instagram, label: "Instagram", link: "#", color: "hover:text-pink-600 hover:bg-pink-50" },
                     { icon: Linkedin, label: "LinkedIn", link: "#", color: "hover:text-blue-700 hover:bg-blue-50" },
-                    { icon: Twitter, label: "Twitter", link: "#", color: "hover:text-sky-500 hover:bg-sky-50" },
+                    { icon: Twitter, label: "Twitter", link: "https://x.com/happydentalAG", color: "hover:text-sky-500 hover:bg-sky-50" },
                   ].map((social) => (
                     <a
                       key={social.label}
