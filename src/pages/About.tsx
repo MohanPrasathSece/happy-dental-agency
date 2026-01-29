@@ -117,7 +117,7 @@ const About = () => {
                                     <a href="https://x.com/happydentalAG" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full border border-border flex items-center justify-center text-navy hover:bg-navy hover:text-white transition-all shadow-sm" aria-label="Twitter">
                                         <Twitter className="w-4 h-4" />
                                     </a>
-                                    <a href="#" className="w-10 h-10 rounded-full border border-border flex items-center justify-center text-navy hover:bg-navy hover:text-white transition-all shadow-sm" aria-label="Instagram">
+                                    <a href="https://instagram.com/happydentalagencyuk" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full border border-border flex items-center justify-center text-navy hover:bg-navy hover:text-white transition-all shadow-sm" aria-label="Instagram">
                                         <Instagram className="w-4 h-4" />
                                     </a>
                                     <a href="#" className="w-10 h-10 rounded-full border border-border flex items-center justify-center text-navy hover:bg-navy hover:text-white transition-all shadow-sm" aria-label="Facebook">

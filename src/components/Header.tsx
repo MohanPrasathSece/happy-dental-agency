@@ -168,7 +168,7 @@ const Header = () => {
                             <div className="flex gap-4 mb-6">
                                 {[
                                     { icon: Facebook, label: "Facebook", link: "#" },
-                                    { icon: Instagram, label: "Instagram", link: "#" },
+                                    { icon: Instagram, label: "Instagram", link: "https://instagram.com/happydentalagencyuk" },
                                     { icon: Linkedin, label: "LinkedIn", link: "https://www.linkedin.com/in/happy-dental-agency-uk" },
                                     { icon: Twitter, label: "Twitter", link: "https://x.com/happydentalAG" },
                                 ].map((social) => (
