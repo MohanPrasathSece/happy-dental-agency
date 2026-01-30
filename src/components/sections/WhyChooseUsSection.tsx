@@ -9,7 +9,7 @@ const reasons = [
   {
     icon: Shield,
     title: "Vetted Professionals",
-    description: "All nurses are thoroughly verified with DBS checks and reference verification.",
+    description: "All nurses are thoroughly verified with DBS, indemnity insurance and reference checks.",
   },
   {
     icon: MapPin,

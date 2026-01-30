@@ -193,6 +193,12 @@ const DentalPractices = () => {
                   </p>
                 </div>
                 <BookingForm />
+
+                <div className="mt-8 p-4 bg-slate-50 rounded-xl border border-dashed border-border">
+                  <p className="text-xs text-muted-foreground leading-relaxed">
+                    <span className="font-semibold text-navy">Cancellation Policy:</span> We require at least 24-hour notice for any cancellations. Please note that cancellations made with less than 24 hours' notice will incur a partial payment of the day's scheduled pay.
+                  </p>
+                </div>
               </div>
             </div>
           </div>

@@ -258,7 +258,7 @@ const DentalNurses = () => {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             {[
               { step: "01", title: "Register", desc: "Complete our simple registration form" },
-              { step: "02", title: "Verification", desc: "We verify your credentials and references" },
+              { step: "02", title: "Verification", desc: "We verify your credentials, indemnity and references" },
               { step: "03", title: "Matching", desc: "We match you with suitable opportunities" },
               { step: "04", title: "Start Working", desc: "Begin your career with ongoing support" },
             ].map((item, index) => (

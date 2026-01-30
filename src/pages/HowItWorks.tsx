@@ -23,7 +23,7 @@ const practiceSteps = [
     number: "03",
     title: "Receive Confirmation",
     description: "You'll receive confirmation with full details of the assigned nurse, including their qualifications and arrival time.",
-    details: ["Nurse profile and qualifications", "Confirmed arrival time", "Contact information", "Cancellation policy"],
+    details: ["Nurse profile and qualifications", "Confirmed arrival time", "Contact information", "24-hour cancellation policy"],
   },
   {
     number: "04",
@@ -44,7 +44,7 @@ const nurseSteps = [
     number: "02",
     title: "Verification Process",
     description: "We verify your credentials, conduct reference checks, and ensure all documentation is up to date.",
-    details: ["DBS verification", "Reference checks", "GDC registration confirmation", "Right to work verification"],
+    details: ["DBS verification", "Reference checks", "GDC registration & Indemnity check", "Right to work verification"],
   },
   {
     number: "03",
