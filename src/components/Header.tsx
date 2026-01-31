@@ -59,7 +59,7 @@ const Header = () => {
         >
             <div className="flex items-center justify-between px-4 md:px-8 xl:px-12">
                 <Link to="/" className="relative z-10 xl:ml-12">
-                    <Logo size="sm" showText={false} />
+                    <Logo size="sm" showText={true} direction="vertical" />
                 </Link>
 
                 {/* Desktop Navigation */}
