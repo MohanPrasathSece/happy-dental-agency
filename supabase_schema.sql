@@ -82,6 +82,11 @@ CREATE POLICY "Admins can view registrations"
 ON public.nurse_registrations FOR SELECT
 USING ( auth.role() = 'authenticated' );
 
+DROP POLICY IF EXISTS "Admins can update registrations" ON public.nurse_registrations;
+CREATE POLICY "Admins can update registrations"
+ON public.nurse_registrations FOR UPDATE
+USING ( auth.role() = 'authenticated' );
+
 -- 5. Enable RLS for APPLICATIONS
 ALTER TABLE public.applications ENABLE ROW LEVEL SECURITY;
 
