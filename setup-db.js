@@ -115,6 +115,27 @@ const setupDatabase = async () => {
         await client.query(`DROP POLICY IF EXISTS "Public can insert registrations" ON public.nurse_registrations`);
         await client.query(`CREATE POLICY "Public can insert registrations" ON public.nurse_registrations FOR INSERT WITH CHECK (true)`);
 
+        // --- Admin Policies (Fixed) ---
+        // Nurse Registrations
+        await client.query(`DROP POLICY IF EXISTS "Admins can view registrations" ON public.nurse_registrations`);
+        await client.query(`CREATE POLICY "Admins can view registrations" ON public.nurse_registrations FOR SELECT USING (auth.role() = 'authenticated')`);
+
+        await client.query(`DROP POLICY IF EXISTS "Admins can update registrations" ON public.nurse_registrations`);
+        await client.query(`CREATE POLICY "Admins can update registrations" ON public.nurse_registrations FOR UPDATE USING (auth.role() = 'authenticated')`);
+
+        await client.query(`DROP POLICY IF EXISTS "Admins can delete registrations" ON public.nurse_registrations`);
+        await client.query(`CREATE POLICY "Admins can delete registrations" ON public.nurse_registrations FOR DELETE USING (auth.role() = 'authenticated')`);
+
+        // Applications
+        await client.query(`DROP POLICY IF EXISTS "Admins can view applications" ON public.applications`);
+        await client.query(`CREATE POLICY "Admins can view applications" ON public.applications FOR SELECT USING (auth.role() = 'authenticated')`);
+
+        await client.query(`DROP POLICY IF EXISTS "Admins can update applications" ON public.applications`);
+        await client.query(`CREATE POLICY "Admins can update applications" ON public.applications FOR UPDATE USING (auth.role() = 'authenticated')`);
+
+        await client.query(`DROP POLICY IF EXISTS "Admins can delete applications" ON public.applications`);
+        await client.query(`CREATE POLICY "Admins can delete applications" ON public.applications FOR DELETE USING (auth.role() = 'authenticated')`);
+
         await client.query(`DROP POLICY IF EXISTS "Public can view jobs" ON public.jobs`);
         await client.query(`CREATE POLICY "Public can view jobs" ON public.jobs FOR SELECT USING (true)`);
 

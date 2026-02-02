@@ -133,11 +133,7 @@ const NurseRegistrationForm = () => {
 
   const onSubmit = async (data: NurseFormData) => {
     setIsSubmitting(true);
-    // Instant Success Experience
-    toast({
-      title: "Registration Submitted Successfully!",
-      description: "Thank you for registering with Happy Dental Agency. A confirmation has been sent to your email.",
-    });
+
 
     // Cleanup state first for UX
     const currentCvFile = cvFile;
@@ -201,6 +197,12 @@ const NurseRegistrationForm = () => {
 
       if (dbError) throw dbError;
 
+      // Instant Success Experience
+      toast({
+        title: "Registration Submitted Successfully!",
+        description: "Thank you for registering with Happy Dental Agency. A confirmation has been sent to your email.",
+      });
+
       let base64File = "";
       if (currentCvFile) {
         base64File = await new Promise((resolve) => {
@@ -243,8 +245,13 @@ Message: ${data.message || "None"}
           filename2: currentHepBFile?.name || undefined
         }),
       });
-    } catch (error) {
-      console.warn("Background submission failed:", error);
+    } catch (error: any) {
+      console.error("Submission failed:", error);
+      toast({
+        title: "Submission Failed",
+        description: error.message || "There was an error submitting your registration. Please try again.",
+        variant: "destructive",
+      });
     } finally {
       setIsSubmitting(false);
     }

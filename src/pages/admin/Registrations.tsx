@@ -5,7 +5,7 @@ import { supabase } from "@/lib/supabase";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { Loader2, Mail, Phone, MapPin, Eye, CheckCircle2, FileText, ArrowUpRight, GraduationCap, UserCheck } from "lucide-react";
+import { Loader2, Mail, Phone, MapPin, Eye, CheckCircle2, FileText, ArrowUpRight, GraduationCap, UserCheck, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import {
     Dialog,
@@ -14,6 +14,16 @@ import {
     DialogTitle,
     DialogDescription,
 } from "@/components/ui/dialog";
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface Registration {
@@ -37,6 +47,7 @@ const AdminRegistrations = () => {
     const [registrations, setRegistrations] = useState<Registration[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [selectedReg, setSelectedReg] = useState<Registration | null>(null);
+    const [deleteRegId, setDeleteRegId] = useState<string | null>(null);
 
     const fetchRegistrations = async () => {
         setIsLoading(true);
@@ -78,6 +89,25 @@ const AdminRegistrations = () => {
                 setSelectedReg(prev => prev ? { ...prev, status: newStatus } : null);
             }
         }
+    };
+
+    const deleteRegistration = async (id: string) => {
+        const { error } = await supabase
+            .from('nurse_registrations')
+            .delete()
+            .eq('id', id);
+
+        if (error) {
+            toast.error("Failed to delete registration");
+            console.error(error);
+        } else {
+            toast.success("Registration deleted successfully");
+            setRegistrations(regs => regs.filter(reg => reg.id !== id));
+            if (selectedReg?.id === id) {
+                setSelectedReg(null);
+            }
+        }
+        setDeleteRegId(null);
     };
 
     return (
@@ -165,6 +195,15 @@ const AdminRegistrations = () => {
                                                     Review
                                                 </Button>
                                             )}
+                                            <Button
+                                                size="sm"
+                                                variant="ghost"
+                                                className="h-8 w-8 p-0 hover:bg-red-50"
+                                                onClick={() => setDeleteRegId(reg.id)}
+                                            >
+                                                <Trash2 className="w-4 h-4 text-red-500" />
+                                                <span className="sr-only">Delete Registration</span>
+                                            </Button>
                                         </div>
                                     </TableCell>
                                 </TableRow>
@@ -276,21 +315,55 @@ const AdminRegistrations = () => {
                                     </div>
                                 )}
 
-                                <div className="flex gap-3 justify-end pt-4 border-t border-gray-100">
-                                    {selectedReg.status === 'pending' && (
-                                        <Button onClick={() => updateStatus(selectedReg.id, 'reviewed')} variant="outline" className="gap-2">
-                                            <CheckCircle2 className="w-4 h-4" /> Mark Reviewed
-                                        </Button>
-                                    )}
-                                    <Button onClick={() => window.location.href = `mailto:${selectedReg.email}`} className="bg-navy text-white hover:bg-gold hover:text-navy gap-2">
-                                        <Mail className="w-4 h-4" /> Reply via Email
+                                <div className="flex gap-3 justify-between pt-4 border-t border-gray-100">
+                                    <Button
+                                        onClick={() => {
+                                            setDeleteRegId(selectedReg.id);
+                                            setSelectedReg(null);
+                                        }}
+                                        variant="outline"
+                                        className="gap-2 border-red-200 text-red-600 hover:bg-red-50 hover:text-red-700"
+                                    >
+                                        <Trash2 className="w-4 h-4" /> Delete Registration
                                     </Button>
+                                    <div className="flex gap-3">
+                                        {selectedReg.status === 'pending' && (
+                                            <Button onClick={() => updateStatus(selectedReg.id, 'reviewed')} variant="outline" className="gap-2">
+                                                <CheckCircle2 className="w-4 h-4" /> Mark Reviewed
+                                            </Button>
+                                        )}
+                                        <Button onClick={() => window.location.href = `mailto:${selectedReg.email}`} className="bg-navy text-white hover:bg-gold hover:text-navy gap-2">
+                                            <Mail className="w-4 h-4" /> Reply via Email
+                                        </Button>
+                                    </div>
                                 </div>
                             </div>
                         </ScrollArea>
                     )}
                 </DialogContent>
             </Dialog>
+
+            {/* Delete Confirmation Dialog */}
+            <AlertDialog open={!!deleteRegId} onOpenChange={(open) => !open && setDeleteRegId(null)}>
+                <AlertDialogContent className="bg-white">
+                    <AlertDialogHeader>
+                        <AlertDialogTitle className="text-navy">Delete Registration</AlertDialogTitle>
+                        <AlertDialogDescription>
+                            Are you sure you want to delete this nurse registration? This action cannot be undone.
+                            All registration data including CV and certificates will be permanently removed.
+                        </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogAction
+                            onClick={() => deleteRegId && deleteRegistration(deleteRegId)}
+                            className="bg-red-600 hover:bg-red-700 text-white"
+                        >
+                            Delete
+                        </AlertDialogAction>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
         </AdminPage>
     );
 };

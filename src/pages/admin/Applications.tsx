@@ -5,7 +5,7 @@ import { supabase } from "@/lib/supabase";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { Loader2, Mail, Phone, Calendar, Eye, CheckCircle2, FileText, ArrowUpRight } from "lucide-react";
+import { Loader2, Mail, Phone, Calendar, Eye, CheckCircle2, FileText, ArrowUpRight, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import {
     Dialog,
@@ -14,6 +14,16 @@ import {
     DialogTitle,
     DialogDescription,
 } from "@/components/ui/dialog";
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface Application {
@@ -35,6 +45,7 @@ const AdminApplications = () => {
     const [applications, setApplications] = useState<Application[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [selectedApp, setSelectedApp] = useState<Application | null>(null);
+    const [deleteAppId, setDeleteAppId] = useState<string | null>(null);
 
     const fetchApplications = async () => {
         setIsLoading(true);
@@ -71,6 +82,25 @@ const AdminApplications = () => {
                 setSelectedApp(prev => prev ? { ...prev, status: newStatus } : null);
             }
         }
+    };
+
+    const deleteApplication = async (id: string) => {
+        const { error } = await supabase
+            .from('applications')
+            .delete()
+            .eq('id', id);
+
+        if (error) {
+            toast.error("Failed to delete application");
+            console.error(error);
+        } else {
+            toast.success("Application deleted successfully");
+            setApplications(apps => apps.filter(app => app.id !== id));
+            if (selectedApp?.id === id) {
+                setSelectedApp(null);
+            }
+        }
+        setDeleteAppId(null);
     };
 
     return (
@@ -152,6 +182,15 @@ const AdminApplications = () => {
                                                     Mark Reviewed
                                                 </Button>
                                             )}
+                                            <Button
+                                                size="sm"
+                                                variant="ghost"
+                                                className="h-8 w-8 p-0 hover:bg-red-50"
+                                                onClick={() => setDeleteAppId(app.id)}
+                                            >
+                                                <Trash2 className="w-4 h-4 text-red-500" />
+                                                <span className="sr-only">Delete Application</span>
+                                            </Button>
                                         </div>
                                     </TableCell>
                                 </TableRow>
@@ -257,21 +296,55 @@ const AdminApplications = () => {
                                     </p>
                                 </div>
 
-                                <div className="flex gap-3 justify-end pt-2">
-                                    {selectedApp.status === 'pending' && (
-                                        <Button onClick={() => updateStatus(selectedApp.id, 'reviewed')} variant="outline" className="gap-2">
-                                            <CheckCircle2 className="w-4 h-4" /> Mark as Reviewed
-                                        </Button>
-                                    )}
-                                    <Button onClick={() => window.location.href = `mailto:${selectedApp.email}`} className="bg-navy text-white hover:bg-gold hover:text-navy gap-2">
-                                        <Mail className="w-4 h-4" /> Reply via Email
+                                <div className="flex gap-3 justify-between pt-2">
+                                    <Button
+                                        onClick={() => {
+                                            setDeleteAppId(selectedApp.id);
+                                            setSelectedApp(null);
+                                        }}
+                                        variant="outline"
+                                        className="gap-2 border-red-200 text-red-600 hover:bg-red-50 hover:text-red-700"
+                                    >
+                                        <Trash2 className="w-4 h-4" /> Delete Application
                                     </Button>
+                                    <div className="flex gap-3">
+                                        {selectedApp.status === 'pending' && (
+                                            <Button onClick={() => updateStatus(selectedApp.id, 'reviewed')} variant="outline" className="gap-2">
+                                                <CheckCircle2 className="w-4 h-4" /> Mark as Reviewed
+                                            </Button>
+                                        )}
+                                        <Button onClick={() => window.location.href = `mailto:${selectedApp.email}`} className="bg-navy text-white hover:bg-gold hover:text-navy gap-2">
+                                            <Mail className="w-4 h-4" /> Reply via Email
+                                        </Button>
+                                    </div>
                                 </div>
                             </div>
                         </ScrollArea>
                     )}
                 </DialogContent>
             </Dialog>
+
+            {/* Delete Confirmation Dialog */}
+            <AlertDialog open={!!deleteAppId} onOpenChange={(open) => !open && setDeleteAppId(null)}>
+                <AlertDialogContent className="bg-white">
+                    <AlertDialogHeader>
+                        <AlertDialogTitle className="text-navy">Delete Application</AlertDialogTitle>
+                        <AlertDialogDescription>
+                            Are you sure you want to delete this application? This action cannot be undone.
+                            All application data including resume and documents will be permanently removed.
+                        </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogAction
+                            onClick={() => deleteAppId && deleteApplication(deleteAppId)}
+                            className="bg-red-600 hover:bg-red-700 text-white"
+                        >
+                            Delete
+                        </AlertDialogAction>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
         </AdminPage>
     );
 };
