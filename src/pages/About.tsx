@@ -1,6 +1,6 @@
 import PageHeaderComp from "@/components/PageHeader";
 import CTASection from "@/components/sections/CTASection";
-import { Target, Eye, Heart, Shield, Award, Users, GraduationCap, Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
+import { Target, Eye, Heart, Shield, Award, Users, GraduationCap, Facebook, Instagram, Linkedin, Twitter, Youtube } from "lucide-react";
 import SEO from "@/components/SEO";
 
 const About = () => {
@@ -122,6 +122,9 @@ const About = () => {
                                     </a>
                                     <a href="https://www.facebook.com/profile.php?id=61587083437951" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full border border-border flex items-center justify-center text-navy hover:bg-navy hover:text-white transition-all shadow-sm" aria-label="Facebook">
                                         <Facebook className="w-4 h-4" />
+                                    </a>
+                                    <a href="https://www.youtube.com/@happydentalagencyuk" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full border border-border flex items-center justify-center text-navy hover:bg-navy hover:text-white transition-all shadow-sm" aria-label="YouTube">
+                                        <Youtube className="w-4 h-4" />
                                     </a>
                                 </div>
                             </div>
