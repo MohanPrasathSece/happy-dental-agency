@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Phone, Home, Info, Building2, Heart, Workflow, Mail, Clock, Facebook, Instagram, Linkedin, Twitter, Briefcase } from "lucide-react";
+import { Menu, X, Phone, Home, Info, Building2, Heart, Workflow, Mail, Clock, Facebook, Instagram, Linkedin, Twitter, Youtube, Briefcase } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Logo from "./Logo";
 import GoogleTranslate from "./GoogleTranslate";
@@ -171,6 +171,7 @@ const Header = () => {
                                     { icon: Instagram, label: "Instagram", link: "https://instagram.com/happydentalagencyuk" },
                                     { icon: Linkedin, label: "LinkedIn", link: "https://www.linkedin.com/in/happy-dental-agency-uk" },
                                     { icon: Twitter, label: "Twitter", link: "https://x.com/happydentalAG" },
+                                    { icon: Youtube, label: "YouTube", link: "https://www.youtube.com/@happydentalagencyuk" },
                                 ].map((social) => (
                                     <a
                                         key={social.label}

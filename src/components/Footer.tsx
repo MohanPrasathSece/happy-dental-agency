@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Phone, Mail, MapPin, Clock, Facebook, Linkedin, Instagram, Twitter } from "lucide-react";
+import { Phone, Mail, MapPin, Clock, Facebook, Linkedin, Instagram, Twitter, Youtube } from "lucide-react";
 import Logo from "./Logo";
 
 const Footer = () => {
@@ -56,6 +56,16 @@ const Footer = () => {
                 aria-label="Twitter"
               >
                 <Twitter className="w-5 h-5" />
+              </a>
+
+              <a
+                href="https://www.youtube.com/@happydentalagencyuk"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-champagne hover:text-navy transition-all"
+                aria-label="YouTube"
+              >
+                <Youtube className="w-5 h-5" />
               </a>
             </div>
           </div>
