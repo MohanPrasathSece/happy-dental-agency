@@ -59,7 +59,7 @@ const Footer = () => {
               </a>
 
               <a
-                href="https://www.youtube.com/@happydentalagencyuk"
+                href="https://www.youtube.com/happydentalagencyuk"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-champagne hover:text-navy transition-all"

@@ -171,7 +171,7 @@ const Header = () => {
                                     { icon: Instagram, label: "Instagram", link: "https://instagram.com/happydentalagencyuk" },
                                     { icon: Linkedin, label: "LinkedIn", link: "https://www.linkedin.com/in/happy-dental-agency-uk" },
                                     { icon: Twitter, label: "Twitter", link: "https://x.com/happydentalAG" },
-                                    { icon: Youtube, label: "YouTube", link: "https://www.youtube.com/@happydentalagencyuk" },
+                                    { icon: Youtube, label: "YouTube", link: "https://www.youtube.com/happydentalagencyuk" },
                                 ].map((social) => (
                                     <a
                                         key={social.label}
