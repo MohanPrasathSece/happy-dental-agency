@@ -362,7 +362,7 @@ const AdminTimesheets = () => {
                                             <p>London, EC1V 2NX</p>
                                             <p>info@happydentalagency.co.uk</p>
                                             <p>www.happydentalagency.co.uk</p>
-                                            <p>+44 7561 704177</p>
+                                            <p>+44 7944 624039</p>
                                         </div>
                                     </div>
                                     <div className="header-right text-right">
