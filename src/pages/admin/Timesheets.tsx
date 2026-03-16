@@ -61,7 +61,6 @@ const AdminTimesheets = () => {
         shiftDate: "",
         totalHours: 0,
         hourlyRate: 20,
-        vatRate: 0,
         verifierName: "",
         description: "Nursing Services",
         footerText: "THANK YOU FOR YOUR BUSINESS"
@@ -136,7 +135,6 @@ const AdminTimesheets = () => {
             shiftDate: ts.shift_date,
             totalHours: ts.total_hours,
             hourlyRate: 20,
-            vatRate: 0,
             verifierName: ts.verifier_name,
             description: "Nursing Services",
             footerText: "THANK YOU FOR YOUR BUSINESS"
@@ -249,8 +247,7 @@ const AdminTimesheets = () => {
     };
 
     const subTotal = invoiceData.totalHours * invoiceData.hourlyRate;
-    const vatAmount = subTotal * (invoiceData.vatRate / 100);
-    const totalAmount = (subTotal + vatAmount).toFixed(2);
+    const totalAmount = subTotal.toFixed(2);
 
     return (
         <AdminPage
@@ -417,10 +414,6 @@ const AdminTimesheets = () => {
                                 <Label className="text-[10px] font-bold uppercase tracking-widest text-gray-400">Hourly Rate (£)</Label>
                                 <Input type="number" value={invoiceData.hourlyRate} onChange={e => setInvoiceData({ ...invoiceData, hourlyRate: Number(e.target.value) })} className="h-9" />
                             </div>
-                            <div className="space-y-2">
-                                <Label className="text-[10px] font-bold uppercase tracking-widest text-gray-400">VAT (%)</Label>
-                                <Input type="number" value={invoiceData.vatRate} onChange={e => setInvoiceData({ ...invoiceData, vatRate: Number(e.target.value) })} className="h-9" />
-                            </div>
                             <div className="space-y-2 md:col-span-2">
                                 <Label className="text-[10px] font-bold uppercase tracking-widest text-gray-400">Provider Address</Label>
                                 <Input value={invoiceData.nurseAddress} onChange={e => setInvoiceData({ ...invoiceData, nurseAddress: e.target.value })} className="h-9" />
@@ -516,10 +509,6 @@ const AdminTimesheets = () => {
                                     <div className="total-line">
                                         <span>Subtotal</span>
                                         <span>£{subTotal.toFixed(2)}</span>
-                                    </div>
-                                    <div className="total-line">
-                                        <span>VAT ({invoiceData.vatRate}%)</span>
-                                        <span>£{vatAmount.toFixed(2)}</span>
                                     </div>
                                     <div className="total-line grand-total-line">
                                         <span>Total Due</span>
