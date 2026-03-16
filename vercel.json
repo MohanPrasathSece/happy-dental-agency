@@ -1,0 +1,16 @@
+{
+    "rewrites": [
+        {
+            "source": "/api/(.*)",
+            "destination": "/api/$1"
+        },
+        {
+            "source": "/sitemaps",
+            "destination": "/sitemap.xml"
+        },
+        {
+            "source": "/((?!api/|sitemap|robots|_next|favicon|.*\\.).*)",
+            "destination": "/index.html"
+        }
+    ]
+}

@@ -1,0 +1,315 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Happy Dental Agency - Refined "Champagne & White" Theme */
+    --background: 0 0% 100%;
+    --foreground: 220 25% 12%;
+    /* Deep navy-charcoal for premium contrast */
+
+    --card: 0 0% 100%;
+    --card-foreground: 220 25% 12%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 25% 12%;
+
+    /* Primary: Elegant Champagne */
+    --primary: 38 75% 92%;
+    --primary-foreground: 220 25% 12%;
+
+    /* Darker champagne for hover/interaction */
+    --primary-dark: 38 65% 85%;
+
+    /* Gold Accent - Warm and Premium */
+    --gold: 38 45% 65%;
+    --gold-foreground: 0 0% 100%;
+
+    --secondary: 38 60% 97%;
+    --secondary-foreground: 220 25% 12%;
+
+    --muted: 38 30% 94%;
+    --muted-foreground: 30 10% 45%;
+
+    --accent: 38 75% 92%;
+    --accent-foreground: 220 25% 12%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 38 30% 88%;
+    --input: 38 30% 88%;
+    --ring: 38 45% 65%;
+
+    --radius: 1rem;
+
+    /* Custom Tokens - Mapped to Champagne Palette */
+    --champagne: 38 75% 92%;
+    --champagne-light: 38 100% 98%;
+    --champagne-dark: 38 60% 82%;
+
+    --navy: 220 25% 15%;
+    --navy-light: 220 20% 25%;
+
+    --success: 160 60% 45%;
+    --success-foreground: 0 0% 100%;
+
+    /* Shadows - Soft and Warm */
+    --shadow-sm: 0 2px 8px hsl(30 20% 12% / 0.04);
+    --shadow-md: 0 4px 20px hsl(30 20% 12% / 0.06);
+    --shadow-lg: 0 8px 40px hsl(30 20% 12% / 0.08);
+    --shadow-gold: 0 4px 20px hsl(38 45% 65% / 0.15);
+
+    /* Gradients - Champagne & White Radiance */
+    --gradient-hero: linear-gradient(180deg, hsl(38 100% 100%) 0%, hsl(38 100% 97%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%) 0%, hsl(38 100% 98%) 100%);
+    --gradient-cta: linear-gradient(135deg, hsl(38 75% 92%) 0%, hsl(38 60% 85%) 100%);
+
+    --sidebar-background: 38 60% 98%;
+    --sidebar-foreground: 220 25% 15%;
+    --sidebar-primary: 38 75% 92%;
+    --sidebar-primary-foreground: 220 25% 12%;
+    --sidebar-accent: 38 50% 95%;
+    --sidebar-accent-foreground: 220 25% 12%;
+    --sidebar-border: 38 30% 90%;
+    --sidebar-ring: 38 45% 85%;
+  }
+
+  .dark {
+    --background: 30 10% 5%;
+    --foreground: 38 20% 98%;
+    --card: 30 10% 8%;
+    --card-foreground: 38 20% 98%;
+    --popover: 30 10% 8%;
+    --popover-foreground: 38 20% 98%;
+    --primary: 38 60% 20%;
+    --primary-foreground: 38 20% 98%;
+    --secondary: 30 10% 12%;
+    --secondary-foreground: 38 20% 98%;
+    --muted: 30 10% 12%;
+    --muted-foreground: 38 10% 65%;
+    --accent: 38 60% 20%;
+    --accent-foreground: 38 20% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 38 20% 98%;
+    --border: 30 10% 20%;
+    --input: 30 10% 20%;
+    --ring: 38 45% 85%;
+  }
+
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+  }
+
+  p {
+    @apply leading-relaxed;
+  }
+
+  h1 {
+    @apply text-3xl md:text-5xl lg:text-6xl;
+    font-family: 'Montserrat', sans-serif;
+    @apply font-bold tracking-tight;
+  }
+
+  h2 {
+    @apply text-2xl md:text-4xl;
+    font-family: 'Montserrat', sans-serif;
+    @apply font-bold tracking-tight;
+  }
+
+  h3 {
+    @apply text-xl md:text-2xl;
+    font-family: 'Montserrat', sans-serif;
+    @apply font-bold tracking-tight;
+  }
+}
+
+@layer components {
+  .section-padding {
+    @apply py-16 md:py-24 px-4 md:px-8;
+  }
+
+  .container-custom {
+    @apply max-w-7xl mx-auto px-4 md:px-8;
+  }
+
+  .hero-gradient {
+    background: var(--gradient-hero);
+  }
+
+  .card-gradient {
+    background: var(--gradient-card);
+    @apply border border-white/50 shadow-md;
+  }
+
+  .cta-gradient {
+    background: var(--gradient-cta);
+  }
+
+  .text-gradient {
+    background: linear-gradient(135deg, hsl(var(--navy)) 0%, hsl(var(--navy-light)) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .glass-effect {
+    background: hsl(0 0% 100% / 0.8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    @apply border border-white/20;
+  }
+
+  .hover-lift {
+    @apply transition-all duration-300;
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .animate-pulse-slow {
+    animation: pulse-slow 3s ease-in-out infinite;
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.6s ease-out forwards;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes pulse-slow {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.8;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--muted));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--champagne-dark));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--navy));
+}
+
+/* Universal Footer Line & Decoration Killer */
+footer,
+footer *,
+footer::before,
+footer::after,
+footer *::before,
+footer *::after {
+  background-image: none !important;
+  border: none !important;
+  border-image: none !important;
+  box-shadow: none !important;
+  text-decoration: none !important;
+  outline: none !important;
+}
+
+footer::before,
+footer::after {
+  content: none !important;
+  display: none !important;
+}
+
+/* Explicitly kill any repeating gradients which users often report as dotted lines */
+footer {
+  background: hsl(var(--navy)) !important;
+}
+
+footer [class*="border"] {
+  border: none !important;
+}
