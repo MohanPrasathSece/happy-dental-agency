@@ -80,6 +80,10 @@ const setupDatabase = async () => {
                 nurse_status text NOT NULL,
                 gdc_number text,
                 work_preference text NOT NULL,
+                ni_number text,
+                bank_name text,
+                account_number text,
+                sort_code text,
                 hep_b_vaccination text NOT NULL,
                 message text,
                 cv_url text,
@@ -88,6 +92,12 @@ const setupDatabase = async () => {
                 created_at timestamp with time zone DEFAULT timezone('utc'::text, now()) NOT NULL
             );
         `);
+
+        // Ensure all columns exist for nurse_registrations
+        const regCols = ['ni_number', 'bank_name', 'account_number', 'sort_code'];
+        for (const col of regCols) {
+            await client.query(`ALTER TABLE public.nurse_registrations ADD COLUMN IF NOT EXISTS ${col} text`);
+        }
 
         // 5. Storage Buckets
         console.log('Setting up storage buckets...');
