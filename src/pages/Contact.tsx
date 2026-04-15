@@ -10,7 +10,7 @@ const contactInfo = [
     icon: Phone,
     title: "Phone",
     primary: "+44 7944 624 039",
-    secondary: "Mon - Fri: 8am - 6pm",
+    secondary: "Booking: 24/7 | Support: 7am-7pm",
     link: "tel:+447944624039",
   },
   {
@@ -39,7 +39,7 @@ const contactInfo = [
 const faqs = [
   {
     question: "How quickly can you provide a dental nurse?",
-    answer: "We respond to all booking requests within 2 hours during business hours. For emergency cover, we often can provide nurses within 24 hours.",
+    answer: "We’re open 24/7 for booking dental locums. For other enquiries, our customer service team is available from 7am to 7pm on weekdays and 7am to 10am on the weekend.",
   },
   {
     question: "Are all your nurses verified?",
@@ -129,22 +129,11 @@ const Contact = () => {
                   </div>
                   <h3 className="font-heading font-semibold text-navy">Business Hours</h3>
                 </div>
-                <ul className="space-y-2 text-sm">
-                  <li className="flex justify-between">
-                    <span className="text-muted-foreground">Monday - Friday</span>
-                    <span className="font-medium text-navy">8:00 AM - 6:00 PM</span>
-                  </li>
-                  <li className="flex justify-between">
-                    <span className="text-muted-foreground">Saturday</span>
-                    <span className="font-medium text-navy">9:00 AM - 2:00 PM</span>
-                  </li>
-                  <li className="flex justify-between">
-                    <span className="text-muted-foreground">Sunday</span>
-                    <span className="font-medium text-navy">Closed</span>
-                  </li>
-                </ul>
-                <p className="text-xs text-muted-foreground mt-4">
-                  * Emergency support available 24/7 for existing clients
+                <p className="text-sm text-navy leading-relaxed">
+                  We're open 24/7 for booking dental locums.
+                </p>
+                <p className="text-sm text-navy leading-relaxed mt-3">
+                  You can call us any time between 7am and 7pm on weekdays and 7am to 10am on the weekend. Our lovely customer service team will be more than happy to help with anything.
                 </p>
               </div>
 

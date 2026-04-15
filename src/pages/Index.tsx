@@ -13,7 +13,7 @@ const Index = () => {
     <main>
       <SEO
         title="Best Dental Nurse Agency London | Professional Staffing Solutions"
-        description="Happy Dental Agency is the #1 dental nursing recruitment agency in London. Book professional, GDC-registered locum and permanent dental nurses with a 2-hour response."
+        description="Happy Dental Agency is the #1 dental nursing recruitment agency in London. We’re open 24/7 for booking dental locums. Dedicated to professional and reliable staffing solutions."
       />
       <HeroSection />
       <ServicesSection />

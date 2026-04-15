@@ -4,7 +4,7 @@ const reasons = [
   {
     icon: Clock,
     title: "Fast Response Time",
-    description: "We respond to all enquiries within 2 hours during business hours.",
+    description: "We are open 24/7 for booking dental locums.",
   },
   {
     icon: Shield,

@@ -69,7 +69,7 @@ const BookingForm = () => {
     // Instant Success Experience
     toast({
       title: "Booking Request Submitted!",
-      description: "We've received your request. A confirmation email has been sent, and we'll contact you within 2 hours.",
+      description: "We've received your request. We're open 24/7 for booking dental locums and our team will be in touch shortly.",
     });
     form.reset();
 

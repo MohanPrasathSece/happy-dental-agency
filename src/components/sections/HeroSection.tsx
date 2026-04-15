@@ -7,7 +7,7 @@ const HeroSection = () => {
     const highlights = [
         "Fully Qualified Nurses",
         "London-Wide Service",
-        "Fast Response",
+        "24/7 Booking Available",
         "Reliable Staffing",
     ];
 

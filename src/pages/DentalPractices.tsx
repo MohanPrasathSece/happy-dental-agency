@@ -30,7 +30,7 @@ const services = [
 const benefits = [
   "All nurses are DBS checked and verified",
   "Flexible booking - from one day to permanent",
-  "Fast response within 2 hours",
+  "Open 24/7 for locum bookings",
   "No placement fees for locum bookings",
   "Satisfaction guarantee on all placements",
   "Dedicated account manager support",
@@ -189,7 +189,7 @@ const DentalPractices = () => {
                 <div className="text-center mb-10">
                   <h3 className="text-3xl font-heading font-bold text-navy mb-3">Book a Nurse</h3>
                   <p className="text-muted-foreground">
-                    Complete the form below and we'll respond within 2 hours.
+                    Complete the form below—we’re open 24/7 for booking dental locums.
                   </p>
                 </div>
                 <BookingForm />

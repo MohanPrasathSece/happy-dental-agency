@@ -212,7 +212,7 @@ const HowItWorks = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { icon: Clock, title: "Fast Response", desc: "We respond within 2 hours during business hours" },
+              { icon: Clock, title: "Fast Response", desc: "We are open 24/7 for booking dental locums." },
               { icon: Shield, title: "Fully Vetted", desc: "All nurses undergo thorough background and credential checks" },
               { icon: FileCheck, title: "Compliant", desc: "We handle all documentation and compliance requirements" },
               { icon: Headphones, title: "Ongoing Support", desc: "Dedicated support team available for practices and nurses" },
