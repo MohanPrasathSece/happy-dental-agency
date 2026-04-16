@@ -1,4 +1,4 @@
-import { Phone, Mail, MapPin, Clock, MessageCircle, Facebook, Instagram, Linkedin, Twitter, Youtube } from "lucide-react";
+import { Phone, Mail, MapPin, Clock, MessageCircle, Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
 import PageHeader from "@/components/PageHeader";
 import ContactForm from "@/components/forms/ContactForm";
 import CTASection from "@/components/sections/CTASection";
@@ -133,7 +133,7 @@ const Contact = () => {
                   We're open 24/7 for booking dental locums.
                 </p>
                 <p className="text-sm text-navy leading-relaxed mt-3">
-                  You can call us any time between 7am and 7pm on weekdays and 7am to 10am on the weekend. Our lovely customer service team will be more than happy to help with anything.
+                  You can call us any time between 7am and 7pm on weekdays and 7am to 10am on the weekend. Our lovely customer service team will be more than happy to help.
                 </p>
               </div>
 
@@ -149,7 +149,6 @@ const Contact = () => {
                     { icon: Instagram, label: "Instagram", link: "https://instagram.com/happydentalagencyuk", color: "hover:text-pink-600 hover:bg-pink-50" },
                     { icon: Linkedin, label: "LinkedIn", link: "https://www.linkedin.com/in/happy-dental-agency-uk", color: "hover:text-blue-700 hover:bg-blue-50" },
                     { icon: Twitter, label: "Twitter", link: "https://x.com/happydentalAG", color: "hover:text-sky-500 hover:bg-sky-50" },
-                    { icon: Youtube, label: "YouTube", link: "https://www.youtube.com/@happydentalagencyuk", color: "hover:text-red-600 hover:bg-red-50" },
                   ].map((social) => (
                     <a
                       key={social.label}
