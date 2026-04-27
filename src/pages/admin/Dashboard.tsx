@@ -84,7 +84,56 @@ const AdminDashboard = () => {
                 setIsLoading(false);
             }
         };
+
         fetchStats();
+
+        // Real-time subscriptions
+        const viewsChannel = supabase
+            .channel('dashboard_views')
+            .on(
+                'postgres_changes',
+                { event: 'INSERT', schema: 'public', table: 'page_views' },
+                () => {
+                    setStats(prev => ({ ...prev, visitors: prev.visitors + 1 }));
+                    const today = new Date().toLocaleDateString('en-GB', { weekday: 'short' });
+                    setChartData(prev => {
+                        const lastItem = prev[prev.length - 1];
+                        if (lastItem && lastItem.name === today) {
+                            return prev.map(item => 
+                                item.name === today ? { ...item, views: item.views + 1 } : item
+                            );
+                        } else {
+                            // Rollover to new weekday
+                            return [...prev.slice(1), { name: today, views: 1 }];
+                        }
+                    });
+                }
+            )
+            .subscribe();
+
+        const appsChannel = supabase
+            .channel('dashboard_apps')
+            .on(
+                'postgres_changes',
+                { event: 'INSERT', schema: 'public', table: 'applications' },
+                () => setStats(prev => ({ ...prev, applications: prev.applications + 1 }))
+            )
+            .subscribe();
+
+        const regsChannel = supabase
+            .channel('dashboard_regs')
+            .on(
+                'postgres_changes',
+                { event: 'INSERT', schema: 'public', table: 'nurse_registrations' },
+                () => setStats(prev => ({ ...prev, registrations: prev.registrations + 1 }))
+            )
+            .subscribe();
+
+        return () => {
+            supabase.removeChannel(viewsChannel);
+            supabase.removeChannel(appsChannel);
+            supabase.removeChannel(regsChannel);
+        };
     }, []);
 
     const statCards = [

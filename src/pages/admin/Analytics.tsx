@@ -30,7 +30,9 @@ const AdminAnalytics = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [dailyData, setDailyData] = useState<any[]>([]);
     const [pageStats, setPageStats] = useState<ViewStat[]>([]);
+    const [pathMap, setPathMap] = useState<Record<string, number>>({});
     const [totalViews, setTotalViews] = useState(0);
+    const [uniqueVisitors, setUniqueVisitors] = useState(0);
     const [weeklyViews, setWeeklyViews] = useState(0);
 
     useEffect(() => {
@@ -51,10 +53,13 @@ const AdminAnalytics = () => {
 
                 if (views) {
                     setTotalViews(views.length);
+                    
+                    // Unique visitors calculation
+                    const uniqueIds = new Set(views.filter(v => v.ip_hash).map(v => v.ip_hash));
+                    setUniqueVisitors(uniqueIds.size);
 
                     // Process Daily Views
                     const dailyMap: Record<string, number> = {};
-                    const last7DaysMap: Record<string, number> = {};
                     const today = new Date();
 
                     for (let i = 29; i >= 0; i--) {
@@ -82,12 +87,13 @@ const AdminAnalytics = () => {
                     setWeeklyViews(weeklyCount);
 
                     // Process Top Pages
-                    const pathMap: Record<string, number> = {};
+                    const pMap: Record<string, number> = {};
                     views.forEach(view => {
-                        pathMap[view.path] = (pathMap[view.path] || 0) + 1;
+                        pMap[view.path] = (pMap[view.path] || 0) + 1;
                     });
+                    setPathMap(pMap);
 
-                    const sortedPages = Object.entries(pathMap)
+                    const sortedPages = Object.entries(pMap)
                         .map(([name, views]) => ({ name, views }))
                         .sort((a, b) => b.views - a.views)
                         .slice(0, 5);
@@ -102,6 +108,50 @@ const AdminAnalytics = () => {
         };
 
         fetchAnalytics();
+
+        // Real-time subscription
+        const channel = supabase
+            .channel('analytics_realtime')
+            .on(
+                'postgres_changes',
+                { event: 'INSERT', schema: 'public', table: 'page_views' },
+                (payload) => {
+                    const newView = payload.new;
+                    
+                    setTotalViews(prev => prev + 1);
+                    setWeeklyViews(prev => prev + 1);
+
+                    // Update daily chart with day rollover support
+                    const todayStr = new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short' });
+                    setDailyData(prev => {
+                        const lastItem = prev[prev.length - 1];
+                        if (lastItem && lastItem.name === todayStr) {
+                            return prev.map(item => 
+                                item.name === todayStr ? { ...item, views: item.views + 1 } : item
+                            );
+                        } else {
+                            // Roll over to new day
+                            return [...prev.slice(1), { name: todayStr, views: 1 }];
+                        }
+                    });
+
+                    // Update pathMap and top pages
+                    setPathMap(prev => {
+                        const newMap = { ...prev, [newView.path]: (prev[newView.path] || 0) + 1 };
+                        const sortedPages = Object.entries(newMap)
+                            .map(([name, views]) => ({ name, views }))
+                            .sort((a, b) => b.views - a.views)
+                            .slice(0, 5);
+                        setPageStats(sortedPages);
+                        return newMap;
+                    });
+                }
+            )
+            .subscribe();
+
+        return () => {
+            supabase.removeChannel(channel);
+        };
     }, []);
 
     return (
@@ -148,8 +198,8 @@ const AdminAnalytics = () => {
                             <CardContent className="pt-6">
                                 <div className="flex justify-between items-start">
                                     <div>
-                                        <p className="text-gray-400 text-xs font-bold uppercase tracking-widest mb-1">Avg. Daily Views</p>
-                                        <h3 className="text-3xl font-bold text-navy">{Math.round(totalViews / 30)}</h3>
+                                        <p className="text-gray-400 text-xs font-bold uppercase tracking-widest mb-1">Unique Visitors (30d)</p>
+                                        <h3 className="text-3xl font-bold text-navy">{uniqueVisitors}</h3>
                                     </div>
                                     <BarChart3 className="w-8 h-8 text-navy/10" />
                                 </div>

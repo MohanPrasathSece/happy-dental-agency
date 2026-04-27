@@ -99,6 +99,18 @@ const setupDatabase = async () => {
             await client.query(`ALTER TABLE public.nurse_registrations ADD COLUMN IF NOT EXISTS ${col} text`);
         }
 
+        // 4.3 Page Views Table
+        console.log('Creating page_views table...');
+        await client.query(`
+            CREATE TABLE IF NOT EXISTS public.page_views (
+                id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+                path text NOT NULL,
+                user_agent text,
+                ip_hash text,
+                created_at timestamp with time zone DEFAULT timezone('utc'::text, now()) NOT NULL
+            );
+        `);
+
         // 5. Storage Buckets
         console.log('Setting up storage buckets...');
         await client.query(`
@@ -112,11 +124,30 @@ const setupDatabase = async () => {
             ON CONFLICT (id) DO NOTHING
         `);
 
+        // 5.1 Enable Realtime
+        console.log('Enabling Supabase Realtime...');
+        try {
+            await client.query(`
+                DO $$
+                BEGIN
+                    IF NOT EXISTS (SELECT 1 FROM pg_publication WHERE pubname = 'supabase_realtime') THEN
+                        CREATE PUBLICATION supabase_realtime;
+                    END IF;
+                END $$;
+            `);
+            await client.query(`ALTER PUBLICATION supabase_realtime ADD TABLE public.page_views`);
+            await client.query(`ALTER PUBLICATION supabase_realtime ADD TABLE public.applications`);
+            await client.query(`ALTER PUBLICATION supabase_realtime ADD TABLE public.nurse_registrations`);
+        } catch (reError) {
+            console.log('Note: Some tables might already be in the publication or publication setup needs manual check.');
+        }
+
         // 6. RLS Policies (Table)
         console.log('Enabling RLS on tables...');
         await client.query('ALTER TABLE public.jobs ENABLE ROW LEVEL SECURITY');
         await client.query('ALTER TABLE public.applications ENABLE ROW LEVEL SECURITY');
         await client.query('ALTER TABLE public.nurse_registrations ENABLE ROW LEVEL SECURITY');
+        await client.query('ALTER TABLE public.page_views ENABLE ROW LEVEL SECURITY');
 
         // Simple policies to allow public inserts (since it's a lead gen site)
         await client.query(`DROP POLICY IF EXISTS "Public can insert applications" ON public.applications`);
@@ -125,7 +156,14 @@ const setupDatabase = async () => {
         await client.query(`DROP POLICY IF EXISTS "Public can insert registrations" ON public.nurse_registrations`);
         await client.query(`CREATE POLICY "Public can insert registrations" ON public.nurse_registrations FOR INSERT WITH CHECK (true)`);
 
+        await client.query(`DROP POLICY IF EXISTS "Public can insert page views" ON public.page_views`);
+        await client.query(`CREATE POLICY "Public can insert page views" ON public.page_views FOR INSERT WITH CHECK (true)`);
+
         // --- Admin Policies (Fixed) ---
+        // Page Views
+        await client.query(`DROP POLICY IF EXISTS "Admins can view analytics" ON public.page_views`);
+        await client.query(`CREATE POLICY "Admins can view analytics" ON public.page_views FOR SELECT USING (auth.role() = 'authenticated')`);
+
         // Nurse Registrations
         await client.query(`DROP POLICY IF EXISTS "Admins can view registrations" ON public.nurse_registrations`);
         await client.query(`CREATE POLICY "Admins can view registrations" ON public.nurse_registrations FOR SELECT USING (auth.role() = 'authenticated')`);

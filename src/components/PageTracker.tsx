@@ -16,11 +16,18 @@ const PageTracker = () => {
                 const userAgent = navigator.userAgent;
                 if (userAgent.includes("bot") || userAgent.includes("spider")) return;
 
+                // Get or create visitor ID
+                let visitorId = localStorage.getItem("visitor_id");
+                if (!visitorId) {
+                    visitorId = crypto.randomUUID();
+                    localStorage.setItem("visitor_id", visitorId);
+                }
+
                 const { error } = await supabase.from("page_views").insert([
                     {
                         path: location.pathname,
                         user_agent: userAgent,
-                        // ip_hash: handled by backend or ignored for privacy for now (Supabase Auth can log IP but simpler table here)
+                        ip_hash: visitorId // Re-using ip_hash column for unique visitor ID
                     }
                 ]);
 
