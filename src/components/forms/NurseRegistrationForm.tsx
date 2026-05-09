@@ -38,10 +38,6 @@ const nurseSchema = z.object({
   workPreference: z.enum(["locum", "permanent", "both"], {
     required_error: "Please select work preference",
   }),
-  niNumber: z.string().min(1, "NI Number is required").max(20),
-  bankName: z.string().min(1, "Bank Name is required").max(100),
-  accountNumber: z.string().min(8, "Account number must be 8 digits").max(8),
-  sortCode: z.string().min(6, "Sort code must be 6 digits").max(8),
   message: z.string().max(1000).optional(),
   hepBVaccination: z.enum(["yes", "no", "in_progress"], {
     required_error: "Please select your Hepatitis B vaccination status",
@@ -68,10 +64,6 @@ const NurseRegistrationForm = () => {
       location: "",
       gdcNumber: "",
       nurseStatus: (roleParam === "trainee" || roleParam === "qualified") ? roleParam : undefined,
-      niNumber: "",
-      bankName: "",
-      accountNumber: "",
-      sortCode: "",
       message: "",
       hepBVaccination: undefined,
     },
@@ -197,10 +189,6 @@ const NurseRegistrationForm = () => {
           nurse_status: data.nurseStatus,
           gdc_number: data.gdcNumber,
           work_preference: data.workPreference,
-          ni_number: data.niNumber,
-          bank_name: data.bankName,
-          account_number: data.accountNumber,
-          sort_code: data.sortCode,
           hep_b_vaccination: data.hepBVaccination,
           message: data.message,
           cv_url: cvUrl,
@@ -246,8 +234,6 @@ const NurseRegistrationForm = () => {
           message: `
 Status: ${data.nurseStatus}
 GDC Number: ${data.gdcNumber || "N/A"}
-NI Number: ${data.niNumber}
-Bank: ${data.bankName} | Acc: ${data.accountNumber} | Sort: ${data.sortCode}
 Hepatitis B Vaccination: ${data.hepBVaccination === 'yes' ? 'Fully Vaccinated' : data.hepBVaccination === 'in_progress' ? 'In Progress' : 'Not Vaccinated'}
 Location: ${data.location}
 Work Preference: ${data.workPreference}
@@ -449,66 +435,7 @@ Message: ${data.message || "None"}
             )}
           />
 
-          <FormField
-            control={form.control}
-            name="niNumber"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>National Insurance (NI) Number *</FormLabel>
-                <FormControl>
-                  <Input placeholder="e.g., QQ 12 34 56 C" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
 
-          <div className="col-span-1 md:col-span-2 mt-4">
-            <h3 className="text-lg font-semibold text-navy mb-4 border-b pb-2 text-gold">Bank Details</h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <FormField
-                control={form.control}
-                name="bankName"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Bank Name *</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Barclays" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="accountNumber"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Account Number *</FormLabel>
-                    <FormControl>
-                      <Input placeholder="8 digits" maxLength={8} {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="sortCode"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Sort Code *</FormLabel>
-                    <FormControl>
-                      <Input placeholder="00-00-00" maxLength={8} {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-          </div>
 
           {/* CV Upload */}
           <div className="space-y-2">

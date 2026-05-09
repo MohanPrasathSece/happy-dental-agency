@@ -35,10 +35,6 @@ interface Registration {
     nurse_status: string;
     gdc_number?: string;
     work_preference: string;
-    ni_number?: string;
-    bank_name?: string;
-    account_number?: string;
-    sort_code?: string;
     hep_b_vaccination: string;
     message?: string;
     cv_url?: string;
@@ -269,29 +265,10 @@ const AdminRegistrations = () => {
                                         <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">GDC Number</p>
                                         <p className="font-mono text-gray-700 bg-gray-50 px-2 py-0.5 rounded border border-gray-100 w-fit">{selectedReg.gdc_number || 'N/A'}</p>
                                     </div>
-                                    <div className="space-y-1">
-                                        <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">NI Number</p>
-                                        <p className="font-mono text-gray-700 bg-gray-50 px-2 py-0.5 rounded border border-gray-100 w-fit">{selectedReg.ni_number || 'N/A'}</p>
-                                    </div>
+
                                 </div>
 
-                                <div className="space-y-3 border-t border-gray-100 pt-4">
-                                    <p className="text-xs font-bold text-gold uppercase tracking-widest">Bank Details</p>
-                                    <div className="grid grid-cols-3 gap-4 bg-gray-50/50 p-3 rounded-lg border border-gray-100">
-                                        <div className="space-y-1">
-                                            <p className="text-[10px] font-medium text-gray-400 uppercase">Bank Name</p>
-                                            <p className="text-sm font-semibold text-navy">{selectedReg.bank_name || 'N/A'}</p>
-                                        </div>
-                                        <div className="space-y-1">
-                                            <p className="text-[10px] font-medium text-gray-400 uppercase">Account Number</p>
-                                            <p className="text-sm font-mono text-navy">{selectedReg.account_number || 'N/A'}</p>
-                                        </div>
-                                        <div className="space-y-1">
-                                            <p className="text-[10px] font-medium text-gray-400 uppercase">Sort Code</p>
-                                            <p className="text-sm font-mono text-navy">{selectedReg.sort_code || 'N/A'}</p>
-                                        </div>
-                                    </div>
-                                </div>
+
 
                                 <div className="grid grid-cols-2 gap-4 border-t border-gray-100 pt-4">
                                     <div className="space-y-2">
