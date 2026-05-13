@@ -42,6 +42,18 @@ const nurseSchema = z.object({
   hepBVaccination: z.enum(["yes", "no", "in_progress"], {
     required_error: "Please select your Hepatitis B vaccination status",
   }),
+  niNumber: z.string().optional(),
+  bankName: z.string().optional(),
+  accountNumber: z.string().optional(),
+  sortCode: z.string().optional(),
+}).refine((data) => {
+  if (data.nurseStatus === "qualified") {
+    return !!(data.niNumber && data.bankName && data.accountNumber && data.sortCode);
+  }
+  return true;
+}, {
+  message: "NI Number and bank details are required for qualified nurses",
+  path: ["niNumber"],
 });
 
 type NurseFormData = z.infer<typeof nurseSchema>;
@@ -66,6 +78,10 @@ const NurseRegistrationForm = () => {
       nurseStatus: (roleParam === "trainee" || roleParam === "qualified") ? roleParam : undefined,
       message: "",
       hepBVaccination: undefined,
+      niNumber: "",
+      bankName: "",
+      accountNumber: "",
+      sortCode: "",
     },
   });
 
@@ -192,7 +208,11 @@ const NurseRegistrationForm = () => {
           hep_b_vaccination: data.hepBVaccination,
           message: data.message,
           cv_url: cvUrl,
-          hep_b_url: hepBUrl
+          hep_b_url: hepBUrl,
+          ni_number: data.niNumber,
+          bank_name: data.bankName,
+          account_number: data.accountNumber,
+          sort_code: data.sortCode
         }]);
 
       if (dbError) throw dbError;
@@ -234,6 +254,10 @@ const NurseRegistrationForm = () => {
           message: `
 Status: ${data.nurseStatus}
 GDC Number: ${data.gdcNumber || "N/A"}
+${data.nurseStatus === 'qualified' ? `NI Number: ${data.niNumber || "N/A"}
+Bank Name: ${data.bankName || "N/A"}
+Account Number: ${data.accountNumber || "N/A"}
+Sort Code: ${data.sortCode || "N/A"}` : ''}
 Hepatitis B Vaccination: ${data.hepBVaccination === 'yes' ? 'Fully Vaccinated' : data.hepBVaccination === 'in_progress' ? 'In Progress' : 'Not Vaccinated'}
 Location: ${data.location}
 Work Preference: ${data.workPreference}
@@ -372,6 +396,70 @@ Message: ${data.message || "None"}
                 </FormItem>
               )}
             />
+          )}
+
+          {/* NI Number - Only show for qualified nurses */}
+          {nurseStatus === "qualified" && (
+            <FormField
+              control={form.control}
+              name="niNumber"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>NI Number *</FormLabel>
+                  <FormControl>
+                    <Input placeholder="e.g., AB123456C" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          )}
+
+          {/* Bank Details - Only show for qualified nurses */}
+          {nurseStatus === "qualified" && (
+            <>
+              <FormField
+                control={form.control}
+                name="bankName"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Bank Name *</FormLabel>
+                    <FormControl>
+                      <Input placeholder="e.g., Barclays" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="accountNumber"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Account Number *</FormLabel>
+                    <FormControl>
+                      <Input placeholder="e.g., 12345678" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="sortCode"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Sort Code *</FormLabel>
+                    <FormControl>
+                      <Input placeholder="e.g., 12-34-56" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </>
           )}
 
           <FormField
