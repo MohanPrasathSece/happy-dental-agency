@@ -35,8 +35,9 @@ const DentalNurses = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const role = searchParams.get("role");
 
-  const resetRole = () => {
-    setSearchParams({});
+  const toggleRole = () => {
+    const newRole = role === 'qualified' ? 'trainee' : 'qualified';
+    setSearchParams({ role: newRole });
     // Small delay to ensure state update before scroll
     setTimeout(() => {
       document.getElementById('registration-form')?.scrollIntoView({ behavior: 'smooth' });
@@ -228,10 +229,12 @@ const DentalNurses = () => {
               </p>
               {(role === 'qualified' || role === 'trainee') && (
                 <button
-                  onClick={resetRole}
+                  onClick={toggleRole}
                   className="mt-4 text-sm text-gold hover:underline font-medium"
                 >
-                  ← Not {role === 'qualified' ? 'qualified' : 'a trainee'}? Show all options
+                  ← {role === 'qualified' 
+                      ? 'Not a qualified nurse? Click here for Trainee application' 
+                      : 'Not a trainee? Click here for Qualified registration'}
                 </button>
               )}
             </div>
