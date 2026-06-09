@@ -42,16 +42,20 @@ const getEmailTemplate = (name: string, content: string, isConfirmation: boolean
         body = `
           <p style="margin: 0 0 24px; font-size: 16px; color: #2c3e50; line-height: 1.6;">Hello,</p>
           <p style="margin: 0 0 24px; font-size: 15px; color: #4a5568; line-height: 1.7;">
-            This is a confirmation that a timesheet has been submitted for a locum dental nurse from <strong>Happy Dental Agency</strong> at your practice.
+            This is a confirmation that a timesheet has been submitted and recorded for a locum dental nurse 
+            placed by <strong>Happy Dental Agency</strong> at your practice.
           </p>
-          <div style="background-color: #f8f9fa; border-left: 4px solid #2c3e50; padding: 20px; margin: 24px 0; border-radius: 4px;">
-            <p style="margin: 0; font-size: 14px; color: #495057; line-height: 1.6;">
+          <div style="background-color: #f8f9fa; border-radius: 6px; overflow: hidden; margin: 24px 0; border: 1px solid #e9ecef;">
+            <div style="background-color: #2c3e50; padding: 14px 20px;">
+              <p style="margin: 0; font-size: 13px; font-weight: 600; color: #ffffff; text-transform: uppercase; letter-spacing: 0.5px;">Shift Summary</p>
+            </div>
+            <table role="presentation" style="width: 100%; border-collapse: collapse;">
               ${content}
-            </p>
+            </table>
           </div>
-          <p style="margin: 0 0 24px; font-size: 15px; color: #4a5568; line-height: 1.7;">
+          <p style="margin: 0 0 24px; font-size: 14px; color: #6c757d; line-height: 1.7;">
             If you did not verify this timesheet or have any concerns, please contact us immediately at 
-            <a href="mailto:info@happydentalagency.co.uk" style="color: #2c3e50;">info@happydentalagency.co.uk</a>.
+            <a href="mailto:info@happydentalagency.co.uk" style="color: #2c3e50; font-weight: 600;">info@happydentalagency.co.uk</a>.
           </p>
         `;
         break;
@@ -164,7 +168,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   console.log('Time:', new Date().toISOString());
   console.log('Body:', JSON.stringify(req.body));
 
-  const { name, email, phone, message, type = 'General Inquiry', subject, attachment, filename, attachment2, filename2, practiceEmail, practiceName } = req.body;
+  const { name, email, phone, message, type = 'General Inquiry', subject, attachment, filename, attachment2, filename2, practiceEmail, practiceName, timesheetData } = req.body;
 
   if (!email || !name) {
     console.error('Validation Error: Missing name or email');
@@ -300,12 +304,31 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     // 3. Send Confirmation to Practice (timesheet submissions only)
     if (type === 'Timesheet Submission' && practiceEmail) {
-      const timesheetDetails = message || '';
+      // Build a clean table of timesheet details for the practice
+      const ts = timesheetData || {};
+      const practiceRows = [
+        ['Nurse Name',     ts.nurseName    || name],
+        ['Nurse Email',    ts.nurseEmail   || email],
+        ['Practice',       ts.practiceName || practiceName || '—'],
+        ['Date of Shift',  ts.date         || '—'],
+        ['Start Time',     ts.startTime    || '—'],
+        ['End Time',       ts.endTime      || '—'],
+        ['Break',          ts.breakDuration ? `${ts.breakDuration} minutes` : '—'],
+        ['Total Hours',    ts.totalHours   ? `${ts.totalHours} hrs` : '—'],
+        ['Verified By',    ts.verifierName ? `${ts.verifierName} (${ts.verifierRole || ''})` : '—'],
+        ['Feedback',       ts.feedback     || 'None provided'],
+      ].map(([label, value], i) => `
+        <tr style="background-color: ${i % 2 === 0 ? '#ffffff' : '#f8f9fa'};">
+          <td style="padding: 12px 20px; font-size: 14px; font-weight: 600; color: #495057; width: 40%; border-bottom: 1px solid #e9ecef;">${label}</td>
+          <td style="padding: 12px 20px; font-size: 14px; color: #2c3e50; border-bottom: 1px solid #e9ecef;">${value}</td>
+        </tr>
+      `).join('');
+
       await transporter.sendMail({
         from: `"Happy Dental Agency" <${emailUser}>`,
         to: practiceEmail,
-        subject: `Timesheet Confirmation – ${name} at ${practiceName || 'your practice'}`,
-        html: getEmailTemplate(practiceName || 'Practice', timesheetDetails, true, 'Timesheet Submission - Practice'),
+        subject: `Timesheet Confirmation – ${ts.nurseName || name} (${ts.date || 'Shift'})`,
+        html: getEmailTemplate(practiceName || 'Practice', practiceRows, true, 'Timesheet Submission - Practice'),
       });
       console.log('✅ Practice confirmation sent to', practiceEmail);
     }

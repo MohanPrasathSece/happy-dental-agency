@@ -117,7 +117,20 @@ const TimesheetForm = () => {
                             `<strong>Hours:</strong> ${data.startTime} to ${data.endTime} (Break: ${data.breakDuration}m)<br>` +
                             `<strong>Total:</strong> ${data.totalHours} hrs<br>` +
                             `<strong>Verified by:</strong> ${data.verifierName} (${data.verifierRole})<br>` +
-                            `<strong>Feedback:</strong> ${data.feedback || 'None provided'}`
+                            `<strong>Feedback:</strong> ${data.feedback || 'None provided'}`,
+                        timesheetData: {
+                            nurseName:     data.nurseName,
+                            nurseEmail:    data.nurseEmail,
+                            practiceName:  data.practiceName,
+                            date:          data.date,
+                            startTime:     data.startTime,
+                            endTime:       data.endTime,
+                            breakDuration: data.breakDuration,
+                            totalHours:    data.totalHours,
+                            verifierName:  data.verifierName,
+                            verifierRole:  data.verifierRole,
+                            feedback:      data.feedback,
+                        },
                     }),
                 });
                 if (!emailRes.ok) {
