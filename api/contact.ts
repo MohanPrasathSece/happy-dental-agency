@@ -37,6 +37,25 @@ const getEmailTemplate = (name: string, content: string, isConfirmation: boolean
         `;
         break;
 
+      case 'Timesheet Submission - Practice':
+        title = 'Timesheet Confirmation';
+        body = `
+          <p style="margin: 0 0 24px; font-size: 16px; color: #2c3e50; line-height: 1.6;">Hello,</p>
+          <p style="margin: 0 0 24px; font-size: 15px; color: #4a5568; line-height: 1.7;">
+            This is a confirmation that a timesheet has been submitted for a locum dental nurse from <strong>Happy Dental Agency</strong> at your practice.
+          </p>
+          <div style="background-color: #f8f9fa; border-left: 4px solid #2c3e50; padding: 20px; margin: 24px 0; border-radius: 4px;">
+            <p style="margin: 0; font-size: 14px; color: #495057; line-height: 1.6;">
+              ${content}
+            </p>
+          </div>
+          <p style="margin: 0 0 24px; font-size: 15px; color: #4a5568; line-height: 1.7;">
+            If you did not verify this timesheet or have any concerns, please contact us immediately at 
+            <a href="mailto:info@happydentalagency.co.uk" style="color: #2c3e50;">info@happydentalagency.co.uk</a>.
+          </p>
+        `;
+        break;
+
       case 'Nurse Registration Inquiry':
         title = 'Welcome to the Agency Network';
         body = `
@@ -145,7 +164,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   console.log('Time:', new Date().toISOString());
   console.log('Body:', JSON.stringify(req.body));
 
-  const { name, email, phone, message, type = 'General Inquiry', subject, attachment, filename, attachment2, filename2 } = req.body;
+  const { name, email, phone, message, type = 'General Inquiry', subject, attachment, filename, attachment2, filename2, practiceEmail, practiceName } = req.body;
 
   if (!email || !name) {
     console.error('Validation Error: Missing name or email');
@@ -278,6 +297,19 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     });
 
     console.log('✅ User confirmation sent');
+
+    // 3. Send Confirmation to Practice (timesheet submissions only)
+    if (type === 'Timesheet Submission' && practiceEmail) {
+      const timesheetDetails = message || '';
+      await transporter.sendMail({
+        from: `"Happy Dental Agency" <${emailUser}>`,
+        to: practiceEmail,
+        subject: `Timesheet Confirmation – ${name} at ${practiceName || 'your practice'}`,
+        html: getEmailTemplate(practiceName || 'Practice', timesheetDetails, true, 'Timesheet Submission - Practice'),
+      });
+      console.log('✅ Practice confirmation sent to', practiceEmail);
+    }
+
     console.log('🎉 All emails sent successfully');
 
     return res.status(200).json({ success: true, message: 'Emails sent successfully' });

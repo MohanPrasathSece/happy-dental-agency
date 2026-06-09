@@ -21,6 +21,7 @@ const timesheetSchema = z.object({
     nurseName: z.string().min(2, "Nurse name is required"),
     nurseEmail: z.string().email("Valid email required"),
     practiceName: z.string().min(2, "Practice name is required"),
+    practiceEmail: z.string().email("Valid practice email required"),
     date: z.string().min(1, "Date is required"),
     startTime: z.string().min(1, "Start time is required"),
     endTime: z.string().min(1, "End time is required"),
@@ -43,6 +44,7 @@ const TimesheetForm = () => {
             nurseName: "",
             nurseEmail: "",
             practiceName: "",
+            practiceEmail: "",
             date: new Date().toISOString().split('T')[0],
             startTime: "09:00",
             endTime: "17:00",
@@ -83,6 +85,7 @@ const TimesheetForm = () => {
                     nurse_name: data.nurseName,
                     nurse_email: data.nurseEmail,
                     practice_name: data.practiceName,
+                    practice_email: data.practiceEmail,
                     shift_date: data.date,
                     start_time: data.startTime,
                     end_time: data.endTime,
@@ -95,25 +98,35 @@ const TimesheetForm = () => {
 
             if (error) throw error;
 
-            // 2. Send Email Notification
-            await fetch("/api/contact", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    name: data.nurseName,
-                    email: data.nurseEmail,
-                    type: "Timesheet Submission",
-                    subject: `Timesheet: ${data.nurseName} - ${data.practiceName} (${data.date})`,
-                    message: `<strong>Timesheet Details:</strong><br><br>` +
-                        `<strong>Nurse:</strong> ${data.nurseName} (${data.nurseEmail})<br>` +
-                        `<strong>Practice:</strong> ${data.practiceName}<br>` +
-                        `<strong>Date:</strong> ${data.date}<br>` +
-                        `<strong>Hours:</strong> ${data.startTime} to ${data.endTime} (Break: ${data.breakDuration}m)<br>` +
-                        `<strong>Total:</strong> ${data.totalHours} hrs<br>` +
-                        `<strong>Verified by:</strong> ${data.verifierName} (${data.verifierRole})<br>` +
-                        `<strong>Feedback:</strong> ${data.feedback || 'None provided'}`
-                }),
-            });
+            // 2. Send Email Notification (non-fatal — data is already saved)
+            try {
+                const emailRes = await fetch("/api/contact", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        name: data.nurseName,
+                        email: data.nurseEmail,
+                        practiceEmail: data.practiceEmail,
+                        practiceName: data.practiceName,
+                        type: "Timesheet Submission",
+                        subject: `Timesheet: ${data.nurseName} - ${data.practiceName} (${data.date})`,
+                        message: `<strong>Timesheet Details:</strong><br><br>` +
+                            `<strong>Nurse:</strong> ${data.nurseName} (${data.nurseEmail})<br>` +
+                            `<strong>Practice:</strong> ${data.practiceName} (${data.practiceEmail})<br>` +
+                            `<strong>Date:</strong> ${data.date}<br>` +
+                            `<strong>Hours:</strong> ${data.startTime} to ${data.endTime} (Break: ${data.breakDuration}m)<br>` +
+                            `<strong>Total:</strong> ${data.totalHours} hrs<br>` +
+                            `<strong>Verified by:</strong> ${data.verifierName} (${data.verifierRole})<br>` +
+                            `<strong>Feedback:</strong> ${data.feedback || 'None provided'}`
+                    }),
+                });
+                if (!emailRes.ok) {
+                    console.warn("Email notification failed (timesheet still saved):", await emailRes.text());
+                }
+            } catch (emailError) {
+                // Email failure is non-fatal — the timesheet is already in the database
+                console.warn("Email notification error (timesheet still saved):", emailError);
+            }
 
             toast({
                 title: "Timesheet Submitted!",
@@ -123,10 +136,11 @@ const TimesheetForm = () => {
             setStep(1);
 
         } catch (error) {
-            console.error("Submission failed:", error);
+            const message = error instanceof Error ? error.message : JSON.stringify(error);
+            console.error("Submission failed:", message, error);
             toast({
                 title: "Submission Failed",
-                description: "There was an error submitting your timesheet. Please try again.",
+                description: `There was an error submitting your timesheet. Please try again. (${message})`,
                 variant: "destructive"
             });
         } finally {
@@ -224,6 +238,19 @@ const TimesheetForm = () => {
                                     </FormItem>
                                 )}
                             />
+                            <FormField
+                                control={form.control}
+                                name="practiceEmail"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Practice Email Address</FormLabel>
+                                        <FormControl>
+                                            <Input type="email" placeholder="practice@clinic.com" {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <FormField
                                     control={form.control}
@@ -301,7 +328,7 @@ const TimesheetForm = () => {
                                     Back
                                 </Button>
                                 <Button type="button" onClick={async () => {
-                                    const isValid = await form.trigger(["practiceName", "date", "breakDuration", "startTime", "endTime", "totalHours"]);
+                                    const isValid = await form.trigger(["practiceName", "practiceEmail", "date", "breakDuration", "startTime", "endTime", "totalHours"]);
                                     if (isValid) setStep(3);
                                 }} className="flex-[2] h-12">
                                     Next: Verification

@@ -31,9 +31,10 @@ const PageTracker = () => {
                     }
                 ]);
 
-                if (error) console.error("Tracking error:", error);
-            } catch (e) {
-                console.error("Tracking failed:", e);
+                // Silently ignore tracking errors (e.g. RLS policy blocks, ad blockers)
+                if (error) return;
+            } catch {
+                // Silently ignore (ad blockers, network errors, etc.)
             }
         };
 
