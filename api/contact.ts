@@ -187,8 +187,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   const transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
-    port: 465,
-    secure: true, // Use SSL
+    port: 587,
+    secure: false, // Use STARTTLS
     auth: {
       user: emailUser,
       pass: emailPass,
