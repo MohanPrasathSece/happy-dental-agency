@@ -108,6 +108,9 @@ app.post('/api/contact', async (req, res) => {
     return res.status(400).json({ error: 'Name and Email are required' });
   }
 
+  // Reload .env in case credentials were updated while server was running
+  dotenv.config({ override: true });
+
   // Check for environment variables
   if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
     console.error('Missing environment variables: EMAIL_USER or EMAIL_PASS');
